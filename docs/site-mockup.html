@@ -1,0 +1,260 @@
+<title>테크포임팩트 캠퍼스 — 프로젝트 (시안 v11)</title>
+<style>
+  :root{
+    --ground:#FFFFFF; --text:#191919; --muted:#8C8C8C; --soft:#F4F4F2; --soft2:#ECECE9;
+    --accent:#FAE100; --hair:#ECECEC;
+    --foot:#272727; --foot-line:#404040; --foot-txt:#9c9c9c;
+    --sans:-apple-system,"Apple SD Gothic Neo","Pretendard",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--ground); color:var(--text); font-family:var(--sans); line-height:1.55; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1280px; margin:0 auto; padding:0 32px;}
+  .eyebrow{font-size:12px; font-weight:600; letter-spacing:.14em; color:var(--muted); text-transform:uppercase;}
+
+  header.mast{padding:30px 0 0;}
+  .mast-row{display:flex; align-items:center; justify-content:space-between; gap:24px;}
+  .brand{display:flex; align-items:center; gap:11px;}
+  .brand .mark{width:13px; height:13px; border-radius:50%; background:var(--accent);}
+  .brand h1{font-size:18px; font-weight:800; letter-spacing:-.01em; margin:0;}
+  .tabs{display:flex; gap:4px; background:var(--soft); padding:4px; border-radius:999px;}
+  .tabs button{font-size:13px; font-weight:600; background:none; border:0; padding:8px 18px; border-radius:999px; cursor:pointer; color:var(--muted);}
+  .tabs button[aria-selected="true"]{background:var(--ground); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,.08);}
+
+  .hero{padding:56px 0 40px;}
+  .hero h2{font-size:54px; font-weight:800; letter-spacing:-.03em; line-height:1.08; margin:14px 0 0;}
+  .hero h2 .y{background:linear-gradient(transparent 62%, var(--accent) 62%);}
+  .hero p{font-size:18px; color:#555; margin:20px 0 0; white-space:nowrap;}
+
+  .layout{display:grid; grid-template-columns:220px 1fr; gap:48px; padding-bottom:40px;}
+  aside .eyebrow{margin-bottom:16px;}
+  .cats{list-style:none; margin:0 0 22px; padding:0;}
+  .catgroup{margin-bottom:6px;}
+  .catbtn{width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px; background:none; border:0;
+    text-align:left; padding:9px 10px; border-radius:9px; cursor:pointer; font-size:14.5px; font-weight:700; color:var(--text); font-family:var(--sans);}
+  .catbtn:hover{background:var(--soft);}
+  .catbtn .lab{display:inline-flex; align-items:center; gap:9px;}
+  .catbtn .cdot{width:9px; height:9px; border-radius:50%; flex:none;}
+  .catbtn .n{font-size:12px; color:var(--muted); font-weight:600;}
+  .orgsub{list-style:none; margin:2px 0 8px; padding:0;}
+  .orgsub button{width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px; background:none; border:0;
+    text-align:left; padding:6px 10px 6px 30px; border-radius:8px; cursor:pointer; font-size:13px; color:#666; font-family:var(--sans);}
+  .orgsub button:hover{background:var(--soft);}
+  .orgsub button .n{font-size:11.5px; color:var(--muted);}
+  .orgsub button[aria-pressed="true"]{color:var(--text); font-weight:700;}
+  .orgsub button[aria-pressed="true"] .dot{display:inline-block; width:6px; height:6px; border-radius:50%; margin-right:7px; vertical-align:middle;}
+  .allbtn{width:100%; text-align:left; padding:9px 10px; border-radius:9px; background:none; border:0; cursor:pointer; font-size:14.5px; font-weight:700; font-family:var(--sans); color:var(--text); display:flex; justify-content:space-between; margin-bottom:8px;}
+  .allbtn[aria-pressed="true"]{background:var(--soft2);} .allbtn .n{font-size:12px; color:var(--muted); font-weight:600;}
+  .reset{font-size:12.5px; color:var(--muted); background:none; border:0; cursor:pointer; padding:4px 10px;} .reset:hover{color:var(--text);}
+
+  .schoolbar{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px;}
+  .chip{font-size:13.5px; font-weight:600; padding:8px 17px; border:1.5px solid var(--soft); border-radius:999px; background:var(--ground); cursor:pointer; color:#1C1C1C; font-family:var(--sans);}
+  .chip:hover{border-color:var(--soft2); background:var(--soft);} .chip[aria-pressed="true"]{background:#1C1C1C; border-color:#1C1C1C; color:#fff;}
+  .toolbar{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:26px;}
+  .count{font-size:14px; color:var(--muted);} .count b{color:var(--text); font-weight:700;}
+  .sort{font-size:13px; font-weight:600; color:#444; border:0; background:var(--soft); padding:8px 14px; border-radius:999px; cursor:pointer;} .sort:hover{background:var(--soft2);}
+
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .card{background:var(--soft); border:0; border-radius:18px; padding:22px 22px 20px; cursor:pointer; display:flex; flex-direction:column; gap:9px; height:206px; overflow:hidden; transition:background .15s ease, transform .15s ease;}
+  .card:hover{background:var(--soft2); transform:translateY(-3px);}
+  .card .meta{font-size:12.5px; color:var(--muted); font-weight:600;}
+  .card .cn{font-size:20px; font-weight:800; letter-spacing:-.015em; line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .card .desc{font-size:13.5px; line-height:1.55; color:#4a4a4a; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; max-height:2.9em;}
+  .card .tags{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:auto;}
+  .tag.cat{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700; color:#1C1C1C;}
+  .tag.cat .cdot{width:9px; height:9px; border-radius:50%; flex:none;}
+  .tag.org{font-size:12px; font-weight:600; padding:0 2px; color:var(--muted);}
+  .tag.org:before{content:"·"; margin-right:8px; color:#cfcfcf;}
+  .empty{grid-column:1/-1; padding:70px 0; text-align:center; color:var(--muted);}
+
+  .detail{display:none; padding:30px 0 90px;} .detail.on{display:block;} .layout.off,.hero.off{display:none;}
+  .dwrap{max-width:760px; margin:0 auto;}
+  .back{font-size:13.5px; font-weight:600; color:var(--muted); background:none; border:0; cursor:pointer; padding:0; margin-bottom:34px;} .back:hover{color:var(--text);}
+  .d-meta{display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:14px; color:var(--muted); font-weight:600; margin-bottom:14px;}
+  .d-cat{display:inline-flex; align-items:center; gap:7px; color:#1C1C1C; font-weight:700;}
+  .d-cat .cdot{width:10px; height:10px; border-radius:50%; flex:none;}
+  .d-meta .d-div{width:1px; height:12px; background:#D5D5D5;}
+  .d-title{font-size:46px; font-weight:800; letter-spacing:-.03em; line-height:1.12; margin:0 0 14px;}
+  .d-sub{font-size:18px; color:#444; margin:0 0 32px; line-height:1.5;}
+  .embed{border-radius:16px; background:var(--soft); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;}
+  .embed.video{aspect-ratio:16/9; margin-bottom:14px;}
+  .embed.doc{aspect-ratio:16/10;}
+  .doc-block{margin-top:54px; border-top:1.5px solid var(--text); padding-top:28px;}
+  .doc-h{font-size:23px; font-weight:800; letter-spacing:-.02em; margin:0 0 18px;}
+  .embed .ec{font-size:12.5px; font-weight:600; color:var(--muted);}
+  .embed .play{width:50px; height:50px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-size:17px;}
+  .embed .play.pdf{background:var(--ground); box-shadow:0 1px 4px rgba(0,0,0,.1);}
+  .linkbtns{display:flex; gap:10px; margin-bottom:52px;}
+  .linkbtn{flex:1; text-align:center; font-size:13.5px; font-weight:700; padding:15px; border-radius:14px; background:var(--soft); border:0; cursor:pointer; color:var(--text); font-family:var(--sans);} .linkbtn:hover{background:var(--accent);}
+  .specs{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; background:var(--soft); border-radius:16px; padding:22px 24px; margin-bottom:58px;}
+  .spec .k{font-size:11.5px; font-weight:700; letter-spacing:.06em; color:var(--muted); text-transform:uppercase; margin-bottom:7px;} .spec .v{font-size:14px; line-height:1.45;}
+  .story section{padding:34px 0;} .story section+section{border-top:1px solid var(--hair);}
+  .story h3{display:flex; align-items:baseline; gap:13px; font-size:23px; font-weight:800; letter-spacing:-.02em; margin:0 0 16px;}
+  .story .num{font-size:15px; font-weight:800; color:var(--text); background:var(--accent); border-radius:7px; padding:2px 9px;}
+  .story p{font-size:15.5px; line-height:1.85; color:#333; margin:0;}
+  .team{margin:0 0 40px; background:var(--soft); border-radius:16px; padding:22px 28px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .team .k{font-size:11.5px; font-weight:700; letter-spacing:.06em; color:var(--muted); text-transform:uppercase; margin-bottom:6px;} .team .v{font-size:15px;}
+
+  /* Footer (juniorschool.kakaoimpact.org tone) */
+  footer.site-footer{background:var(--foot); color:#fff; margin-top:70px;}
+  .foot-top{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:32px; padding:48px 0 36px;}
+  .foot-brand .fb-name{display:flex; align-items:center; gap:9px; font-size:16px; font-weight:800;}
+  .foot-brand .fb-mark{width:11px; height:11px; border-radius:50%; background:var(--accent);}
+  .foot-brand p{color:var(--foot-txt); font-size:13px; line-height:1.7; margin:14px 0 0; max-width:300px;}
+  .foot-col h4{font-size:12px; font-weight:700; letter-spacing:.04em; color:#cfcfcf; margin:0 0 14px;}
+  .foot-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px;}
+  .foot-col a{color:var(--foot-txt); font-size:13px; text-decoration:none;}
+  .foot-col a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid var(--foot-line); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; padding:18px 0 28px;}
+  .foot-info{color:var(--foot-txt); font-size:12.5px;}
+  .foot-info span+span:before{content:""; display:inline-block; width:1px; height:11px; background:var(--foot-line); margin:0 12px; vertical-align:-1px;}
+  .btn-top{background:#3a3a3a; color:#fff; border:0; border-radius:10px; font-size:12px; font-weight:600; padding:9px 16px; cursor:pointer;}
+  .btn-top:hover{background:#4a4a4a;}
+
+  @media (max-width:1040px){ .layout{grid-template-columns:200px 1fr; gap:36px;} .grid{grid-template-columns:repeat(2,1fr);} .hero p{white-space:normal;} .foot-top{grid-template-columns:1fr 1fr;} }
+  @media (max-width:780px){ .layout{grid-template-columns:1fr; gap:28px;} .grid{grid-template-columns:repeat(2,1fr);} .hero h2{font-size:36px;} .d-title{font-size:32px;} .outputs,.specs,.team{grid-template-columns:1fr;} }
+  @media (max-width:540px){ .grid{grid-template-columns:1fr;} .foot-top{grid-template-columns:1fr;} }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+  button:focus-visible,.card:focus-visible{outline:2.5px solid var(--accent); outline-offset:3px;}
+</style>
+
+<header class="mast"><div class="wrap mast-row">
+  <div class="brand"><span class="mark"></span><h1>테크포임팩트 캠퍼스</h1></div>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" id="tab-list">리스트</button>
+    <button role="tab" aria-selected="false" id="tab-detail">상세</button>
+  </div>
+</div></header>
+
+<div class="hero" id="hero"><div class="wrap">
+  <span class="eyebrow">Tech for Impact · 2026</span>
+  <h2>기술로 <span class="y">사회 문제</span>를 풀어낸 캠퍼스 프로젝트</h2>
+  <p>5개 대학 학생 팀이 사회혁신조직과 함께 만든 프로젝트들을 한곳에서 만나보세요.</p>
+</div></div>
+
+<div class="wrap">
+  <div class="layout" id="listview">
+    <aside>
+      <p class="eyebrow">주제 카테고리</p>
+      <button class="allbtn" id="allbtn"><span>전체</span><span class="n" id="all-n"></span></button>
+      <ul class="cats" id="cats"></ul>
+      <button class="reset" id="reset">필터 초기화</button>
+    </aside>
+    <main>
+      <div class="schoolbar" id="schoolbar"></div>
+      <div class="toolbar"><span class="count" id="count"></span><button class="sort" id="sort">셔플</button></div>
+      <div class="grid" id="grid"></div>
+    </main>
+  </div>
+
+  <div class="detail" id="detailview"><div class="dwrap">
+    <button class="back" id="back">← 목록으로</button>
+    <div class="d-meta" id="d-meta"></div>
+    <h1 class="d-title" id="d-title"></h1>
+    <p class="d-sub" id="d-sub"></p>
+    <div class="team">
+      <div><div class="k">팀</div><div class="v" id="t-team"></div></div>
+      <div><div class="k">팀장</div><div class="v">배유빈</div></div>
+      <div><div class="k">팀원</div><div class="v">이성은 · 안수민</div></div>
+    </div>
+    <div class="embed video"><div class="play">▶</div><div class="ec">시연 영상</div></div>
+    <div class="linkbtns"><button class="linkbtn">서비스 바로가기 ↗</button><button class="linkbtn">소스코드 · GitHub ↗</button></div>
+    <div class="specs">
+      <div class="spec"><div class="k">결과물 유형</div><div class="v">웹·모바일 서비스</div></div>
+      <div class="spec"><div class="k">핵심 기술 분야</div><div class="v">웹·모바일 개발</div></div>
+      <div class="spec"><div class="k">기술 스택</div><div class="v">React · Next.js · AI/LLM API</div></div>
+    </div>
+    <div class="story" id="story"></div>
+    <div class="doc-block">
+      <h3 class="doc-h">발표 자료</h3>
+      <div class="embed doc"><div class="play pdf">▤</div><div class="ec">발표 자료 · PDF</div></div>
+    </div>
+  </div></div>
+</div>
+
+<footer class="site-footer"><div class="wrap">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <div class="fb-name"><span class="fb-mark"></span>테크포임팩트 캠퍼스</div>
+      <p>대학생과 사회혁신조직이 기술로 사회 문제를 함께 풀어내는 프로젝트 아카이브.</p>
+    </div>
+    <div class="foot-col"><h4>함께하는 파트너</h4><ul><li><a href="#">카카오</a></li><li><a href="#">카카오임팩트</a></li></ul></div>
+    <div class="foot-col"><h4>관련 사이트</h4><ul><li><a href="#">카카오임팩트</a></li><li><a href="#">테크포임팩트</a></li></ul></div>
+    <div class="foot-col"><h4>채널</h4><ul><li><a href="#">카카오톡채널</a></li><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li></ul></div>
+  </div>
+  <div class="foot-bottom">
+    <span class="foot-info"><span>© 2026 테크포임팩트 캠퍼스</span><span>Kakao Impact</span><span>개인정보처리방침</span></span>
+    <button class="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">TOP ↑</button>
+  </div>
+</div></footer>
+
+<script>
+  const CARDS=[{"school": "단국대", "org": "경기연구원", "team": "경기산책연구원", "name": "오늘의 길", "desc": "정신 및 신체 건강 증진을 위한 산책로 추천 서비스", "tags": ["웹·모바일 개발"]}, {"school": "한양대", "org": "서울환경연합", "team": "환경많이된다", "name": "용기낼깡", "desc": "다회용기 사용을 인증하고 야구네컷 인증샷을 만들 수 있는 야구장 친환경 플랫폼", "tags": ["웹·모바일 개발", "데이터 분석"]}, {"school": "서강대", "org": "스튜디오 우당탕탕", "team": "뚝딱뚝딱", "name": "온동네", "desc": "로컬 사장님의 SNS 콘텐츠 생성을 돕고, 로컬 선순환 구조와 방문객 유입을 이끄는 웹 서비스", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "연세대", "org": "다로리인", "team": "다이루리", "name": "다로링크", "desc": "휴먼 인프라를 디지털화한 지역 기반 플랫폼", "tags": ["웹·모바일 개발", "데이터 분석"]}, {"school": "이화여자대", "org": "이주민통번역센터 링크", "team": "뽀용뽀용", "name": "Cura", "desc": "이주민 환자가 자신의 의료 정보를 모국어로 확인하고 스스로 관리할 수 있도록 돕는 의료정보 전달 플랫폼", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "단국대", "org": "협동조합 청풍", "team": "단풍", "name": "잠시, 정류장", "desc": "강화도를 이끌어가는 관게인구 통합 플랫폼. 관계 서비스'", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "이화여자대", "org": "옥천신문", "team": "물뿌리화", "name": "옥천옥(옥천OK)", "desc": "신규 귀농·귀촌인들을 위한 맞춤형 정책 진단부터 실제 정착 지원까지 한번에! 옥천군 정책 큐레이션 서비스", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "서강대", "org": "안무서운회사", "team": "포스트히키코모리", "name": "포스트히키코모리 프로젝트: 피자이스케이프", "desc": "피자박스 퍼포먼스와 QR 게임을 통해 외로움과 고립은둔을 공공장소의 사회적 담론으로 이끌어내는 예술-게임 프로젝트.", "tags": ["게임개발"]}, {"school": "이화여자대", "org": "토닥토닥 협동조합", "team": "도담도담", "name": "고민 한 조각", "desc": "고민 한 조각은 중·고등학생이 익명의 또래와 편지를 주고받으며 고민을 나누는 정서 소통 플랫폼 입니다.", "tags": ["웹·모바일 개발"]}, {"school": "연세대", "org": "공익법단체 두루", "team": "두루미", "name": "두루미", "desc": "아동청소년이 자신의 법률 상황을 쉽게 이해하고 대응할 수 있도록 돕는 맞춤형 법률 안내 플랫폼", "tags": ["생성형 AI (LLM)"]}, {"school": "서강대", "org": "마인드풀커넥트", "team": "3팀 몽글몽글", "name": "하루틈", "desc": "2030 여성들의 반추사고 방지를 통한 정신건강 솔루션, 일상의 마음돌봄 다이어리 및 어플리케이션", "tags": ["웹·모바일 개발", "심리-마음건강"]}, {"school": "서강대", "org": "넷스파", "team": "FORSEA", "name": "넷로그(NETLOG)", "desc": "재생 원료의 데이터 기반 추적 및 관리를 실현하는 폐어망 업사이클링 디지털 전환 플랫폼", "tags": ["웹·모바일 개발"]}, {"school": "한양대", "org": "토닥토닥 협동조합", "team": "한결", "name": "큐링(Qling)", "desc": "사람들의 고민을 AI를 통해 적절한 답변자에게 전송해, 고민과 경험을 이어주는 서비스.", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "연세대", "org": "서울환경연합", "team": "덜쓰는 사람들", "name": "onloop", "desc": "교환학생 생활품 순환 플랫폼", "tags": ["웹·모바일 개발"]}, {"school": "단국대", "org": "스튜디오 우당탕탕", "team": "탕탕특공대", "name": "프로젝트 우당탕탕", "desc": "유휴공간을 기반으로 DIT(Do It Together) 프로젝트를 기획하고, 사람과 공간, 이야기를 연결하는 플랫폼 서비스", "tags": ["웹·모바일 개발", "하드웨어·IoT"]}, {"school": "연세대", "org": "토닥토닥 협동조합", "team": "토닥토닥해조", "name": "Heulim (흘림)", "desc": "일상에서 불쑥 찾아오는 불편한 감정을 겪지만 그것을 풀어내는 일에는 늘 시간·에너지·직면의 부담이 따르기에 정작 그 순간에는 감정을 외면하거나 쌓아두는 2030 세대를 위한, 일상 속 감정을 안전하게 흘려보내는 서비스", "tags": ["웹·모바일 개발", "Flutter 기반 인터렉티브 / 그래픽스 앱"]}, {"school": "단국대", "org": "마인드풀커넥트", "team": "마인드풀커넥트 소울\\[Soul\\] 팀", "name": "마인드라우터 (MindRouter)", "desc": "랭귀싱(Languishing)' 상태에 놓인 2030 청년들을 위해, 텍스트 작성 및 관계 형성의 심리적 부담을 최소화하고자 안전한 비동기 별자리 소통과 맞춤형 다정한 개입(Soft Nudge)을 제공하는 모바일 앱 서비스입니다.", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "연세대", "org": "서울환경연합", "team": "B개발구역", "name": "Groo 그루", "desc": "AI 사용자의 더 나은 질문 습관 형성을 돕는 서비스", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "단국대", "org": "경기연구원", "team": "기후보호대", "name": "우리 학교 기후 환경 매니저", "desc": "학생들이 스스로 학교의 에너지 데이터를 읽고, 기후환경 문제를 발견하며, 개선 제안과 나눔까지 이어가는 참여형 기후환경 플랫폼", "tags": ["웹·모바일 개발"]}, {"school": "이화여자대", "org": "다로리인", "team": "다로리포터", "name": "고령 농업인 모니터링 및 AI콜을 통한 응급 구조 솔루션 : HERO", "desc": "스마트밴드를 통한 이상 신호 감지, GPS 추적, AI콜을 통해 혼자 일하는 고령 농업인의 구조 골든타임을 지키는 모니터링 및 구조 서비스", "tags": ["웹·모바일 개발", "음성 AI"]}, {"school": "서강대", "org": "경기연구원", "team": "기후동행키드", "name": "껌구리의 도시 상경기", "desc": "2030세대의 기후 무력감을 공감과 재미로 허무는 AI 기후 앰버서더 껌구리를 활용한 소셜 캠페인", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "서강대", "org": "마인드풀커넥트", "team": "WeROK", "name": "RootMate", "desc": "내가 키우는 식물이 나의 마음도 돌봐주는 앱. 식물을 돌보며 나를 돌봅니다.", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "한양대", "org": "공익법단체 두루", "team": "아이온", "name": "아이로", "desc": "위기에 놓인 아동·청소년의 법률 정보 탐색과 초기 대응을 돕는 아동·청소년 맞춤 법률 가이드 서비스", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "이화여자대", "org": "토닥토닥 협동조합", "team": "멘탈404", "name": "MORBIT", "desc": "사람들의 마음건강을 선제적으로 돕는 나만의 위로 서비스", "tags": ["웹·모바일 개발"]}, {"school": "연세대", "org": "이주민통번역센터 링크", "team": "나란히", "name": "픽통", "desc": "언어장벽을 극복하고 이주민이 중심이 되고 통역사와 함께하는 의료 통역 환경을 만기 위한 디지털 시각화 통증 문진 서비스", "tags": ["웹·모바일 개발"]}, {"school": "서강대", "org": "안무서운회사", "team": "302 archive (8팀)", "name": "문을 여는 방법", "desc": "은둔,고립청년을'하루빨리나와야하는사람'으로바라보는대신, '기다림과이해가필요한사람'으로바라보게만드는인식개선전시물입니다", "tags": ["전시", "예술"]}, {"school": "한양대", "org": "다로리인", "team": "큰글씨", "name": "두레(DURE)", "desc": "지역 교육 프로그램을 운영하는 기관과 강사를 위한 행정 관리 웹 서비스", "tags": ["웹·모바일 개발"]}, {"school": "한양대", "org": "다로리인", "team": "큰글씨", "name": "두레(DURE)", "desc": "지역 교육 프로그램을 운영하는 기관과 강사를 위한 행정 관리 웹 서비스", "tags": ["웹·모바일 개발"]}, {"school": "단국대", "org": "안무서운회사", "team": "안무서운단대", "name": "도란도란", "desc": "도란도란은 은둔 청년에게 재택으로 수행 가능한 말동무 활동을 제공하고, 정기적인 대화가 필요한 노인과 연결해주는 세대 간 소통 기반 일자리 플랫폼이다.", "tags": ["웹·모바일 개발", "데이터 분석"]}, {"school": "연세대", "org": "다로리인", "team": "포로리", "name": "DOUM", "desc": "귀촌 청년과 마을 어르신을 잇는 생활 도움 매칭 플랫폼", "tags": ["웹·모바일 개발", "음성 AI"]}, {"school": "서강대", "org": "협동조합 청풍", "team": "바람을 짓다", "name": "지방 이주를 망설이는 청년에게, 떠나기 전 그 지역을 먼저 살아보게 하는 시뮬레이션 서비스", "desc": "유형 진단으로 나에게 맞는 지역을 찾고, 시뮬레이션으로 직접 살아본 뒤 이주를 결정하는 청년 지방 이주 매칭 서비스", "tags": ["웹·모바일 개발"]}, {"school": "단국대", "org": "넷스파", "team": "ESPA(에스파)", "name": "net-chain", "desc": "AI 기반 폐어망 적치장 모니터링 및 수거 최적화 플랫폼", "tags": ["웹·모바일 개발", "컴퓨터 비전(CV)"]}, {"school": "이화여자대", "org": "서울환경연합", "team": "기후구조대", "name": "옷옷", "desc": "방치된 옷을 다시 입고, 포인트로 순환시키는 캠퍼스 기반 의류 순환 플랫폼", "tags": ["웹·모바일 개발"]}, {"school": "이화여자대", "org": "토닥토닥 협동조합", "team": "오구오구", "name": "Ogoo", "desc": "소비 뒤에 숨은 감정을 인식하지 못하는 청년들을 위한 서비스", "tags": ["웹·모바일 개발"]}, {"school": "한양대", "org": "이주민통번역센터 링크", "team": "나란히", "name": "나란히", "desc": "이주민 학부모를 위해 번역을 넘어 행동까지 돕는 다국어 학교생활 도우미 PWA", "tags": ["생성형 AI (LLM)", "웹·모바일 개발"]}, {"school": "연세대", "org": "옥천신문", "team": "연송이", "name": "다람쥐 택시 프로젝트", "desc": "교통 소외지역 주민들을 돕는 '다람쥐택시 예약 관리 서비스", "tags": ["웹·모바일 개발"]}], STORY=["령대와 관계없이 산책이 정신적·신체적 건강 증진에 탁월한 효과가 있음을 확인했습니다. 그러나 기존의 지도 서비스는 오직 '최단 거리'와 '효율성'만을 기준으로 경로를 제공하고 있습니다. 이로 인해 정작 산책의 본질적인 목적인 '걷기 즐거운 환경'이나 '안전하고 쾌적한 보행 환경'을 고려한 경로는 찾아보기 어렵다는 점을 발견했습니다.  우리는 건강한 일상을 원하는 시민들에게 물리적 거리보다 보행의 질(쾌적함, 안전성, 정서적 만족도)을 우선하는 경로 안내가 필수적…", "주요 기능 및 해결 방식 개인 맞춤형 경로 추천: 사용자의 현재 위치를 기반으로 단순히 거리가 짧은 길이 아닌, 심리적·신체적 만족도를 극대화할 수 있는 산책로를 추천합니다.  실시간 환경 위험 인자 필터링: 공공 데이터와 센서 데이터를 연동하여 꽃가루 농도, 미세먼지, 오존 등 사용자 건강에 부정적인 영향을 줄 수 있는 요인을 실시간으로 분석합니다.  위험 구간 회피 알고리즘: 사용자가 설정한 건강 프로필(예: 꽃가루 알러지)을 반영하여, 해당 경로상에 알러지…", "초기에는 독거노인의 고독사 문제를 해결하고자 했으나, 공신력 있는 데이터를 확보하는 데 현실적인 한계가 있어 주제를 변경해야 했습니다. 이후 폭염 시 취약계층 보호나 베리어프리(Barrier-free) 도로 구축 등 사회적 가치가 큰 주제들을 다각도로 고민했습니다. 하지만 관련 분야의 데이터 접근성과 우리가 가진 기술적 지식만으로는 문제를 온전히 해결하기에 부족함이 있어 프로젝트의 방향성을 재설정해야 했습니다.  또한, 동네 주민 간 산책로 추천 및 오프라인 만…", "환경 데이터 모델링: 사용자의 위치 데이터와 연동하여 꽃가루, 미세먼지 등 주요 환경 인자를 시공간적으로 분석할 수 있는 기반 데이터를 확보하고, 이를 파이썬(Pandas, Scikit-learn)을 활용해 전처리 및 분석하는 로직을 구현했습니다.  경로 알고리즘 설계: 특정 위험 인자를 회피하고 산책하기 적합한 환경을 우선순위로 두는 가중치 기반 경로 추천 알고리즘을 설계하고 기본적인 테스트를 마쳤습니다.  사용자 요구사항 정의: 초기 주제 선정 과정에서 얻은…", "프로젝트 초기에는 세상이 급변하고 복잡한 사회 문제들이 기술을 통해 빠르게 해결되는 것을 보며, 과연 '내가 사회에서 어떤 실질적인 역할을 할 수 있을까' 하는 막연한 의기소침함에 빠지기도 했습니다. 저는 자꾸만 거대하고 완벽한 해결책만을 찾으려 했고, 해결하기 어려운 큰 문제들에만 압도되어 있었습니다.  하지만 팀원들과 함께 산책로 추천이라는 주제를 다듬으며 깨달은 점이 있습니다. 꼭 거창한 문제를 단번에 해결하지 않더라도, 일상 속 작은 불편함에 주목하고 다…"], CAT={"기후": ["경기연구원", "서울환경연합", "넷스파"], "사회적포용": ["이주민통번역센터 링크", "공익법단체 두루", "안무서운회사"], "마음건강": ["마인드풀커넥트", "토닥토닥 협동조합"], "지역소멸": ["다로리인", "협동조합 청풍", "옥천신문", "스튜디오 우당탕탕"]}, CATCOLOR={"기후": "#8ee6c2", "사회적포용": "#c0c0ff", "마음건강": "#ffb8ff", "지역소멸": "#ffe682"};
+  const STORY_TITLES=["우리가 주목한 문제","우리가 만든 '돕는 기술'","가장 도전적이었던 순간","지금 어디까지 왔나","한 학기를 돌아보며"];
+  const SCHOOLS=["전체","단국대","한양대","서강대","연세대","이화여대"];
+  const ORG2CAT={}; Object.keys(CAT).forEach(c=>CAT[c].forEach(o=>ORG2CAT[o]=c));
+  const orgCounts={}; CARDS.forEach(c=>orgCounts[c.org]=(orgCounts[c.org]||0)+1);
+  let fSchool="전체", sel={kind:"all"}, seed=7;
+  function fakeRand(i){seed=(seed*1103515245+12345+i)&0x7fffffff;return seed/0x7fffffff;}
+  function shuffle(a){const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor((i+1)*fakeRand(i));[r[i],r[j]]=[r[j],r[i]];}return r;}
+  function catCount(c){return CAT[c].reduce((s,o)=>s+(orgCounts[o]||0),0);}
+  function renderSidebar(){
+    document.getElementById('all-n').textContent=CARDS.length;
+    document.getElementById('allbtn').setAttribute('aria-pressed',sel.kind==="all");
+    const ul=document.getElementById('cats'); ul.innerHTML='';
+    Object.keys(CAT).forEach(cat=>{
+      const col=CATCOLOR[cat]; const catP=sel.kind==="cat"&&sel.val===cat;
+      const li=document.createElement('li'); li.className='catgroup';
+      let h='<button class="catbtn" data-cat="'+cat+'" aria-pressed="'+catP+'" style="'+(catP?'background:'+col:'')+'"><span class="lab"><span class="cdot" style="background:'+col+'"></span>'+cat+'</span><span class="n">'+catCount(cat)+'</span></button>';
+      h+='<ul class="orgsub">'+CAT[cat].map(o=>{const p=sel.kind==="org"&&sel.val===o;return '<button data-org="'+o+'" aria-pressed="'+p+'"><span>'+(p?'<span class=\'dot\' style=\'background:'+col+'\'></span>':'')+o+'</span><span class="n">'+(orgCounts[o]||0)+'</span></button>';}).join('')+'</ul>';
+      li.innerHTML=h; ul.appendChild(li);
+    });
+    ul.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{sel={kind:"cat",val:b.dataset.cat};render();});
+    ul.querySelectorAll('[data-org]').forEach(b=>b.onclick=()=>{sel={kind:"org",val:b.dataset.org};render();});
+  }
+  function renderSchools(){
+    const bar=document.getElementById('schoolbar'); bar.innerHTML='';
+    SCHOOLS.forEach(s=>{const b=document.createElement('button');b.className='chip';b.textContent=s;b.setAttribute('aria-pressed',fSchool===s);b.onclick=()=>{fSchool=s;render();};bar.appendChild(b);});
+  }
+  function matchSel(c){ if(sel.kind==="all")return true; if(sel.kind==="cat")return ORG2CAT[c.org]===sel.val; return c.org===sel.val; }
+  function render(){
+    renderSidebar(); renderSchools();
+    let list=shuffle(CARDS.filter(c=>(fSchool==="전체"||c.school===fSchool)&&matchSel(c)));
+    document.getElementById('count').innerHTML='총 <b>'+list.length+'</b>개 프로젝트';
+    const g=document.getElementById('grid'); g.innerHTML='';
+    if(!list.length){g.innerHTML='<div class="empty">해당 조건의 프로젝트가 없어요.<br><button class="reset" onclick="resetF()">필터 초기화</button></div>';return;}
+    list.forEach(c=>{
+      const d=document.createElement('div'); d.className='card'; d.tabIndex=0;
+      const cat=ORG2CAT[c.org]||'기타'; const col=CATCOLOR[cat]||'#eee';
+      d.innerHTML='<div class="meta">'+c.school+' · '+c.team+'</div><div class="cn">'+c.name+'</div><div class="desc">'+c.desc+'</div><div class="tags"><span class="tag cat"><span class="cdot" style="background:'+col+'"></span>'+cat+'</span><span class="tag org">'+c.org+'</span></div>';
+      d.onclick=()=>openDetail(c); d.onkeydown=e=>{if(e.key==="Enter")openDetail(c);};
+      g.appendChild(d);
+    });
+  }
+  window.resetF=function(){fSchool="전체";sel={kind:"all"};render();};
+  document.getElementById('reset').onclick=window.resetF;
+  document.getElementById('allbtn').onclick=()=>{sel={kind:"all"};render();};
+  document.getElementById('sort').onclick=()=>{seed=(seed*7+3)&0x7fffffff;render();};
+  function openDetail(c){
+    const cat=ORG2CAT[c.org]||''; const col=CATCOLOR[cat]||getComputedStyle(document.documentElement).getPropertyValue('--accent');
+    document.getElementById('detailview').style.setProperty('--accent', col);
+    document.getElementById('d-meta').innerHTML='<span class="d-cat"><span class="cdot" style="background:'+col+'"></span>'+cat+'</span><span class="d-div"></span><span>'+c.school+' · '+c.org+' · '+c.team+'</span>';
+    document.getElementById('d-title').textContent=c.name;
+    document.getElementById('d-sub').textContent=c.desc;
+    document.getElementById('t-team').textContent=c.team;
+    const st=document.getElementById('story'); st.innerHTML='';
+    STORY.forEach((p,i)=>{const s=document.createElement('section');s.innerHTML='<h3><span class="num">0'+(i+1)+'</span>'+STORY_TITLES[i]+'</h3><p>'+p+'</p>';st.appendChild(s);});
+    switchTab('detail'); window.scrollTo(0,0);
+  }
+  function switchTab(t){
+    const isL=t==='list';
+    document.getElementById('tab-list').setAttribute('aria-selected',isL);
+    document.getElementById('tab-detail').setAttribute('aria-selected',!isL);
+    document.getElementById('listview').classList.toggle('off',!isL);
+    document.getElementById('hero').classList.toggle('off',!isL);
+    document.getElementById('detailview').classList.toggle('on',!isL);
+  }
+  document.getElementById('tab-list').onclick=()=>switchTab('list');
+  document.getElementById('tab-detail').onclick=()=>{if(!document.getElementById('story').children.length)openDetail(CARDS[0]);else switchTab('detail');};
+  document.getElementById('back').onclick=()=>switchTab('list');
+  render();
+</script>

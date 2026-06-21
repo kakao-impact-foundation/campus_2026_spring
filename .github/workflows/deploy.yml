@@ -1,0 +1,53 @@
+name: Deploy to GitHub Pages
+
+# 트리거:
+#  - main 에 push → 자동 빌드·배포 (코드 + 시트/드라이브 최신 데이터 반영)
+#  - 수동 실행(Run workflow) → 시트/드라이브만 바뀐 경우 갱신용
+#  - (선택) schedule 주석 해제 시 정기 자동 빌드
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "0 0 * * *" # 매일 09:00 KST (UTC 00:00)
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 동시 배포 1개만
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Build static export
+        run: npm run build
+        env:
+          BUILD_TARGET: static
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      - run: touch out/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

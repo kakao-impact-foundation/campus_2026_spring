@@ -1,26 +1,38 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ── 디자인 토큰 (시안 site-mockup.html 기준) ── */
+@theme {
+  --color-ground: #ffffff;
+  --color-ink: #191919;
+  --color-muted: #8c8c8c;
+  --color-soft: #f4f4f2; /* 카드·블록 면 */
+  --color-soft2: #ececec; /* 호버 */
+  --color-hair: #ececec; /* 옅은 구분선 */
+  --color-accent: #fae100; /* 카카오 옐로우 — 브랜드 모먼트에만 */
+
+  /* 카테고리 테마색 */
+  --color-cat-climate: #8ee6c2; /* 기후 */
+  --color-cat-inclusion: #c0c0ff; /* 사회적포용 */
+  --color-cat-mind: #ffb8ff; /* 마음건강 */
+  --color-cat-region: #ffe682; /* 지역소멸 */
+
+  /* 푸터 (주니어스쿨 포럼 톤) */
+  --color-foot: #272727;
+  --color-foot-line: #404040;
+  --color-foot-txt: #9c9c9c;
+
+  --font-sans:
+    "Pretendard", -apple-system, "Apple SD Gothic Neo", system-ui,
+    "Noto Sans KR", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.55;
 }

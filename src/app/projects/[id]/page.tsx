@@ -117,7 +117,7 @@ export default async function ProjectDetail({
         </dl>
 
         {/* ───────── 섹션 2 · 돕는기술 소개 ───────── */}
-        <section className="mt-[30px] border-t border-hair pt-12">
+        <section className="mt-14">
           <SectionHead n="01">돕는기술 소개</SectionHead>
 
           <Embed url={p.videoUrl} kind="video" label="시연 영상" />
@@ -135,7 +135,7 @@ export default async function ProjectDetail({
 
         {/* ───────── 섹션 3 · 돕는기술 이야기 ───────── */}
         {story.length > 0 && (
-          <section className="mt-[60px] border-t border-hair pt-12">
+          <section className="mt-16">
             <SectionHead n="02">돕는기술 이야기</SectionHead>
             <div>
               {story.map(({ key, title }, i) => (
@@ -162,7 +162,7 @@ export default async function ProjectDetail({
         )}
 
         {/* ───────── 섹션 4 · 발표 자료 ───────── */}
-        <section className="mt-[60px] border-t border-hair pt-12">
+        <section className="mt-16">
           <SectionHead n="03">발표 자료</SectionHead>
           <Embed url={p.deckUrl} kind="doc" label="발표 자료 · PDF" />
         </section>

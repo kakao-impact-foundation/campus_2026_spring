@@ -103,7 +103,7 @@ export default async function ProjectDetail({
           {p.award && <AwardBadge label={p.award} className="px-3" />}
         </div>
 
-        <h1 className="mb-3.5 text-[46px] font-extrabold leading-[1.12] tracking-[-0.03em] max-md:text-[32px]">
+        <h1 className="mb-3.5 font-kakao text-[46px] font-extrabold leading-[1.12] tracking-[-0.03em] max-md:text-[32px]">
           {p.name}
         </h1>
         <p className="text-[18px] leading-[1.5] text-[#444]">{p.oneLiner}</p>

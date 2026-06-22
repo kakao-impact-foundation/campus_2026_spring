@@ -24,6 +24,10 @@
   --font-sans:
     "Pretendard", -apple-system, "Apple SD Gothic Neo", system-ui,
     "Noto Sans KR", sans-serif;
+
+  /* 카카오 큰 글씨 (next/font 가 --kakao-big 주입) — font-kakao 유틸 */
+  --font-kakao:
+    var(--kakao-big), "Pretendard", -apple-system, system-ui, sans-serif;
 }
 
 html {

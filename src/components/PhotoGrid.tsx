@@ -4,7 +4,8 @@ import { useState } from "react";
 import { driveThumb, driveView } from "@/lib/gallery";
 
 // 사진 그리드 — '더 보기'로 점진 로딩하여 한 번에 수백 장 요청(레이트리밋·깨짐)을 방지.
-const PAGE = 30;
+// 4열 × 10줄 = 40장씩.
+const PAGE = 40;
 
 export default function PhotoGrid({ ids }: { ids: string[] }) {
   const [shown, setShown] = useState(PAGE);
@@ -13,7 +14,7 @@ export default function PhotoGrid({ ids }: { ids: string[] }) {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-3 max-[780px]:grid-cols-2 max-[440px]:grid-cols-1">
+      <div className="grid grid-cols-4 gap-3 max-[1040px]:grid-cols-3 max-[780px]:grid-cols-2 max-[440px]:grid-cols-1">
         {visible.map((fid) => (
           <a
             key={fid}

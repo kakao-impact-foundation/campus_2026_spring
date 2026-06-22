@@ -44,11 +44,13 @@ export async function getGalleries(): Promise<Gallery[]> {
     return table
       .slice(hRow + 1)
       .map((r, i) => {
+        // 표시는 시트 값 그대로(예: "단국대학교"). 슬러그 매칭만 단축형으로 정규화.
         const school = get(r, ci.school);
+        const slugKey = school.replace(/대학교$/, "대").replace(/학교$/, "");
         const link = get(r, ci.link);
         const m = link.match(/\/folders\/([\w-]+)/);
         return {
-          id: SCHOOL_SLUG[school] ?? `g${i + 1}`,
+          id: SCHOOL_SLUG[slugKey] ?? `g${i + 1}`,
           school,
           date: get(r, ci.date),
           folderId: m ? m[1] : null,

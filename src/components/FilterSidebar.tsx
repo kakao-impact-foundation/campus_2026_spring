@@ -32,7 +32,7 @@ export default function FilterSidebar({
     CATEGORY_ORGS[c].reduce((s, o) => s + (orgCount[o] ?? 0), 0);
 
   return (
-    <aside>
+    <aside className="font-kakao">
       <p className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
         주제 카테고리
       </p>

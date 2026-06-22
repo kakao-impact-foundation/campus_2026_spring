@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import KakaoImpactLogo from "./KakaoImpactLogo";
-import TechForImpactLogo from "./TechForImpactLogo";
+import TechForImpactCampusLogo from "./TechForImpactCampusLogo";
 
 // 카카오임팩트 GNB 구조: 워드마크 + 중앙 메뉴 + Family site / 언어 액션.
 const NAV: { label: string; href: string; external?: boolean }[] = [
@@ -54,17 +54,17 @@ export default function Header() {
         WebkitBackdropFilter: "saturate(160%) blur(12px)",
       }}
     >
-      <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-8 text-[#1C1C1C]">
+      <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-8 text-[#1C1C1C]">
         {/* 좌: 테크포임팩트 캠퍼스 워드마크 (홈) */}
         <Link href="/" aria-label="테크포임팩트 캠퍼스" className="text-[#1C1C1C]">
-          <TechForImpactLogo height={13} />
+          <TechForImpactCampusLogo height={20} />
         </Link>
 
         {/* 중앙: 메뉴 */}
         <nav className="flex gap-11 max-md:hidden">
           {NAV.map((item) => {
             const active = isActive(item.href, pathname);
-            const cls = `relative py-1.5 text-[15px] font-bold tracking-[0.04em] transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:bg-[#1C1C1C] after:transition-transform after:duration-300 after:ease-out after:content-[''] ${
+            const cls = `relative py-1.5 font-kakao text-[15px] font-bold tracking-[0.04em] transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:bg-[#1C1C1C] after:transition-transform after:duration-300 after:ease-out after:content-[''] ${
               active
                 ? "opacity-100 after:scale-x-100"
                 : "opacity-55 hover:opacity-100 after:scale-x-0 hover:after:scale-x-100"
@@ -96,7 +96,7 @@ export default function Header() {
           aria-label="카카오임팩트"
           className="text-[#1C1C1C] max-md:hidden"
         >
-          <KakaoImpactLogo height={18} />
+          <KakaoImpactLogo height={19} />
         </a>
 
         {/* 모바일: 햄버거 */}
@@ -131,7 +131,7 @@ export default function Header() {
           <div className="mx-auto flex max-w-[1280px] flex-col px-8 py-2">
             {NAV.map((item) => {
               const active = isActive(item.href, pathname);
-              const cls = `py-3.5 text-[15px] font-bold tracking-[0.04em] ${
+              const cls = `py-3.5 font-kakao text-[15px] font-bold tracking-[0.04em] ${
                 active ? "text-ink" : "text-muted"
               }`;
               return item.external ? (

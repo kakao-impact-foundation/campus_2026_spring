@@ -18,7 +18,7 @@ export default async function Stories() {
           <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
             Tech for Impact · 2026 Spring
           </span>
-          <h2 className="mt-3.5 text-[54px] font-extrabold leading-[1.08] tracking-[-0.03em] max-md:text-4xl">
+          <h2 className="mt-3.5 font-kakao text-[54px] font-extrabold leading-[1.08] tracking-[-0.03em] max-md:text-4xl">
             캠퍼스 크리에이터
           </h2>
           <p className="mt-5 text-[18px] text-[#555]">

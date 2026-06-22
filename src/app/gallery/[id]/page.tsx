@@ -41,8 +41,8 @@ export default async function GalleryDetail({
   const photoIds = g.folderId ? await getFolderImageIds(g.folderId) : [];
 
   return (
-    <div className="px-8 pt-[30px] pb-[110px]">
-      <div className="mx-auto max-w-[1100px]">
+    <div className="pt-[30px] pb-[110px]">
+      <div className="mx-auto max-w-[1280px] px-8">
         <Link
           href="/gallery"
           className="inline-block text-[13.5px] font-semibold text-muted hover:text-ink"
@@ -56,7 +56,7 @@ export default async function GalleryDetail({
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
               Gallery · {formatDate(g.date)}
             </span>
-            <h1 className="mt-2.5 text-[40px] font-extrabold leading-[1.1] tracking-[-0.03em] max-md:text-[30px]">
+            <h1 className="mt-2.5 font-kakao text-[40px] font-extrabold leading-[1.1] tracking-[-0.03em] max-md:text-[30px]">
               {g.school} 성과발표회
             </h1>
           </div>

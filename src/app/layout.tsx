@@ -1,7 +1,19 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
+// 카카오 큰 글씨 (KakaoBigSans) — 메뉴·히어로 타이틀 등 브랜드 강조용
+const kakaoBig = localFont({
+  src: [
+    { path: "./fonts/KakaoBigSans-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/KakaoBigSans-Bold.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/KakaoBigSans-ExtraBold.woff2", weight: "800", style: "normal" },
+  ],
+  variable: "--kakao-big",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   // 배포 도메인 + basePath (og:image 등 절대 URL 기준)
@@ -31,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="h-full antialiased">
+    <html lang="ko" className={`h-full antialiased ${kakaoBig.variable}`}>
       <body className="flex min-h-full flex-col">
         <Header />
         <div className="flex-1">{children}</div>

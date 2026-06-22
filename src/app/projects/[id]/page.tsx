@@ -128,7 +128,7 @@ export default async function ProjectDetail({
             <SpecRow k="현재 진행 단계" v={stageLabel} note={stageNote} />
             <SpecRow k="사용 기술 스택" tags={techTags} />
             <SpecRow k="서비스 바로가기" href={p.serviceUrl} />
-            <SpecRow k="깃헙 링크" href={p.repoUrl} />
+            <SpecRow k="Github 링크" href={p.repoUrl} />
             {/* <SpecRow k="유튜브 링크" href={p.youtubeUrl} /> */}
           </dl>
         </section>
@@ -228,7 +228,7 @@ function SpecRow({
               {href}
             </a>
           ) : (
-            <span className="text-muted">추후 추가 예정</span>
+            <span className="text-[13px] text-muted">추후 추가 예정</span>
           )
         ) : (
           v

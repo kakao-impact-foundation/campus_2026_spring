@@ -7,11 +7,32 @@ import KakaoImpactLogo from "./KakaoImpactLogo";
 import TechForImpactLogo from "./TechForImpactLogo";
 
 // 카카오임팩트 GNB 구조: 워드마크 + 중앙 메뉴 + Family site / 언어 액션.
-const NAV: { label: string; href: string }[] = [
+const NAV: { label: string; href: string; external?: boolean }[] = [
   { label: "PROJECTS", href: "/" },
   { label: "STORIES", href: "/stories" },
   { label: "GALLERY", href: "/gallery" },
+  { label: "ABOUT", href: "https://techforimpact.io/campus/info", external: true },
 ];
+
+// 외부 링크 아이콘 (옅은 회색 ↗)
+function ExternalIcon() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="text-[#bbb]"
+      aria-hidden
+    >
+      <path d="M4.5 13.5L13.5 4.5M13.5 4.5H6M13.5 4.5V12" />
+    </svg>
+  );
+}
 
 // 현재 경로가 해당 메뉴의 활성 상태인지
 function isActive(href: string, pathname: string): boolean {
@@ -43,16 +64,24 @@ export default function Header() {
         <nav className="flex gap-11 max-md:hidden">
           {NAV.map((item) => {
             const active = isActive(item.href, pathname);
-            return (
-              <Link
+            const cls = `relative py-1.5 text-[15px] font-bold tracking-[0.04em] transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:bg-[#1C1C1C] after:transition-transform after:duration-300 after:ease-out after:content-[''] ${
+              active
+                ? "opacity-100 after:scale-x-100"
+                : "opacity-55 hover:opacity-100 after:scale-x-0 hover:after:scale-x-100"
+            }`;
+            return item.external ? (
+              <a
                 key={item.label}
                 href={item.href}
-                className={`relative py-1.5 text-[15px] font-bold tracking-[0.04em] transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:bg-[#1C1C1C] after:transition-transform after:duration-300 after:ease-out after:content-[''] ${
-                  active
-                    ? "opacity-100 after:scale-x-100"
-                    : "opacity-55 hover:opacity-100 after:scale-x-0 hover:after:scale-x-100"
-                }`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${cls} inline-flex items-center gap-1`}
               >
+                {item.label}
+                <ExternalIcon />
+              </a>
+            ) : (
+              <Link key={item.label} href={item.href} className={cls}>
                 {item.label}
               </Link>
             );
@@ -102,14 +131,27 @@ export default function Header() {
           <div className="mx-auto flex max-w-[1280px] flex-col px-8 py-2">
             {NAV.map((item) => {
               const active = isActive(item.href, pathname);
-              return (
+              const cls = `py-3.5 text-[15px] font-bold tracking-[0.04em] ${
+                active ? "text-ink" : "text-muted"
+              }`;
+              return item.external ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpen(false)}
+                  className={`${cls} inline-flex items-center gap-1`}
+                >
+                  {item.label}
+                  <ExternalIcon />
+                </a>
+              ) : (
                 <Link
                   key={item.label}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className={`py-3.5 text-[15px] font-bold tracking-[0.04em] ${
-                    active ? "text-ink" : "text-muted"
-                  }`}
+                  className={cls}
                 >
                   {item.label}
                 </Link>

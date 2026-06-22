@@ -7,14 +7,16 @@ import AwardBadge from "./AwardBadge";
 export default function ProjectCard({ project }: { project: Project }) {
   const cat = project.category;
   const color = cat ? CATEGORY_COLOR[cat] : "#e5e5e5";
-
   return (
     <Link
       href={`/projects/${project.id}`}
       className="relative flex h-[206px] flex-col gap-[9px] overflow-hidden rounded-[18px] bg-soft p-[22px_22px_20px] transition hover:-translate-y-[3px] hover:bg-soft2 focus-visible:outline focus-visible:outline-[2.5px] focus-visible:outline-offset-[3px] focus-visible:outline-accent"
     >
       {project.award && (
-        <AwardBadge label={project.award} className="absolute top-4 right-4 z-10" />
+        <AwardBadge
+          label={project.award}
+          className="absolute top-4 right-4 z-10"
+        />
       )}
       <div
         className={`text-[12.5px] font-semibold text-muted ${project.award ? "truncate pr-[92px]" : ""}`}

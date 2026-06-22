@@ -4,9 +4,25 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "테크포임팩트 캠퍼스 — 프로젝트",
-  description:
-    "5개 대학 학생 팀이 사회혁신조직과 함께 기술로 사회 문제를 풀어낸 캠퍼스 프로젝트 아카이브.",
+  // 배포 도메인 + basePath (og:image 등 절대 URL 기준)
+  metadataBase: new URL(
+    "https://kakao-impact-foundation.github.io/campus_2026_spring/",
+  ),
+  title: "테크포임팩트 캠퍼스",
+  description: "26-1학기 돕는 기술 보러가기",
+  openGraph: {
+    type: "website",
+    siteName: "테크포임팩트 캠퍼스",
+    title: "테크포임팩트 캠퍼스",
+    description: "26-1학기 돕는 기술 보러가기",
+    images: [{ url: "og.png", width: 1200, height: 630 }], // public/og.png (1200×630)
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "테크포임팩트 캠퍼스",
+    description: "26-1학기 돕는 기술 보러가기",
+    images: ["og.png"],
+  },
 };
 
 export default function RootLayout({

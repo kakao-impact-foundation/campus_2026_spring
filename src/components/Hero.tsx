@@ -16,7 +16,9 @@ export default function Hero({
           Tech for Impact · 2026 Spring
         </span>
         <h2 className="mt-3.5 font-kakao text-[54px] font-extrabold leading-[1.08] tracking-[-0.03em] max-md:text-4xl">
-          26-1학기 돕는 기술 프로젝트
+          26-1학기
+          <br />
+          돕는 기술 프로젝트
         </h2>
         <p className="mt-5 text-[18px] text-[#555]">
           {/* <b className="font-bold text-ink">26년도 1학기</b>에 참여한{" "} */}

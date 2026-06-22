@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CopyFolderButton from "@/components/CopyFolderButton";
 import {
-  GALLERIES,
+  getGalleries,
   formatDate,
   getFolderImageIds,
   driveThumb,
@@ -15,9 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default async function GalleryList() {
+  const galleries = await getGalleries();
   // 카드 썸네일 = 각 폴더의 첫 번째 사진
   const cards = await Promise.all(
-    GALLERIES.map(async (g) => {
+    galleries.map(async (g) => {
       const cover = g.folderId ? ((await getFolderImageIds(g.folderId))[0] ?? null) : null;
       return { ...g, cover };
     }),

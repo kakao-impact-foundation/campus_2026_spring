@@ -1,5 +1,6 @@
-// 성과발표회 갤러리 — 대학별 구글드라이브 폴더 (시트 gid=97676482 기준).
-// 사진은 빌드 시점에 공개 폴더 HTML 에서 파일 ID 를 추출해 썸네일로 렌더한다.
+// 성과발표회 갤러리 — 시트(gid=97676482)에서 대학별 폴더/날짜를 빌드 시 읽어온다.
+// 사진은 폴더에서 파일 ID 를 가져와 썸네일로 렌더.
+import { parseCsv } from "./sheet";
 
 export type Gallery = {
   id: string; // 라우트 슬러그
@@ -8,16 +9,59 @@ export type Gallery = {
   folderId: string | null; // 구글드라이브 폴더 ID
 };
 
-export const GALLERIES: Gallery[] = [
-  { id: "dankook", school: "단국대", date: "2026-06-05", folderId: "14XF05EnBEVyqJVluvrU6q-oTsqJlTiC8" },
-  { id: "hanyang", school: "한양대", date: "2026-06-08", folderId: "1W5o6LIi5QwZh-DflDAsdwNUQN1w60F6i" },
-  { id: "sogang", school: "서강대", date: "2026-06-10", folderId: "1BfeDi3OdBLw3AacJZfGiJmpoG-C8GGtF" },
-  { id: "ewha", school: "이화여대", date: "2026-06-10", folderId: "1e0TXAI5UyB1PY0jUhmCnDk34h2rGsz35" },
-  { id: "yonsei", school: "연세대", date: "2026-06-12", folderId: null },
-];
+const GALLERY_CSV_URL =
+  process.env.GALLERY_CSV_URL ??
+  "https://docs.google.com/spreadsheets/d/1UuFawB_e6NWyUV5-GUIODtknGoC1jpsBfdMj7fdtuVU/export?format=csv&gid=97676482";
 
-export function galleryById(id: string): Gallery | null {
-  return GALLERIES.find((g) => g.id === id) ?? null;
+// 학교명 → 라우트 슬러그 (URL 안정용). 미등록 학교는 순번 기반 슬러그로 폴백.
+const SCHOOL_SLUG: Record<string, string> = {
+  단국대: "dankook",
+  한양대: "hanyang",
+  서강대: "sogang",
+  연세대: "yonsei",
+  이화여대: "ewha",
+};
+
+// 시트 갤러리 탭을 읽어 Gallery[] 로 변환 (빌드 시 1회)
+export async function getGalleries(): Promise<Gallery[]> {
+  try {
+    const res = await fetch(`${GALLERY_CSV_URL}&_=${BUILD_TOKEN}`, {
+      cache: "force-cache",
+    });
+    if (!res.ok) return [];
+    const table = parseCsv(await res.text());
+    const hRow = table.findIndex(
+      (r) => r.includes("학교") && r.some((c) => c.includes("드라이브")),
+    );
+    if (hRow < 0) return [];
+    const header = table[hRow].map((h) => h.trim());
+    const ci = {
+      school: header.indexOf("학교"),
+      date: header.indexOf("날짜"),
+      link: header.findIndex((h) => h.includes("드라이브")),
+    };
+    const get = (r: string[], i: number) => (i >= 0 ? (r[i] ?? "").trim() : "");
+    return table
+      .slice(hRow + 1)
+      .map((r, i) => {
+        const school = get(r, ci.school);
+        const link = get(r, ci.link);
+        const m = link.match(/\/folders\/([\w-]+)/);
+        return {
+          id: SCHOOL_SLUG[school] ?? `g${i + 1}`,
+          school,
+          date: get(r, ci.date),
+          folderId: m ? m[1] : null,
+        };
+      })
+      .filter((g) => g.school);
+  } catch {
+    return [];
+  }
+}
+
+export async function getGalleryById(id: string): Promise<Gallery | null> {
+  return (await getGalleries()).find((g) => g.id === id) ?? null;
 }
 
 // 공유용 폴더 링크 (복사 버튼)

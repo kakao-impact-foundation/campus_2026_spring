@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Project } from "@/lib/types";
 import FilterSidebar, { Selection } from "./FilterSidebar";
 import SchoolBar from "./SchoolBar";
@@ -8,6 +8,10 @@ import ProjectCard from "./ProjectCard";
 
 // 학교 칩 표시 순서 (데이터에 있는 학교만 노출)
 const SCHOOL_ORDER = ["단국대", "한양대", "서강대", "연세대", "이화여대"];
+
+// 상세 → 목록 복귀 시 필터 유지용 (탭 세션 한정)
+const FILTER_KEY = "project-list-filters";
+type SavedFilters = { school: string; selection: Selection; seed: number };
 
 // 시안과 동일한 결정적 셔플 — 서버/클라이언트 렌더 결과가 일치해 하이드레이션 안전.
 function shuffleSeeded<T>(arr: T[], seed: number): T[] {
@@ -25,6 +29,30 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
   const [school, setSchool] = useState("전체");
   const [selection, setSelection] = useState<Selection>({ kind: "all" });
   const [seed, setSeed] = useState(7);
+  const [restored, setRestored] = useState(false);
+
+  // 마운트 시 저장된 필터 복원 (SSR/하이드레이션 불일치 방지를 위해 effect 에서)
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(FILTER_KEY);
+      if (raw) {
+        const s = JSON.parse(raw) as SavedFilters;
+        if (s.school) setSchool(s.school);
+        if (s.selection) setSelection(s.selection);
+        if (typeof s.seed === "number") setSeed(s.seed);
+      }
+    } catch {
+      /* 무시 */
+    }
+    setRestored(true);
+  }, []);
+
+  // 변경 시 저장 (복원 완료 후에만 — 기본값으로 덮어쓰기 방지)
+  useEffect(() => {
+    if (!restored) return;
+    const data: SavedFilters = { school, selection, seed };
+    sessionStorage.setItem(FILTER_KEY, JSON.stringify(data));
+  }, [restored, school, selection, seed]);
 
   const schools = useMemo(() => {
     const present = new Set(projects.map((p) => p.school));

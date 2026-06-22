@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import PhotoGrid from "@/components/PhotoGrid";
 import {
-  GALLERIES,
-  galleryById,
+  getGalleries,
+  getGalleryById,
   folderShareUrl,
   getFolderImageIds,
   formatDate,
@@ -14,8 +14,8 @@ import {
 // 정적 export: 모든 갤러리 상세를 빌드 시 생성, 그 외 404.
 export const dynamicParams = false;
 
-export function generateStaticParams() {
-  return GALLERIES.map((g) => ({ id: g.id }));
+export async function generateStaticParams() {
+  return (await getGalleries()).map((g) => ({ id: g.id }));
 }
 
 export async function generateMetadata({
@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const g = galleryById(id);
+  const g = await getGalleryById(id);
   if (!g) return {};
   return { title: `${g.school} 성과발표회 갤러리 — 테크포임팩트 캠퍼스` };
 }
@@ -35,7 +35,7 @@ export default async function GalleryDetail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const g = galleryById(id);
+  const g = await getGalleryById(id);
   if (!g) notFound();
 
   const photoIds = g.folderId ? await getFolderImageIds(g.folderId) : [];

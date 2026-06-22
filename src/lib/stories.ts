@@ -16,7 +16,7 @@ export const STORY_KINDS = ["전체", "블로그", "숏폼"] as const;
 
 const CSV_URL =
   process.env.STORIES_CSV_URL ??
-  "https://docs.google.com/spreadsheets/d/1UuFawB_e6NWyUV5-GUIODtknGoC1jpsBfdMj7fdtuVU/export?format=csv&gid=830442112";
+  "https://docs.google.com/spreadsheets/d/1Amhg64VmJujZLI-H3uO_9b9-yhB758gJlcsBJ2UJquw/export?format=csv&gid=668566729";
 const BUILD_TOKEN = String(Date.now());
 
 export async function getStories(): Promise<Story[]> {

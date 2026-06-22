@@ -11,7 +11,7 @@ export type Gallery = {
 
 const GALLERY_CSV_URL =
   process.env.GALLERY_CSV_URL ??
-  "https://docs.google.com/spreadsheets/d/1UuFawB_e6NWyUV5-GUIODtknGoC1jpsBfdMj7fdtuVU/export?format=csv&gid=97676482";
+  "https://docs.google.com/spreadsheets/d/1Amhg64VmJujZLI-H3uO_9b9-yhB758gJlcsBJ2UJquw/export?format=csv&gid=731665187";
 
 // 학교명 → 라우트 슬러그 (URL 안정용). 미등록 학교는 순번 기반 슬러그로 폴백.
 const SCHOOL_SLUG: Record<string, string> = {

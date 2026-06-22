@@ -6,8 +6,8 @@ import { toDrivePreview } from "./drive";
 //  · 기본: 공개 구글 시트를 CSV 로 직접 fetch (아래 SHEET_ID/GID).
 //  · 2차(동적): SHEET_JSON_URL(Apps Script, `검수상태=공개` 필터링) 설정 시 그쪽을 우선 사용.
 // 환경변수로 덮어쓸 수 있다: SHEET_CSV_URL, SHEET_JSON_URL.
-const SHEET_ID = "1UuFawB_e6NWyUV5-GUIODtknGoC1jpsBfdMj7fdtuVU";
-const SHEET_GID = "1641617126";
+const SHEET_ID = "1Amhg64VmJujZLI-H3uO_9b9-yhB758gJlcsBJ2UJquw"; // PII 제거된 새 시트
+const SHEET_GID = "0"; // 프로젝트 탭
 const CSV_URL =
   process.env.SHEET_CSV_URL ??
   `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;

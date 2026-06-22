@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 작업용 문서 / 에이전트 설정 (공개 repo 제외)
+CLAUDE.md
+AGENTS.md
+.claude/

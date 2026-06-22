@@ -76,6 +76,11 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
 
   return (
     <div className="mx-auto max-w-[1280px] px-8">
+      {/* 모바일: 학교 버튼을 맨 위로 (데스크톱에서는 메인 상단에 렌더) */}
+      <div className="hidden max-[780px]:block">
+        <SchoolBar schools={schools} selected={school} onSelect={setSchool} />
+      </div>
+
       <div className="grid grid-cols-[220px_1fr] gap-12 pb-10 max-[1040px]:grid-cols-[200px_1fr] max-[1040px]:gap-9 max-[780px]:grid-cols-1 max-[780px]:gap-7">
         {/* 스크롤 시 헤더(80px) 아래에 고정 */}
         <div className="sticky top-[96px] self-start max-[780px]:static">
@@ -88,7 +93,10 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
         </div>
 
         <main>
-          <SchoolBar schools={schools} selected={school} onSelect={setSchool} />
+          {/* 학교 버튼: 데스크톱 전용 (모바일은 그리드 위에서 노출) */}
+          <div className="max-[780px]:hidden">
+            <SchoolBar schools={schools} selected={school} onSelect={setSchool} />
+          </div>
 
           <div className="mb-[26px] flex items-center justify-between gap-4">
             <span className="text-sm text-muted">

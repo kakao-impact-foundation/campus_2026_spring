@@ -7,7 +7,8 @@ import SchoolBar from "./SchoolBar";
 import ProjectCard from "./ProjectCard";
 
 // 학교 칩 표시 순서 (데이터에 있는 학교만 노출)
-const SCHOOL_ORDER = ["단국대", "한양대", "서강대", "연세대", "이화여대"];
+// 가나다 순 (전체 다음 단국대부터)
+const SCHOOL_ORDER = ["단국대", "서강대", "연세대", "이화여대", "한양대"];
 
 // 상세 → 목록 복귀 시 필터 유지용 (탭 세션 한정)
 const FILTER_KEY = "project-list-filters";

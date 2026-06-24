@@ -15,6 +15,14 @@ const kakaoBig = localFont({
   display: "swap",
 });
 
+// 본문 폰트 (Pretendard Variable) — 셀프호스팅으로 윈도우/맥 동일 렌더 보장
+const pretendard = localFont({
+  src: "./fonts/PretendardVariable.woff2",
+  weight: "45 920", // 가변 굵기 축 범위
+  variable: "--pretendard",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   // 배포 도메인 + basePath (og:image 등 절대 URL 기준)
   metadataBase: new URL(
@@ -43,7 +51,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`h-full antialiased ${kakaoBig.variable}`}>
+    <html
+      lang="ko"
+      className={`h-full antialiased ${pretendard.variable} ${kakaoBig.variable}`}
+    >
       <body className="flex min-h-full flex-col">
         <Header />
         <div className="flex-1">{children}</div>

@@ -1,12 +1,14 @@
 // 리스트 상단 히어로. 형광펜(카카오 옐로우)은 여기 한 곳의 브랜드 모먼트.
-// 통계 숫자(대학·사회혁신가·돕는 기술)는 데이터 기준으로 주입된다.
+// 통계 숫자(대학·학생·사회혁신가·돕는 기술)는 데이터 기준으로 주입된다.
 export default function Hero({
   schools,
   orgs,
+  students,
   projects,
 }: {
   schools: number;
   orgs: number;
+  students: number;
   projects: number;
 }) {
   return (
@@ -22,7 +24,8 @@ export default function Hero({
         </h2>
         <p className="mt-5 text-[18px] text-[#555]">
           {/* <b className="font-bold text-ink">26년도 1학기</b>에 참여한{" "} */}
-          <b className="font-bold text-ink">{schools}</b>개 대학이{" "}
+          <b className="font-bold text-ink">{schools}</b>개 대학의{" "}
+          <b className="font-bold text-ink">{students}</b>명 학생들이{" "}
           <b className="font-bold text-ink">{orgs}</b>팀의 사회혁신가와 함께 만든{" "}
           <b className="font-bold text-ink">{projects}</b>개의 돕는 기술을
           소개합니다

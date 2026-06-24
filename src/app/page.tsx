@@ -8,9 +8,22 @@ export default async function Home() {
   // 히어로 통계 = 데이터 기준 집계
   const schools = new Set(projects.map((p) => p.school)).size;
   const orgs = new Set(projects.map((p) => p.org)).size;
+  // 참가 학생 수 = 팀별 (팀장 1 + 팀원 명수) 합계
+  const students = projects.reduce((sum, p) => {
+    const members = p.members
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean).length;
+    return sum + (p.leader.trim() ? 1 : 0) + members;
+  }, 0);
   return (
     <>
-      <Hero schools={schools} orgs={orgs} projects={projects.length} />
+      <Hero
+        schools={schools}
+        orgs={orgs}
+        students={students}
+        projects={projects.length}
+      />
       <ProjectGrid projects={projects} />
     </>
   );

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Hero from "@/components/Hero";
 import ProjectGrid from "@/components/ProjectGrid";
 import { getAllProjects } from "@/lib/projects";
@@ -24,7 +25,10 @@ export default async function Home() {
         students={students}
         projects={projects.length}
       />
-      <ProjectGrid projects={projects} />
+      {/* useSearchParams 사용 → 정적 export 빌드 위해 Suspense 경계 필요 */}
+      <Suspense>
+        <ProjectGrid projects={projects} />
+      </Suspense>
     </>
   );
 }

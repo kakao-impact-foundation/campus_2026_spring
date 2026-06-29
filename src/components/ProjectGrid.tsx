@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Project } from "@/lib/types";
+import { CATEGORIES, Category } from "@/lib/categories";
 import FilterSidebar, { Selection } from "./FilterSidebar";
 import SchoolBar from "./SchoolBar";
 import ProjectCard from "./ProjectCard";
@@ -9,10 +11,6 @@ import ProjectCard from "./ProjectCard";
 // 학교 칩 표시 순서 (데이터에 있는 학교만 노출)
 // 가나다 순 (전체 다음 단국대부터)
 const SCHOOL_ORDER = ["단국대", "서강대", "연세대", "이화여대", "한양대"];
-
-// 상세 → 목록 복귀 시 필터 유지용 (탭 세션 한정)
-const FILTER_KEY = "project-list-filters";
-type SavedFilters = { school: string; selection: Selection; seed: number };
 
 // 시안과 동일한 결정적 셔플 — 서버/클라이언트 렌더 결과가 일치해 하이드레이션 안전.
 function shuffleSeeded<T>(arr: T[], seed: number): T[] {
@@ -27,38 +25,52 @@ function shuffleSeeded<T>(arr: T[], seed: number): T[] {
 }
 
 export default function ProjectGrid({ projects }: { projects: Project[] }) {
-  const [school, setSchool] = useState("전체");
-  const [selection, setSelection] = useState<Selection>({ kind: "all" });
-  const [seed, setSeed] = useState(7);
-  const [restored, setRestored] = useState(false);
-
-  // 마운트 시 저장된 필터 복원 (SSR/하이드레이션 불일치 방지를 위해 effect 에서)
-  useEffect(() => {
-    try {
-      const raw = sessionStorage.getItem(FILTER_KEY);
-      if (raw) {
-        const s = JSON.parse(raw) as SavedFilters;
-        if (s.school) setSchool(s.school);
-        if (s.selection) setSelection(s.selection);
-        if (typeof s.seed === "number") setSeed(s.seed);
-      }
-    } catch {
-      /* 무시 */
-    }
-    setRestored(true);
-  }, []);
-
-  // 변경 시 저장 (복원 완료 후에만 — 기본값으로 덮어쓰기 방지)
-  useEffect(() => {
-    if (!restored) return;
-    const data: SavedFilters = { school, selection, seed };
-    sessionStorage.setItem(FILTER_KEY, JSON.stringify(data));
-  }, [restored, school, selection, seed]);
+  // 필터 상태의 단일 소스 = URL 쿼리(?school=…&cat=… | &org=…).
+  // 공유 시 링크에 필터가 담기고, 뒤로가기도 URL 복원으로 자연히 유지된다.
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [seed, setSeed] = useState(7); // 셔플 순서 — 공유 대상 아님(URL 미포함)
 
   const schools = useMemo(() => {
     const present = new Set(projects.map((p) => p.school));
     return ["전체", ...SCHOOL_ORDER.filter((s) => present.has(s))];
   }, [projects]);
+
+  // URL → 필터 상태 (유효하지 않은 값은 무시하고 전체로 폴백)
+  const orgSet = useMemo(() => new Set(projects.map((p) => p.org)), [projects]);
+  const rawSchool = searchParams.get("school") ?? "";
+  const school = schools.includes(rawSchool) ? rawSchool : "전체";
+  const selection = useMemo<Selection>(() => {
+    const cat = searchParams.get("cat");
+    if (cat && (CATEGORIES as readonly string[]).includes(cat))
+      return { kind: "cat", val: cat as Category };
+    const org = searchParams.get("org");
+    if (org && orgSet.has(org)) return { kind: "org", val: org };
+    return { kind: "all" };
+  }, [searchParams, orgSet]);
+
+  // 필터 변경 → URL 쿼리 갱신 (replace: 클릭마다 히스토리 안 쌓임, 스크롤 유지)
+  const writeParams = useCallback(
+    (mutate: (p: URLSearchParams) => void) => {
+      const params = new URLSearchParams(searchParams.toString());
+      mutate(params);
+      const qs = params.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    },
+    [router, pathname, searchParams],
+  );
+
+  const setSchool = (s: string) =>
+    writeParams((p) => (s === "전체" ? p.delete("school") : p.set("school", s)));
+
+  const setSelection = (sel: Selection) =>
+    writeParams((p) => {
+      p.delete("cat");
+      p.delete("org");
+      if (sel.kind === "cat") p.set("cat", sel.val);
+      else if (sel.kind === "org") p.set("org", sel.val);
+    });
 
   const list = useMemo(() => {
     const filtered = projects.filter((p) => {
@@ -70,10 +82,7 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
     return shuffleSeeded(filtered, seed);
   }, [projects, school, selection, seed]);
 
-  const reset = () => {
-    setSchool("전체");
-    setSelection({ kind: "all" });
-  };
+  const reset = () => router.replace(pathname, { scroll: false });
 
   return (
     <div className="mx-auto max-w-[1280px] px-8">

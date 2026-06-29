@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Project } from "@/lib/types";
 import { CATEGORIES, Category } from "@/lib/categories";
 import FilterSidebar, { Selection } from "./FilterSidebar";
@@ -25,10 +25,9 @@ function shuffleSeeded<T>(arr: T[], seed: number): T[] {
 }
 
 export default function ProjectGrid({ projects }: { projects: Project[] }) {
-  // 필터 상태의 단일 소스 = URL 쿼리(?school=…&cat=… | &org=…).
-  // 공유 시 링크에 필터가 담기고, 뒤로가기도 URL 복원으로 자연히 유지된다.
-  const router = useRouter();
-  const pathname = usePathname();
+  // 렌더링의 단일 소스 = React state. URL 쿼리는 "공유용"으로 History API 동기화.
+  // (정적 export 에서는 쿼리 URL 하드 로드 후 router.replace 가 무동작이 되는 문제가
+  //  있어, 라우터 내비게이션 대신 상태+history.replaceState 로 처리한다.)
   const searchParams = useSearchParams();
   const [seed, setSeed] = useState(7); // 셔플 순서 — 공유 대상 아님(URL 미포함)
 
@@ -36,41 +35,45 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
     const present = new Set(projects.map((p) => p.school));
     return ["전체", ...SCHOOL_ORDER.filter((s) => present.has(s))];
   }, [projects]);
-
-  // URL → 필터 상태 (유효하지 않은 값은 무시하고 전체로 폴백)
   const orgSet = useMemo(() => new Set(projects.map((p) => p.org)), [projects]);
-  const rawSchool = searchParams.get("school") ?? "";
-  const school = schools.includes(rawSchool) ? rawSchool : "전체";
-  const selection = useMemo<Selection>(() => {
+
+  // 최초 마운트 시 URL → 초기 필터 (유효하지 않은 값은 전체로 폴백)
+  const [school, setSchoolState] = useState(() => {
+    const s = searchParams.get("school") ?? "";
+    return schools.includes(s) ? s : "전체";
+  });
+  const [selection, setSelectionState] = useState<Selection>(() => {
     const cat = searchParams.get("cat");
     if (cat && (CATEGORIES as readonly string[]).includes(cat))
       return { kind: "cat", val: cat as Category };
     const org = searchParams.get("org");
     if (org && orgSet.has(org)) return { kind: "org", val: org };
     return { kind: "all" };
-  }, [searchParams, orgSet]);
+  });
 
-  // 필터 변경 → URL 쿼리 갱신 (replace: 클릭마다 히스토리 안 쌓임, 스크롤 유지)
-  const writeParams = useCallback(
-    (mutate: (p: URLSearchParams) => void) => {
-      const params = new URLSearchParams(searchParams.toString());
-      mutate(params);
-      const qs = params.toString();
-      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-    },
-    [router, pathname, searchParams],
-  );
+  // 상태 → URL 동기화 (공유용). replaceState 라 클릭마다 히스토리가 쌓이지 않고,
+  // location.pathname 을 그대로 써서 basePath/trailingSlash 도 보존된다.
+  const syncUrl = (s: string, sel: Selection) => {
+    const params = new URLSearchParams();
+    if (s !== "전체") params.set("school", s);
+    if (sel.kind === "cat") params.set("cat", sel.val);
+    else if (sel.kind === "org") params.set("org", sel.val);
+    const qs = params.toString();
+    window.history.replaceState(
+      null,
+      "",
+      qs ? `${window.location.pathname}?${qs}` : window.location.pathname,
+    );
+  };
 
-  const setSchool = (s: string) =>
-    writeParams((p) => (s === "전체" ? p.delete("school") : p.set("school", s)));
-
-  const setSelection = (sel: Selection) =>
-    writeParams((p) => {
-      p.delete("cat");
-      p.delete("org");
-      if (sel.kind === "cat") p.set("cat", sel.val);
-      else if (sel.kind === "org") p.set("org", sel.val);
-    });
+  const setSchool = (s: string) => {
+    setSchoolState(s);
+    syncUrl(s, selection);
+  };
+  const setSelection = (sel: Selection) => {
+    setSelectionState(sel);
+    syncUrl(school, sel);
+  };
 
   const list = useMemo(() => {
     const filtered = projects.filter((p) => {
@@ -82,7 +85,19 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
     return shuffleSeeded(filtered, seed);
   }, [projects, school, selection, seed]);
 
-  const reset = () => router.replace(pathname, { scroll: false });
+  const reset = () => {
+    setSchoolState("전체");
+    setSelectionState({ kind: "all" });
+    syncUrl("전체", { kind: "all" });
+  };
+
+  // 헤더 로고·PROJECTS 클릭(홈에 있을 때) → 필터 리셋 (Header 가 이벤트 디스패치)
+  useEffect(() => {
+    window.addEventListener("campus:reset-filters", reset);
+    return () => window.removeEventListener("campus:reset-filters", reset);
+    // reset 은 매 렌더 재생성되지만 동작이 동일해 등록만 1회면 충분
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="mx-auto max-w-[1280px] px-8">

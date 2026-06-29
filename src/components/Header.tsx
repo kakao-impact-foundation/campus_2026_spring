@@ -45,6 +45,16 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  // 이미 프로젝트 홈(/)에 있을 때 로고·PROJECTS 클릭 → 필터 리셋.
+  // 정적 export 에선 같은 라우트로의 라우터 내비게이션이 무동작이라,
+  // 라우터 대신 커스텀 이벤트로 ProjectGrid 에 알린다. (그 외 페이지는 기존대로 홈 이동)
+  const resetIfHome = (href: string, e: React.MouseEvent) => {
+    if (href === "/" && pathname === "/") {
+      e.preventDefault();
+      window.dispatchEvent(new Event("campus:reset-filters"));
+    }
+  };
+
   return (
     <header
       className="sticky top-0 z-50 border-b border-[#eee]"
@@ -56,7 +66,12 @@ export default function Header() {
     >
       <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-8 text-[#1C1C1C]">
         {/* 좌: 테크포임팩트 캠퍼스 워드마크 (홈) */}
-        <Link href="/" aria-label="테크포임팩트 캠퍼스" className="text-[#1C1C1C]">
+        <Link
+          href="/"
+          aria-label="테크포임팩트 캠퍼스"
+          className="text-[#1C1C1C]"
+          onClick={(e) => resetIfHome("/", e)}
+        >
           <TechForImpactCampusLogo height={20} />
         </Link>
 
@@ -81,7 +96,12 @@ export default function Header() {
                 <ExternalIcon />
               </a>
             ) : (
-              <Link key={item.label} href={item.href} className={cls}>
+              <Link
+                key={item.label}
+                href={item.href}
+                className={cls}
+                onClick={(e) => resetIfHome(item.href, e)}
+              >
                 {item.label}
               </Link>
             );
@@ -150,7 +170,10 @@ export default function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => {
+                    resetIfHome(item.href, e);
+                    setOpen(false);
+                  }}
                   className={cls}
                 >
                   {item.label}

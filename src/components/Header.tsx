@@ -11,6 +11,7 @@ const NAV: { label: string; href: string; external?: boolean }[] = [
   { label: "PROJECTS", href: "/" },
   { label: "STORIES", href: "/stories" },
   { label: "GALLERY", href: "/gallery" },
+  { label: "PARTNER", href: "/partner" },
   { label: "ABOUT", href: "https://techforimpact.io/campus/info", external: true },
 ];
 

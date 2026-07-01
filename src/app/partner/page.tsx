@@ -242,6 +242,16 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
+    q: "어떤 기준으로 사회혁신가를 선발하나요?",
+    a: (
+      <>
+        사회혁신가의 활동 경험과 전문성, 학생들과의 협업 가능성, 사회문제의 구체성과 기술 활용 가능성 등을 종합적으로 검토합니다.
+        <br />
+        또한 2026년 2학기에는 전국 12개 대학이 함께하는 만큼, 다양한 분야와 지역의 사회문제가 균형 있게 반영될 수 있도록 함께 고려해 선발합니다.
+      </>
+    ),
+  },
+  {
     q: "얼마나 참여해야 하나요? 꼭 오프라인으로 참여해야 하나요?",
     a: (
       <>
@@ -258,16 +268,6 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
         2026년 2학기에는 전국 12개 대학이 참여하며, 사회혁신가 한 분당 약 3~4개 학생팀과 함께합니다.
         <br />
         학생들의 다양한 전공과 배경을 바탕으로 여러 ‘돕는 기술’ 아이디어를 만나볼 수 있습니다.
-      </>
-    ),
-  },
-  {
-    q: "어떤 기준으로 사회혁신가를 선발하나요?",
-    a: (
-      <>
-        사회혁신가의 활동 경험과 전문성, 학생들과의 협업 가능성, 사회문제의 구체성과 기술 활용 가능성 등을 종합적으로 검토합니다.
-        <br />
-        또한 2026년 2학기에는 전국 12개 대학이 함께하는 만큼, 다양한 분야와 지역의 사회문제가 균형 있게 반영될 수 있도록 함께 고려해 선발합니다.
       </>
     ),
   },
@@ -580,7 +580,7 @@ export default async function Partner() {
               <path d="M10 5C6.7 5 4 7.7 4 11v6a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H7c0-1.7 1.3-3 3-3a1 1 0 1 0 0-3z" />
               <path d="M20 5c-3.3 0-6 2.7-6 6v6a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-3c0-1.7 1.3-3 3-3a1 1 0 1 0 0-3z" />
             </svg>
-            <p className="mt-4 font-kakao text-[19px] leading-[1.8] text-[#333] max-md:text-[17px]">
+            <p className="mt-4 font-kakao text-[19px] font-bold leading-[1.8] text-[#333] max-md:text-[17px]">
               첫 술에 배부를 리 없지만, 분명 아주 맛있을 거예요.
               <br />
               다음 밥상을 누구와 어떻게 차리면 좋을지, 아이디어도 생길 거고요.
@@ -698,7 +698,7 @@ export default async function Partner() {
               href="mailto:contact.us@kakaoimpact.org"
               className="mt-1 inline-block text-[17px] font-bold text-ink underline decoration-hair underline-offset-4 hover:decoration-ink"
             >
-              contact.us@kakaoimpact.org
+              haven.park@kakaoimpact.org
             </a>
           </div>
         </Section>

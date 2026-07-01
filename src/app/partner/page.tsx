@@ -382,60 +382,9 @@ export default async function Partner() {
           </div>
         </Section>
 
-        {/* 02 · 대표 프로젝트 */}
-        {featured.length > 0 && (
-          <Section
-            n="02"
-            title={
-              <>
-                <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
-                  돕는 기술
-                </span>{" "}
-                프로젝트 사례
-              </>
-            }
-          >
-            {/* 통계 문장(좌) + 전체 보러가기(우)를 한 줄에 */}
-            <div className="mb-6 flex items-end justify-between gap-6 max-md:flex-col max-md:items-start max-md:gap-3">
-              <p className="max-w-[820px] text-[16px] leading-[1.85] text-[#444]">
-                2023년 KAIST에서 시작한 테크포임팩트 캠퍼스 수업은 2026년
-                1학기까지
-                <br />
-                전국 <b className="font-semibold text-ink">18개</b> 대학,{" "}
-                <b className="font-semibold text-ink">487명</b>의 학생들이{" "}
-                <b className="font-semibold text-ink">34개</b> 사회혁신 조직과
-                함께 <b className="font-semibold text-ink">95개</b>의 ‘돕는 기술’
-                프로젝트를 만들었습니다.
-                {/* <br />
-                지난 학기 학생들이 만든 대표 ‘돕는 기술’ 프로젝트 6개를 소개합니다. */}
-              </p>
-              <Link
-                href="/"
-                className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-[14px] font-semibold text-muted transition hover:text-ink"
-              >
-                전체 보러가기
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden
-                >
-                  <path d="M6 3.5L11.5 9L6 14.5" />
-                </svg>
-              </Link>
-            </div>
-            <FeaturedProjects projects={featured} />
-          </Section>
-        )}
-
-        {/* 03 · 모집 안내 */}
+        {/* 02 · 모집 안내 */}
         <Section
-          n="03"
+          n="02"
           title={
             <>
               사회혁신가{" "}
@@ -473,9 +422,9 @@ export default async function Partner() {
           </dl>
         </Section>
 
-        {/* 04 · 참여 혜택 */}
+        {/* 03 · 참여 혜택 */}
         <Section
-          n="04"
+          n="03"
           title={
             <>
               테크포임팩트{" "}
@@ -514,9 +463,9 @@ export default async function Partner() {
           </div>
         </Section>
 
-        {/* 05 · 사회혁신가 참여 여정 */}
+        {/* 04 · 사회혁신가 참여 여정 */}
         <Section
-          n="05"
+          n="04"
           title={
             <>
               사회혁신가{" "}
@@ -612,9 +561,9 @@ export default async function Partner() {
           </a>
         </div>
 
-        {/* 자주 묻는 질문 */}
+        {/* 05 · 사회혁신가 FAQ */}
         <Section
-          n="06"
+          n="05"
           title={
             <>
               사회혁신가{" "}
@@ -635,6 +584,55 @@ export default async function Partner() {
             ))}
           </div>
         </Section>
+
+        {/* 06 · 돕는 기술 프로젝트 사례 */}
+        {featured.length > 0 && (
+          <Section
+            n="06"
+            title={
+              <>
+                <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
+                  돕는 기술
+                </span>{" "}
+                프로젝트 사례
+              </>
+            }
+          >
+            {/* 통계 문장(좌) + 전체 보러가기(우)를 한 줄에 */}
+            <div className="mb-6 flex items-end justify-between gap-6 max-md:flex-col max-md:items-start max-md:gap-3">
+              <p className="max-w-[820px] text-[16px] leading-[1.85] text-[#444]">
+                2023년 KAIST에서 시작한 테크포임팩트 캠퍼스 수업은 2026년
+                1학기까지
+                <br />
+                전국 <b className="font-semibold text-ink">18개</b> 대학,{" "}
+                <b className="font-semibold text-ink">487명</b>의 학생들이{" "}
+                <b className="font-semibold text-ink">34개</b> 사회혁신 조직과
+                함께 <b className="font-semibold text-ink">95개</b>의 ‘돕는 기술’
+                프로젝트를 만들었습니다.
+              </p>
+              <Link
+                href="/"
+                className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-[14px] font-semibold text-muted transition hover:text-ink"
+              >
+                전체 보러가기
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d="M6 3.5L11.5 9L6 14.5" />
+                </svg>
+              </Link>
+            </div>
+            <FeaturedProjects projects={featured} />
+          </Section>
+        )}
 
         {/* 보류: '함께 만들어온 돕는 기술' — 내일 다시 작업 (임시 비활성) */}
         {false && (

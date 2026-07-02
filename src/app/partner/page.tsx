@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllProjects } from "@/lib/projects";
 import FeaturedProjects from "@/components/FeaturedProjects";
+import FaqTabs from "@/components/FaqTabs";
 import ApplyButton from "@/components/ApplyButton";
 import { Project } from "@/lib/types";
 
@@ -196,8 +197,9 @@ const JOURNEY: {
   },
 ];
 
-const FAQS: { q: string; a: React.ReactNode }[] = [
+const FAQS: { category: string; q: string; a: React.ReactNode }[] = [
   {
+    category: "참여 자격",
     q: "어떤 조직이 참여할 수 있나요? 개인도 신청할 수 있나요?",
     a: (
       <>
@@ -210,6 +212,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
+    category: "참여 자격",
     q: "기술에 대한 전문 지식이 없어도 참여할 수 있나요?",
     a: (
       <>
@@ -220,6 +223,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
+    category: "참여 자격",
     q: "기술 서비스를 운영하고 있어야 하나요?",
     a: (
       <>
@@ -231,6 +235,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
+    category: "신청 및 선발",
     q: "어떤 사회문제를 제안할 수 있나요?",
     a: (
       <>
@@ -242,6 +247,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
+    category: "신청 및 선발",
     q: "어떤 기준으로 사회혁신가를 선발하나요?",
     a: (
       <>
@@ -252,7 +258,8 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
-    q: "얼마나 참여해야 하나요? 꼭 오프라인으로 참여해야 하나요?",
+    category: "활동 안내",
+    q: "사회혁신가는 어느 정도 참여하게 되나요? 꼭 오프라인으로 참여해야 하나요?",
     a: (
       <>
         학기 중 월 1~2회 내외의 정기 활동에 참여하며, 학생들과는 프로젝트 진행에 맞춰 함께 소통합니다.
@@ -262,6 +269,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
+    category: "활동 안내",
     q: "사회혁신가는 몇 개 팀과 함께하나요?",
     a: (
       <>
@@ -272,6 +280,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
+    category: "지원 및 후속 연계",
     q: "학생들이 만든 결과물을 실제 현장에 활용할 수 있나요?",
     a: (
       <>
@@ -282,6 +291,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
+    category: "지원 및 후속 연계",
     q: "활동 지원비는 어떻게 지급되나요?",
     a: (
       <>
@@ -573,16 +583,7 @@ export default async function Partner() {
             </>
           }
         >
-          <div className="flex flex-col divide-y divide-hair border-y border-hair">
-            {FAQS.map((f) => (
-              <div key={f.q} className="py-6">
-                <h4 className="text-[17px] font-bold text-ink">Q. {f.q}</h4>
-                <div className="mt-2.5 text-[16px] leading-[1.7] text-[#555]">
-                  {f.a}
-                </div>
-              </div>
-            ))}
-          </div>
+          <FaqTabs items={FAQS} />
         </Section>
 
         {/* 06 · 돕는 기술 프로젝트 사례 */}

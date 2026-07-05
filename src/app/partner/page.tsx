@@ -4,6 +4,7 @@ import { getAllProjects } from "@/lib/projects";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import FaqTabs from "@/components/FaqTabs";
 import ApplyButton from "@/components/ApplyButton";
+import KakaoImpactLogo from "@/components/KakaoImpactLogo";
 import { Project } from "@/lib/types";
 
 export const metadata: Metadata = {
@@ -325,6 +326,52 @@ const SCHOOLS: { name: string; logo?: string }[] = [
   { name: "광주과학기술원(GIST)" },
   { name: "한국과학기술원(KAIST)" },
   { name: "울산과학기술원(UNIST)" },
+];
+
+// 정적 export(basePath /campus_2026_spring) 대응 — public 자산 경로 프리픽스.
+// 빌드 시 서버에서 평가. dev(BUILD_TARGET 미설정)에선 "" 라 로컬에서도 정상.
+const PAGES_REPO = process.env.PAGES_REPO ?? "campus_2026_spring";
+const ASSET_BASE =
+  process.env.BUILD_TARGET === "static" && PAGES_REPO ? `/${PAGES_REPO}` : "";
+
+// 주최·후원 (교육부 · 대교협)
+const HOST_LOGOS = [
+  { name: "교육부", logo: "/logos/partners/교육부.png", cls: "h-12" },
+  // 대교협은 가로가 길어 살짝 작게 (11.5 = 46px)
+  { name: "한국대학교육협의회", logo: "/logos/partners/대교협.png", cls: "h-[46px]" },
+];
+
+// 2026-2 참여 대학 로고 (4대 과기원 먼저, 이후 가나다순). public/logos/schools
+// 로고 = techforimpact.io 공식 세트를 받아 셀프호스팅(깔끔한 트림본).
+const PARTNER_SCHOOLS: { name: string; logo: string; imgCls?: string }[] = [
+  // 4대 과기원 (첫 행)
+  {
+    name: "KAIST",
+    logo: "/logos/schools/kaist.png",
+    imgCls: "max-h-9 max-w-[112px] translate-y-[4px]",
+  },
+  {
+    name: "DGIST",
+    logo: "/logos/schools/dgist.png",
+    imgCls: "max-h-9 max-w-[112px] -translate-y-[5px]",
+  },
+  { name: "GIST", logo: "/logos/schools/gist.png", imgCls: "max-h-6 max-w-[100px]" },
+  { name: "UNIST", logo: "/logos/schools/unist.png", imgCls: "max-h-9 max-w-[112px]" },
+  // 이후 가나다순
+  { name: "가천대학교", logo: "/logos/schools/gachon.png" },
+  { name: "경운대학교", logo: "/logos/schools/kyungwoon.png" },
+  { name: "고려대학교(세종)", logo: "/logos/schools/korea.svg" },
+  { name: "단국대학교", logo: "/logos/schools/dankook.svg" },
+  { name: "동국대학교", logo: "/logos/schools/dongguk.png" },
+  { name: "부산외국어대학교", logo: "/logos/schools/bufs.png" },
+  { name: "서강대학교", logo: "/logos/schools/sogang.svg" },
+  { name: "서울대학교", logo: "/logos/schools/snu.png" },
+  { name: "서울시립대학교", logo: "/logos/schools/uos.png" },
+  { name: "서울여자대학교", logo: "/logos/schools/swu.png" },
+  { name: "연세대학교", logo: "/logos/schools/yonsei.png" },
+  { name: "이화여자대학교", logo: "/logos/schools/ewha.png" },
+  { name: "한라대학교", logo: "/logos/schools/halla.png" },
+  { name: "한양대학교", logo: "/logos/schools/hanyang.png" },
 ];
 
 export default async function Partner() {
@@ -671,9 +718,81 @@ export default async function Partner() {
         </Section>
         )}
 
-        {/* 문의 */}
+        {/* 07 · 함께하는 파트너 */}
         <Section
           n="07"
+          title={
+            <>
+              함께하는{" "}
+              <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
+                파트너
+              </span>
+            </>
+          }
+        >
+          <div className="rounded-[24px] border border-hair px-8 py-12 text-center max-md:px-6">
+            <p className="mb-8 text-[16px] leading-[1.8] text-[#444]">
+              교육부 「2026년 대학 인공지능(AI) 기본교육과정 개발 지원사업」과 함께합니다
+            </p>
+            {/* 주최·후원 로고 */}
+            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
+              {HOST_LOGOS.map((h) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={h.name}
+                  src={`${ASSET_BASE}${h.logo}`}
+                  alt={h.name}
+                  className={`${h.cls} w-auto max-w-[260px] object-contain`}
+                />
+              ))}
+              <KakaoImpactLogo height={25} className="text-ink" />
+            </div>
+
+            {/* 2026년 2학기 참여 대학 로고 월 */}
+            <div className="mt-12 border-t border-hair pt-10">
+              <p className="mb-8 text-[16px] leading-[1.8] text-[#444]">
+                전국 18개 대학이 「2026년 테크포임팩트 캠퍼스」와 함께합니다
+              </p>
+              {/* 4대 과기원(첫 행) + 나머지 5개씩. flex+justify-center 라 마지막 줄이 가운데로 모임 */}
+              <div className="mx-auto flex max-w-[860px] flex-col gap-y-9">
+                <div className="flex flex-wrap justify-center gap-x-3 gap-y-9">
+                  {PARTNER_SCHOOLS.slice(0, 4).map((s) => (
+                    <div
+                      key={s.name}
+                      className="flex h-12 w-[126px] items-center justify-center"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`${ASSET_BASE}${s.logo}`}
+                        alt={s.name}
+                        className={`${s.imgCls ?? "max-h-11 max-w-[132px]"} object-contain`}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-wrap justify-center gap-x-6 gap-y-9">
+                  {PARTNER_SCHOOLS.slice(4).map((s) => (
+                    <div
+                      key={s.name}
+                      className="flex h-12 w-[150px] items-center justify-center"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`${ASSET_BASE}${s.logo}`}
+                        alt={s.name}
+                        className={`${s.imgCls ?? "max-h-11 max-w-[132px]"} object-contain`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* 08 · 문의 */}
+        <Section
+          n="08"
           title={
             <>
               {/* 테크포임팩트{" "} */}

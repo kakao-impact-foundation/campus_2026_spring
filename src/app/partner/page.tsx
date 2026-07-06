@@ -378,28 +378,34 @@ export default async function Partner() {
   const featured = featuredProjects(await getAllProjects());
   return (
     <>
-      {/* Hero */}
-      <div className="pt-14 pb-10">
+      {/* Hero — 옅은 회색 풀블리드 밴드 (본문 흰 배경과 구분) */}
+      <div className="border-b border-hair bg-soft pt-16 pb-14">
         <div className="mx-auto max-w-[1280px] px-8">
-          <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-            Tech for Impact · Partner
+          <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+            테크포임팩트 캠퍼스 · 26-2학기 사회혁신가 모집
           </span>
-          <h2 className="mt-3.5 font-kakao text-[54px] font-extrabold leading-[1.08] tracking-[-0.03em] max-md:text-4xl">
-            함께할 사회혁신가를
-            <br className="md:hidden" /> 찾습니다
+          <h2 className="mt-4 font-kakao text-[54px] font-extrabold leading-[1.08] tracking-[-0.03em] max-md:text-4xl">
+            사회혁신가의 문제 해결에
+            <br className="md:hidden" /> 기술을 더합니다
           </h2>
-          <p className="mt-5 max-w-[640px] text-[18px] text-[#555]">
-            대학생들과 함께 사회문제를 ‘돕는 기술’로 해결해 나갈 사회혁신조직을 모집합니다.
+          <p className="mt-7 max-w-[640px] text-[18px] font-semibold leading-[1.6] text-ink">
+            현장의 문제와 경험을 대학생들에게 전해주세요.
+            <br />
+            학생들은 AI·디지털 기술로 새로운 해결 가능성을 제안합니다.
+          </p>
+          {/* 핵심 요약 (한 줄, 가운데점 구분) */}
+          <p className="mt-7 text-[15px] font-medium text-muted">
+            3개월 프로젝트 · 200만원 지원 · 기술 아이디어 발굴
           </p>
           <ApplyButton
             href={APPLY_URL}
             deadline="2026-07-17"
-            className="mt-7"
+            className="mt-10"
           />
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1280px] px-8 pb-24">
+      <div className="mx-auto max-w-[1280px] px-8 pt-12 pb-24">
         {/* 01 · 모집 취지·소개 */}
         <Section
           n="01"
@@ -414,25 +420,13 @@ export default async function Partner() {
         >
           <div className="flex flex-col gap-5 text-[16px] leading-[1.8] text-[#444]">
             <p>
-              카카오임팩트는 기술을 통해 사회문제 해결에 기여하는 경험을 확산하기
-              위해 2023년부터{" "}
-              <b className="font-semibold text-ink">「테크포임팩트 캠퍼스」</b>를
-              운영하고 있습니다.
+              <b className="font-semibold text-ink">「테크포임팩트 캠퍼스」</b>는
+              대학생들이 사회혁신가와 함께 실제 사회문제를 탐구하고, AI·디지털
+              기술을 활용한 <b className="font-semibold text-ink">‘돕는 기술’</b>을
+              만드는 프로젝트형 수업입니다.
               <br />
-              대학생들이 실제 사회문제를 탐구하고 AI·디지털 기술을 활용해 해결책을
-              기획·개발하는 프로젝트형 수업입니다.
-              <br />
-              이 수업은 교수, 사회혁신가, 카카오 멘토가 함께하는{" "}
-              <b className="font-semibold text-ink">컬렉티브 임팩트(Collective Impact)</b> 모델을
-              기반으로 운영됩니다.
-            </p>
-            <p>
-              학생들은 사회혁신가와 함께 사회문제 해결에 필요한 기술을 만들고,
-              카카오임팩트는 이러한 기술을{" "}
-              <b className="font-semibold text-ink">‘돕는 기술’</b>이라 부릅니다.
-              <br />
-              이를 위해 사회혁신가는 실제 현장의 문제와 경험을 학생들에게
-              공유하고, 결과물에 대한 현장 관점의 피드백을 제공합니다.
+              카카오임팩트는 2023년부터 더 많은 청년들이 기술을 통해 사회문제
+              해결에 기여하는 경험을 할 수 있도록 이 프로그램을 운영하고 있습니다.
               <br />
               학생들에게 현장의 경험을 전하고, <b className="font-semibold text-ink">기술을 활용한 변화 가능성</b>을 탐색해보고 싶은 사회혁신가를 모집합니다.
             </p>
@@ -451,7 +445,7 @@ export default async function Partner() {
             </>
           }
         >
-          <p className="mb-8 max-w-[840px] text-[16px] leading-[1.8] text-[#444]">
+          {/* <p className="mb-8 max-w-[840px] text-[16px] leading-[1.8] text-[#444]">
             <b className="font-semibold text-ink">
               현장에서 해결하고 싶은 사회문제
             </b>
@@ -460,10 +454,7 @@ export default async function Partner() {
               기술을 활용한 새로운 해결 가능성
             </b>
             을 탐색해보고 싶은 사회혁신가를 기다립니다.
-            <br />
-            학생들에게 현장의 경험을 전하고, 학생들이 만든 ‘돕는 기술’을 통해
-            새로운 해결 가능성을 함께 발견해보세요.
-          </p>
+          </p> */}
           <dl className="flex max-w-[880px] flex-col gap-3.5">
             {TARGET_SPECS.map((s) => (
               <div
@@ -751,7 +742,7 @@ export default async function Partner() {
             {/* 2026년 2학기 참여 대학 로고 월 */}
             <div className="mt-12 border-t border-hair pt-10">
               <p className="mb-8 text-[16px] leading-[1.8] text-[#444]">
-                전국 18개 대학이 「2026년 테크포임팩트 캠퍼스」와 함께합니다
+                2026년 전국 18개 대학이 「테크포임팩트 캠퍼스」와 함께합니다.
               </p>
               {/* 4대 과기원(첫 행) + 나머지 5개씩. flex+justify-center 라 마지막 줄이 가운데로 모임 */}
               <div className="mx-auto flex max-w-[860px] flex-col gap-y-9">

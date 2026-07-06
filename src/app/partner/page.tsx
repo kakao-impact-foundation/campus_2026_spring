@@ -389,9 +389,9 @@ export default async function Partner() {
             <br className="md:hidden" /> 돕는 기술을 더합니다
           </h2>
           <p className="mt-7 max-w-[640px] text-[18px] font-semibold leading-[1.6] text-ink">
-            현장의 문제와 경험을 대학생들에게 전해주세요.
+            현장의 문제와 경험을 대학생들에게 전해주세요
             <br />
-            학생들은 AI·디지털 기술로 새로운 해결 가능성을 제안합니다.
+            학생들은 AI·디지털 기술로 새로운 해결 가능성을 제안합니다
           </p>
           {/* 핵심 요약 (한 줄, 가운데점 구분) */}
           <p className="mt-7 text-[15px] font-medium text-muted">
@@ -804,7 +804,7 @@ export default async function Partner() {
               카카오임팩트 에듀임팩트팀
             </p>
             <a
-              href="mailto:contact.us@kakaoimpact.org"
+              href="mailto:haven.park@kakaoimpact.org"
               className="mt-1 inline-block text-[17px] font-bold text-ink underline decoration-hair underline-offset-4 hover:decoration-ink"
             >
               haven.park@kakaoimpact.org

@@ -385,8 +385,8 @@ export default async function Partner() {
             테크포임팩트 캠퍼스 · 26-2학기 사회혁신가 모집
           </span>
           <h2 className="mt-4 font-kakao text-[54px] font-extrabold leading-[1.08] tracking-[-0.03em] max-md:text-4xl">
-            사회혁신가의 문제 해결에
-            <br className="md:hidden" /> 기술을 더합니다
+            사회혁신가의 손에
+            <br className="md:hidden" /> 돕는 기술을 더합니다
           </h2>
           <p className="mt-7 max-w-[640px] text-[18px] font-semibold leading-[1.6] text-ink">
             현장의 문제와 경험을 대학생들에게 전해주세요.

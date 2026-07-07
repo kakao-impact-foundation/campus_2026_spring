@@ -47,12 +47,12 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
     v: "교육, 장애, 돌봄, 기후·환경, 지역, 건강·복지, 사회적 포용 등 다양한 사회문제 해결 분야",
   },
   { k: "모집 규모", v: "25개 팀 내외" },
-  { k: "모집 기간", v: "2026.07.06.(월) ~ 07.17.(금) 23:59" },
+  { k: "모집 기간", v: "07.08(수) ~ 07.19(일) 23:59" },
   {
     k: "온라인 설명회",
     v: (
       <span className="inline-flex flex-wrap items-center gap-x-2.5 gap-y-1">
-        2026.07.14.(화) 19:00
+        07.14(화) 19:00
         <a
           href={INFO_SESSION_URL}
           target="_blank"
@@ -77,7 +77,8 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
       </span>
     ),
   },
-  { k: "최종 선정", v: "2026.07.20.(월) 개별 안내" },
+  { k: "최종 선정", v: "07.21(화) 개별 안내" },
+  { k: "온라인 킥오프", v: "07.28(화)" },
   {
     k: "신청 방법",
     v: (
@@ -164,29 +165,26 @@ const JOURNEY: {
   desc: React.ReactNode;
 }[] = [
   {
-    month: "7월",
+    month: "07.27(화)",
     title: "사회혁신가 OT",
     mode: "온라인",
     desc: (
       <>
-        프로그램의 취지와 운영 방식, 주요 일정을 안내합니다.
+        프로그램과 운영 일정, 참여 방식을 안내합니다.
         <br />
-        사회혁신가는 학기 중 역할과
-        참여 방식을 함께 확인합니다.
+        사회혁신가는 한 학기 역할과 활동을 함께 확인합니다.
       </>
     ),
   },
   {
-    month: "8월",
+    month: "08.29(토)",
     title: "개강 워크숍",
     mode: "온라인",
     desc: (
       <>
-        교수진, 사회혁신가, 카카오 멘토, 학생들이 함께 한 학기 프로젝트를
-        시작합니다.
+        학생, 교수진, 카카오 멘토와 함께 프로젝트를 시작합니다.
         <br />
-        사회혁신가는 현장의 사회문제를
-        소개하고, 학생들은 관심 있는 주제를 선택해 팀을 구성합니다.
+        사회혁신가는 현장의 사회문제를 소개합니다.
       </>
     ),
   },
@@ -196,24 +194,21 @@ const JOURNEY: {
     mode: "온·오프라인",
     desc: (
       <>
-        학생들과 프로젝트를 함께 발전시키며 문제 정의와 프로젝트 방향에 피드백을
-        제공합니다.
+        학생들과 함께 프로젝트를 발전시킵니다.
         <br />
-        학생들을 현장으로 초대해 실제 사용자와 환경을 함께 살펴보고, 문제를 깊이
-        이해할 수 있도록 돕습니다.
+        사회혁신가는 현장 관점의 피드백과 필드트립을 진행합니다.
       </>
     ),
   },
   {
-    month: "10월",
+    month: "10.13(화)",
     title: "중간 체크인",
     mode: "온라인",
     desc: (
       <>
-        학생들이 프로젝트의 진행 상황과 중간 결과물을 공유합니다.
+        학생들이 프로젝트 진행 상황을 공유합니다.
         <br />
-        사회혁신가는 현장 관점에서
-        프로젝트 방향과 보완점에 대한 피드백을 제공합니다.
+        사회혁신가는 현장 관점의 피드백을 제공합니다.
       </>
     ),
   },
@@ -223,10 +218,9 @@ const JOURNEY: {
     mode: "오프라인",
     desc: (
       <>
-        학교별로 학생들이 만든 최종 ‘돕는 기술’ 결과물을 발표합니다.
+        학생들이 최종 ‘돕는 기술’ 결과물을 발표합니다.
         <br />
-        사회혁신가는 결과물에 대한
-        피드백을 전하고 후속 발전 가능성을 함께 살펴봅니다.
+        사회혁신가는 결과물을 검토하고 후속 발전 가능성을 함께 살펴봅니다.
       </>
     ),
   },
@@ -558,19 +552,19 @@ export default async function Partner() {
           }
         >
           <p className="mb-10 max-w-[820px] text-[16px] leading-[1.8] text-[#444]">
-            사회혁신가는 한 학기 동안{" "}
+            한 학기 동안{" "}
             <b className="font-semibold text-ink">월 1~2회 내외</b>의 온·오프라인
             활동에 참여합니다.
             <br />
-            학생들의 ‘돕는 기술’ 프로젝트가 실제 현장과 연결될 수 있도록 경험을
-            공유하고, 현장 관점의 피드백을 제공합니다.
+            학생들의 ‘돕는 기술’ 프로젝트가 현장과 연결될 수 있도록 경험을
+            공유하고 피드백을 제공합니다.
           </p>
           {/* 월별 타임라인 */}
           <ol className="max-w-[820px]">
             {JOURNEY.map((j, i) => (
               <li key={j.title} className="flex gap-5">
                 {/* 월 라벨 */}
-                <div className="w-[64px] flex-none pt-0.5 text-right font-kakao text-[15px] font-bold text-ink max-[520px]:w-[52px] max-[520px]:text-[13px]">
+                <div className="w-[82px] flex-none whitespace-nowrap pt-0.5 text-right font-kakao text-[15px] font-bold text-ink max-[520px]:w-[68px] max-[520px]:text-[13px]">
                   {j.month}
                 </div>
                 {/* 레일: 점 + 연결선 */}
@@ -821,14 +815,16 @@ export default async function Partner() {
           title={
             <>
               <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
-                온라인 설명회 신청하기
-              </span>
+                온라인 설명회
+              </span>{" "}
+              신청하기
             </>
           }
         >
           <div className="max-w-[760px]">
             <p className="text-[16px] leading-[1.8] text-[#444]">
-              프로그램이 궁금하시다면 온라인 설명회에서 자세히 안내드립니다.
+              <b className="font-bold text-ink">7월 14일(화) 온라인 설명회</b>에서
+              프로그램을 자세히 소개합니다.
               <br />
               추가로 궁금한 사항은 언제든 편하게 문의해 주세요.
             </p>

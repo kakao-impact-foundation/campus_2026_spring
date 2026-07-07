@@ -7,10 +7,12 @@ import { useEffect, useState } from "react";
 export default function ApplyButton({
   href,
   deadline,
+  label = "지원하기",
   className = "",
 }: {
   href: string;
   deadline: string; // "YYYY-MM-DD"
+  label?: string;
   className?: string;
 }) {
   const [closed, setClosed] = useState(false);
@@ -44,7 +46,7 @@ export default function ApplyButton({
       rel="noopener noreferrer"
       className={`${base} bg-[#1C1C1C] text-white hover:opacity-90 ${className}`}
     >
-      지원하기
+      {label}
       <svg
         width="14"
         height="14"

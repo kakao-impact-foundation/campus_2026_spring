@@ -39,8 +39,8 @@ export default function ProjectDetailView({
       .join(" · ");
   const advisorsText = joinNames(p.advisors) || "추후 공개";
   const mentorsText = joinNames(p.mentors) || "추후 공개";
-  // 사회혁신가 = 조직명 (+ 담당자 성함·직함)
-  const innovatorText = [p.org, p.innovator].filter(Boolean).join(" · ");
+  // 사회혁신가 = 담당자 성함·직함 (+ 조직명) — 이름 먼저
+  const innovatorText = [p.innovator, p.org].filter(Boolean).join(" · ");
 
   return (
     <div

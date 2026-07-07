@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-type FaqItem = { category: string; q: string; a: React.ReactNode };
+type FaqItem = { category: string; q: string; a: string[] };
 
 // 카테고리 탭으로 묶은 FAQ. 탭 선택 시 해당 카테고리 질문만 노출.
 export default function FaqTabs({ items }: { items: FaqItem[] }) {
@@ -52,9 +52,9 @@ export default function FaqTabs({ items }: { items: FaqItem[] }) {
                       <h4 className="text-[17px] font-bold text-ink">
                         Q. {f.q}
                       </h4>
-                      <div className="mt-2.5 text-[16px] leading-[1.7] text-[#555]">
-                        {f.a}
-                      </div>
+                      <p className="mt-2.5 text-[16px] leading-[1.7] text-[#555]">
+                        {f.a.join(" ")}
+                      </p>
                     </div>
                   ))}
               </div>

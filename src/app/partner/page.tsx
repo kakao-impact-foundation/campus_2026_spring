@@ -407,7 +407,8 @@ export default async function Partner() {
   return (
     <>
       {/* Hero — 옅은 회색 풀블리드 밴드 (본문 흰 배경과 구분) */}
-      <div className="border-b border-hair bg-soft pt-16 pb-14">
+      {/* break-keep: 모바일에서 한글이 어절(띄어쓰기) 단위로만 줄바꿈되도록 */}
+      <div className="break-keep border-b border-hair bg-soft pt-16 pb-14">
         <div className="mx-auto max-w-[1280px] px-8">
           <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-muted">
             테크포임팩트 캠퍼스 · 26-2학기 사회혁신가 모집
@@ -433,7 +434,7 @@ export default async function Partner() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1280px] px-8 pt-12 pb-24">
+      <div className="mx-auto max-w-[1280px] break-keep px-8 pt-12 pb-24">
         {/* 01 · 모집 취지·소개 */}
         <Section
           n="01"

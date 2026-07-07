@@ -111,8 +111,8 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
 
 const BENEFITS = [
   {
-    title: "돕는 기술 결과물",
-    desc: "학생들이 만든 다양한 결과물을 통해 현장에 필요한 기술 아이디어와 새로운 해결 가능성을 살펴볼 수 있습니다.",
+    title: "기술 아이디어 발굴",
+    desc: "학생들과 함께 현장에 필요한 기술 아이디어를 발견합니다.",
     icon: (
       <>
         <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
@@ -123,7 +123,7 @@ const BENEFITS = [
   },
   {
     title: "현장 적용 지원",
-    desc: "프로젝트의 후속 활동과 현장 적용을 함께 검토하며, 필요 시 재단과 협의를 통해 추가 지원을 연계합니다.",
+    desc: "프로젝트의 후속 활동과 현장 적용을 함께 검토합니다.",
     icon: (
       <>
         <circle cx="12" cy="12" r="10" />
@@ -134,7 +134,7 @@ const BENEFITS = [
   },
   {
     title: "홍보 및 확산",
-    desc: "카카오임팩트 채널과 성과발표회를 통해 참여 조직의 활동과 프로젝트를 더 많은 사람들에게 알릴 수 있습니다.",
+    desc: "참여 조직의 활동과 프로젝트를 더 많은 사람들에게 알립니다.",
     icon: (
       <>
         <path d="m3 11 18-5v12L3 14v-3z" />
@@ -143,8 +143,8 @@ const BENEFITS = [
     ),
   },
   {
-    title: "활동비 지원",
-    desc: "한 학기 동안 학생들과 함께하는 사회혁신 조직에는 조직당 활동 지원비 200만 원(세전)을 제공합니다.",
+    title: "활동 지원비",
+    desc: "조직당 활동 지원비 200만 원(세전)을 제공합니다.",
     icon: (
       <>
         <circle cx="8" cy="8" r="6" />
@@ -495,7 +495,7 @@ export default async function Partner() {
                 key={s.k}
                 className="flex items-center gap-3.5 max-md:flex-col max-md:items-start max-md:gap-1"
               >
-                <dt className="w-[104px] flex-none whitespace-nowrap text-[16px] font-bold text-ink">
+                <dt className="w-[104px] flex-none whitespace-nowrap text-[16px] leading-[1.7] font-bold text-ink">
                   {s.k}
                 </dt>
                 <dd className="text-[16px] leading-[1.7] text-[#444]">{s.v}</dd>
@@ -534,7 +534,7 @@ export default async function Partner() {
                     {b.icon}
                   </svg>
                 </span>
-                <h4 className="mt-5 text-[17px] font-bold text-ink">
+                <h4 className="mt-5 text-[20px] font-bold text-ink">
                   {b.title}
                 </h4>
                 <p className="mt-3 text-[15px] leading-[1.7] text-[#555]">
@@ -815,26 +815,45 @@ export default async function Partner() {
           </div>
         </Section>
 
-        {/* 08 · 문의 */}
+        {/* 08 · 온라인 설명회 신청하기 */}
         <Section
           n="08"
           title={
             <>
-              {/* 테크포임팩트{" "} */}
               <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
-                문의
+                온라인 설명회 신청하기
               </span>
             </>
           }
         >
           <div className="max-w-[760px]">
             <p className="text-[16px] leading-[1.8] text-[#444]">
-              테크포임팩트 캠퍼스 프로그램과 관련해 궁금한 사항이 있으시면 언제든
-              편하게 문의해 주세요.
+              프로그램이 궁금하시다면 온라인 설명회에서 자세히 안내드립니다.
               <br />
-              남겨주신 문의는 순차적으로 확인 후 영업일 기준 2일 이내에 답변드리겠습니다.
+              추가로 궁금한 사항은 언제든 편하게 문의해 주세요.
             </p>
-            <p className="mt-6 text-[15px] font-semibold text-muted">
+            <a
+              href={INFO_SESSION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#1C1C1C] px-6 py-3 text-[15px] font-semibold text-white transition hover:opacity-90"
+            >
+              온라인 설명회 신청하기
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 18 18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d="M4.5 13.5L13.5 4.5M13.5 4.5H6M13.5 4.5V12" />
+              </svg>
+            </a>
+            <p className="mt-8 text-[15px] font-semibold text-muted">
               카카오임팩트 에듀임팩트팀
             </p>
             <a

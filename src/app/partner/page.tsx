@@ -33,6 +33,8 @@ function featuredProjects(projects: Project[]): Project[] {
 
 // 지원(구글 폼) 링크 — 상단 버튼·신청 방법·하단 CTA 공통.
 const APPLY_URL = "https://forms.gle/8qbE1hWpAeVDRkZA7";
+// 온라인 사전 설명회 참석 신청 링크
+const INFO_SESSION_URL = "https://forms.gle/Q3sQ9JYtcsPKnrnE8";
 
 // ── 섹션 데이터 (초안 — 실제 모집 내용 확정 후 교체) ──
 const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
@@ -46,15 +48,46 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
   },
   { k: "모집 규모", v: "25개 팀 내외" },
   { k: "모집 기간", v: "2026.07.06.(월) ~ 07.17.(금) 23:59" },
+  {
+    k: "온라인 설명회",
+    v: (
+      <span className="inline-flex flex-wrap items-center gap-x-2.5 gap-y-1">
+        2026.07.14.(화) 19:00
+        <a
+          href={INFO_SESSION_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-full bg-soft px-3 py-0.5 text-[14px] font-semibold text-ink ring-1 ring-black/[0.06] transition hover:bg-soft2"
+        >
+          사전 설명회 참석 신청하기
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 18 18"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M4.5 13.5L13.5 4.5M13.5 4.5H6M13.5 4.5V12" />
+          </svg>
+        </a>
+      </span>
+    ),
+  },
   { k: "최종 선정", v: "2026.07.20.(월) 개별 안내" },
   {
     k: "신청 방법",
     v: (
+      <span className="inline-flex flex-wrap items-center gap-x-2.5 gap-y-1">
+        온라인 설문폼 제출
       <a
         href={APPLY_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1 text-[15px] font-semibold text-ink transition hover:opacity-70"
+        className="inline-flex items-center gap-1.5 rounded-full bg-soft px-3 py-0.5 text-[14px] font-semibold text-ink ring-1 ring-black/[0.06] transition hover:bg-soft2"
       >
         온라인 신청 폼 작성하기
         <svg
@@ -71,6 +104,7 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
           <path d="M4.5 13.5L13.5 4.5M13.5 4.5H6M13.5 4.5V12" />
         </svg>
       </a>
+      </span>
     ),
   },
 ];
@@ -459,9 +493,9 @@ export default async function Partner() {
             {TARGET_SPECS.map((s) => (
               <div
                 key={s.k}
-                className="flex gap-3.5 max-md:flex-col max-md:gap-1"
+                className="flex items-center gap-3.5 max-md:flex-col max-md:items-start max-md:gap-1"
               >
-                <dt className="w-[88px] flex-none whitespace-nowrap text-[16px] font-bold text-ink">
+                <dt className="w-[104px] flex-none whitespace-nowrap text-[16px] font-bold text-ink">
                   {s.k}
                 </dt>
                 <dd className="text-[16px] leading-[1.7] text-[#444]">{s.v}</dd>

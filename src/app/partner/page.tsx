@@ -387,10 +387,10 @@ export default async function Partner() {
       {/* Hero — 배경 이미지 풀블리드 밴드 (본문 흰 배경과 구분) */}
       {/* break-keep: 모바일에서 한글이 어절(띄어쓰기) 단위로만 줄바꿈되도록 */}
       {/* 배경 라인아트는 오른쪽에 몰려 있어 왼쪽 정렬 텍스트와 겹치지 않음 */}
-      {/* 밴드 높이를 이미지 비율(3081:1441)에 맞춰 잡아 세로 크롭 없이 전체 노출.
-          작은 화면에선 텍스트가 들어갈 최소 높이를 보장. 텍스트는 세로 중앙 정렬. */}
+      {/* 밴드 높이는 고정하고 bg-cover 로 세로만 살짝 크롭 (전체 비율은 너무 높아 축소).
+          텍스트는 세로 중앙 정렬, 작은 화면에선 최소 높이 보장. */}
       <div
-        className="flex min-h-[520px] items-center break-keep border-b border-hair bg-soft bg-cover bg-center py-14 md:aspect-[3081/1441] md:min-h-0 md:items-start md:py-0 md:pt-[120px]"
+        className="flex min-h-[520px] items-center break-keep border-b border-hair bg-soft bg-cover bg-center py-14 md:min-h-[460px]"
         style={{ backgroundImage: `url(${ASSET_BASE}/hero-bg.jpg)` }}
       >
         <div className="mx-auto w-full max-w-[1280px] px-8">

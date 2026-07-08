@@ -47,28 +47,71 @@ function KindIcon({ kind }: { kind: string }) {
   );
 }
 
+// 필터 칩 (구분·월 공통 톤: 선택 시 검정)
+function FilterChip({
+  label,
+  active,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      aria-pressed={active}
+      className="rounded-full border-[1.5px] border-soft bg-ground px-[17px] py-2 text-[13.5px] font-semibold text-[#1C1C1C] transition-colors hover:bg-soft aria-pressed:border-[#1C1C1C] aria-pressed:bg-[#1C1C1C] aria-pressed:text-white"
+    >
+      {label}
+    </button>
+  );
+}
+
 export default function StoriesTable({ stories }: { stories: Story[] }) {
   const [filter, setFilter] = useState<(typeof STORY_KINDS)[number]>("전체");
+  const [month, setMonth] = useState(""); // "" = 전체 월
+
+  // 데이터에 등장하는 월 목록 — 숫자순 정렬
+  const months = useMemo(() => {
+    const set = new Set<string>();
+    for (const s of stories) if (s.month) set.add(s.month);
+    return [...set].sort(
+      (a, b) => (parseInt(a, 10) || 0) - (parseInt(b, 10) || 0),
+    );
+  }, [stories]);
 
   const list = useMemo(
-    () => stories.filter((s) => filter === "전체" || s.kind === filter),
-    [stories, filter],
+    () =>
+      stories.filter(
+        (s) =>
+          (filter === "전체" || s.kind === filter) &&
+          (month === "" || s.month === month),
+      ),
+    [stories, filter, month],
   );
 
   return (
     <div className="mx-auto max-w-[1280px] px-8 pb-24">
-      {/* 필터 + 개수 */}
+      {/* 필터(구분 + 월) + 개수 */}
       <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {STORY_KINDS.map((f) => (
-            <button
+            <FilterChip
               key={f}
+              label={f}
+              active={filter === f}
               onClick={() => setFilter(f)}
-              aria-pressed={filter === f}
-              className="rounded-full border-[1.5px] border-soft bg-ground px-[17px] py-2 text-[13.5px] font-semibold text-[#1C1C1C] transition-colors hover:bg-soft aria-pressed:border-[#1C1C1C] aria-pressed:bg-[#1C1C1C] aria-pressed:text-white"
-            >
-              {f}
-            </button>
+            />
+          ))}
+          {/* 월 필터 — 다시 누르면 해제(전체) */}
+          {months.map((m) => (
+            <FilterChip
+              key={m}
+              label={m}
+              active={month === m}
+              onClick={() => setMonth((cur) => (cur === m ? "" : m))}
+            />
           ))}
         </div>
         <span className="text-sm text-muted">

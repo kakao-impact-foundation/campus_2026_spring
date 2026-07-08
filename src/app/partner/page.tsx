@@ -384,31 +384,41 @@ export default async function Partner() {
   const featured = featuredProjects(await getAllProjects());
   return (
     <>
-      {/* Hero — 옅은 회색 풀블리드 밴드 (본문 흰 배경과 구분) */}
+      {/* Hero — 배경 이미지 풀블리드 밴드 (본문 흰 배경과 구분) */}
       {/* break-keep: 모바일에서 한글이 어절(띄어쓰기) 단위로만 줄바꿈되도록 */}
-      <div className="break-keep border-b border-hair bg-soft pt-16 pb-14">
-        <div className="mx-auto max-w-[1280px] px-8">
+      {/* 배경 라인아트는 오른쪽에 몰려 있어 왼쪽 정렬 텍스트와 겹치지 않음 */}
+      {/* 밴드 높이를 이미지 비율(3081:1441)에 맞춰 잡아 세로 크롭 없이 전체 노출.
+          작은 화면에선 텍스트가 들어갈 최소 높이를 보장. 텍스트는 세로 중앙 정렬. */}
+      <div
+        className="flex min-h-[520px] items-center break-keep border-b border-hair bg-soft bg-cover bg-center py-14 md:aspect-[3081/1441] md:min-h-0 md:items-start md:py-0 md:pt-[120px]"
+        style={{ backgroundImage: `url(${ASSET_BASE}/hero-bg.jpg)` }}
+      >
+        <div className="mx-auto w-full max-w-[1280px] px-8">
           <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-muted">
             테크포임팩트 캠퍼스 · 26-2학기 사회혁신가 모집
           </span>
-          <h2 className="mt-4 font-kakao text-[54px] font-extrabold leading-[1.08] tracking-[-0.03em] max-md:text-4xl max-md:leading-[1.28]">
+          <h2 className="mt-4 font-kakao text-[54px] font-extrabold leading-[1.08] tracking-[-0.03em] text-point max-md:text-4xl max-md:leading-[1.28] md:mt-6">
             사회혁신가의 손에
             <br className="md:hidden" /> 돕는 기술을 더합니다
           </h2>
-          <p className="mt-7 max-w-[640px] text-[18px] font-semibold leading-[1.6] text-ink">
-            현장의 문제와 경험을 대학생들에게 전해주세요
+          <p className="mt-7 max-w-[640px] text-[18px] font-semibold leading-[1.6] text-ink md:mt-9">
+            현장의 문제와 경험을{" "}
+            <br className="md:hidden" />
+            대학생들에게 전해주세요
             <br />
-            학생들은 AI·디지털 기술로 새로운 해결 가능성을 제안합니다
+            학생들은 AI·디지털 기술로{" "}
+            <br className="md:hidden" />
+            새로운 해결 가능성을 제안합니다
           </p>
           {/* 핵심 요약 (한 줄, 가운데점 구분) */}
-          <p className="mt-7 text-[15px] font-medium text-[#555]">
+          <p className="mt-7 text-[15px] font-medium text-[#555] md:mt-9">
             3개월 프로젝트 · 200만원 지원 · 기술 아이디어 발굴
           </p>
           <ApplyButton
             href={APPLY_URL}
             deadline="2026-07-17"
             label="참여 신청하기"
-            className="mt-10"
+            className="mt-10 md:mt-12"
           />
         </div>
       </div>

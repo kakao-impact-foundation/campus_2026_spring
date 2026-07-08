@@ -426,8 +426,8 @@ export default async function Partner() {
             </>
           }
         >
-          {/* 문장별 <p> 분리 — 줄바꿈 시 문장 사이 여백을 둬 각 문장이 또렷하게 */}
-          <div className="flex flex-col gap-3 text-[16px] leading-[1.8] text-[#444]">
+          {/* 문장별 <p> 분리 — 모바일은 문장 사이 여백, 데스크톱은 여백 없이 줄바꿈만 */}
+          <div className="flex flex-col gap-3 text-[16px] leading-[1.8] text-[#444] md:gap-0">
             <p>
               <b className="font-semibold text-ink">「테크포임팩트 캠퍼스」</b>는
               대학생들이 사회혁신가와 함께 실제 사회문제를 탐구하고, AI·디지털
@@ -539,8 +539,10 @@ export default async function Partner() {
           <p className="mb-10 max-w-[820px] text-[16px] leading-[1.8] text-[#444]">
             한 학기 동안{" "}
             <b className="font-semibold text-ink">월 1~2회 내외</b>의 온·오프라인
-            활동에 참여합니다. 학생들의 ‘돕는 기술’ 프로젝트가 현장과 연결될 수
-            있도록 경험을 공유하고 피드백을 제공합니다.
+            활동에 참여하며,{" "}
+            <br className="max-md:hidden" />
+            학생들의 ‘돕는 기술’ 프로젝트가 현장과 연결될 수 있도록 경험을
+            공유하고 피드백을 제공합니다.
           </p>
           {/* 월별 타임라인 */}
           <ol className="max-w-[820px]">
@@ -569,8 +571,8 @@ export default async function Partner() {
                   <p className="mt-2 text-[15px] leading-[1.7] text-[#555] md:hidden">
                     {j.desc[0]} {j.desc[1]}
                   </p>
-                  {/* 데스크톱: 문장별 단락(간격 유지) */}
-                  <div className="mt-2 hidden flex-col gap-2 text-[15px] leading-[1.7] text-[#555] md:flex">
+                  {/* 데스크톱: 문장별 단락(여백 없이 줄바꿈만) */}
+                  <div className="mt-2 hidden flex-col text-[15px] leading-[1.7] text-[#555] md:flex">
                     {j.desc.map((s, k) => (
                       <p key={k}>{s}</p>
                     ))}
@@ -661,7 +663,7 @@ export default async function Partner() {
             <div className="mb-6 flex items-end justify-between gap-6 max-md:flex-col max-md:items-start max-md:gap-3">
               <p className="max-w-[820px] text-[16px] leading-[1.85] text-[#444]">
                 2023년 KAIST에서 시작한 테크포임팩트 캠퍼스 수업은 2026년
-                1학기까지 전국 <b className="font-semibold text-ink">9개</b>{" "}
+                1학기까지{" "}<br className="max-md:hidden" />전국 <b className="font-semibold text-ink">9개</b>{" "}
                 대학,{" "}
                 <b className="font-semibold text-ink">487명</b>의 학생들이{" "}
                 <b className="font-semibold text-ink">34개</b> 사회혁신 조직과

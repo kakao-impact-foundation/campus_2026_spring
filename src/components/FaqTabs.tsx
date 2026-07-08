@@ -52,8 +52,15 @@ export default function FaqTabs({ items }: { items: FaqItem[] }) {
                       <h4 className="text-[17px] font-bold text-ink">
                         Q. {f.q}
                       </h4>
+                      {/* 데스크톱: 문장 그룹 사이 줄바꿈 / 모바일: 공백으로 이어짐 */}
                       <p className="mt-2.5 text-[16px] leading-[1.7] text-[#555]">
-                        {f.a.join(" ")}
+                        {f.a.map((s, i) => (
+                          <span key={i}>
+                            {i > 0 && " "}
+                            {i > 0 && <br className="max-md:hidden" />}
+                            {s}
+                          </span>
+                        ))}
                       </p>
                     </div>
                   ))}

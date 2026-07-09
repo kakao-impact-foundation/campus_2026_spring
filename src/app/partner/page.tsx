@@ -110,50 +110,27 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
   },
 ];
 
+// 아이콘 = 배경 원(포인트 핑크)이 포함된 SVG (public/benefits). <img>로 렌더.
 const BENEFITS = [
   {
-    title: "기술 아이디어 발굴",
-    desc: "학생들과 함께 현장에 필요한 기술 아이디어를 발견합니다.",
-    icon: (
-      <>
-        <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
-        <path d="M9 18h6" />
-        <path d="M10 22h4" />
-      </>
-    ),
+    title: "현장에 필요한 기술",
+    desc: "현장에 필요한 기술 아이디어와 새로운 해결 가능성 모색",
+    icon: "/benefits/idea.svg",
   },
   {
     title: "현장 적용 지원",
-    desc: "프로젝트의 후속 활동과 현장 적용을 함께 검토합니다.",
-    icon: (
-      <>
-        <circle cx="12" cy="12" r="10" />
-        <circle cx="12" cy="12" r="6" />
-        <circle cx="12" cy="12" r="2" />
-      </>
-    ),
+    desc: "후속 활동과 현장 적용을 검토하고 필요시 추가 지원 연계",
+    icon: "/benefits/handshake.svg",
   },
   {
-    title: "홍보 및 확산",
-    desc: "참여 조직의 활동과 프로젝트를 더 많은 사람들에게 알립니다.",
-    icon: (
-      <>
-        <path d="m3 11 18-5v12L3 14v-3z" />
-        <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
-      </>
-    ),
+    title: "조직 홍보",
+    desc: "카카오임팩트 채널과 성과발표회로 조직의 활동을 널리 확산",
+    icon: "/benefits/megaphone.svg",
   },
   {
-    title: "활동 지원비",
-    desc: "조직당 활동 지원비 200만 원(세전)을 제공합니다.",
-    icon: (
-      <>
-        <circle cx="8" cy="8" r="6" />
-        <path d="M18.09 10.37A6 6 0 1 1 10.34 18" />
-        <path d="M7 6h1v4" />
-        <path d="m16.71 13.88.7.71-2.82 2.82" />
-      </>
-    ),
+    title: "활동비 200만원",
+    desc: "한 학기 동안 함께하는 조직에 활동 지원비 제공",
+    icon: "/benefits/money.svg",
   },
 ];
 
@@ -390,18 +367,18 @@ export default async function Partner() {
       {/* 밴드 높이는 고정하고 bg-cover 로 세로만 살짝 크롭 (전체 비율은 너무 높아 축소).
           텍스트는 세로 중앙 정렬, 작은 화면에선 최소 높이 보장. */}
       <div
-        className="flex min-h-[520px] items-center break-keep border-b border-hair bg-soft bg-cover bg-center py-14 md:min-h-[460px]"
+        className="flex min-h-[520px] items-center break-keep border-b border-hair bg-soft bg-cover bg-[center_42%] py-14 md:min-h-[520px]"
         style={{ backgroundImage: `url(${ASSET_BASE}/hero-bg.jpg)` }}
       >
         <div className="mx-auto w-full max-w-[1280px] px-8">
-          <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-            테크포임팩트 캠퍼스 · 26-2학기 사회혁신가 모집
-          </span>
-          <h2 className="mt-4 font-kakao text-[54px] font-extrabold leading-[1.08] tracking-[-0.03em] text-point max-md:text-4xl max-md:leading-[1.28] md:mt-6">
-            사회혁신가의 손에
-            <br className="md:hidden" /> 돕는 기술을 더합니다
+          <h2 className="font-kakao text-[34px] font-extrabold leading-[1.12] tracking-[-0.03em] text-point max-md:text-[26px] max-md:leading-[1.28]">
+            기술로 풀고 싶은{" "}
+            <br className="md:hidden" />사회 문제가 있다면?
           </h2>
-          <p className="mt-7 max-w-[640px] text-[18px] font-semibold leading-[1.6] text-ink md:mt-9">
+          <span className="mt-4 block font-kakao text-[54px] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink max-md:text-4xl max-md:leading-[1.28]">
+            테크포임팩트 캠퍼스 사회혁신가 지원하기
+          </span>
+          <p className="mt-10 max-w-[640px] text-[18px] font-semibold leading-[1.6] text-ink md:mt-12">
             현장의 문제와 경험을{" "}
             <br className="md:hidden" />
             대학생들에게 전해주세요
@@ -430,7 +407,7 @@ export default async function Partner() {
           title={
             <>
               사회 현장에서 시작하는{" "}
-              <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
+              <span className="bg-[linear-gradient(transparent_62%,#e470dc_62%)] bg-no-repeat">
                 테크포임팩트 캠퍼스
               </span>
             </>
@@ -462,7 +439,7 @@ export default async function Partner() {
           title={
             <>
               사회혁신가{" "}
-              <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
+              <span className="bg-[linear-gradient(transparent_62%,#e470dc_62%)] bg-no-repeat">
                 참여 안내
               </span>
             </>
@@ -499,7 +476,7 @@ export default async function Partner() {
           title={
             <>
               테크포임팩트 캠퍼스{" "}
-              <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
+              <span className="bg-[linear-gradient(transparent_62%,#e470dc_62%)] bg-no-repeat">
                 참여 혜택
               </span>
             </>
@@ -508,21 +485,17 @@ export default async function Partner() {
           <div className="grid grid-cols-4 gap-4 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
             {BENEFITS.map((b) => (
               <div key={b.title} className="rounded-2xl bg-soft px-5 py-6">
-                <span className="flex size-12 items-center justify-center rounded-full bg-ground text-ink shadow-[0_1px_4px_rgba(0,0,0,0.06)]">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.7"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden
-                  >
-                    {b.icon}
-                  </svg>
-                </span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`${ASSET_BASE}${b.icon}`}
+                  alt=""
+                  width={52}
+                  height={52}
+                  className="size-[52px]"
+                  loading="lazy"
+                  decoding="async"
+                  aria-hidden
+                />
                 <h4 className="mt-5 text-[20px] font-bold text-ink">
                   {b.title}
                 </h4>
@@ -540,7 +513,7 @@ export default async function Partner() {
           title={
             <>
               사회혁신가{" "}
-              <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
+              <span className="bg-[linear-gradient(transparent_62%,#e470dc_62%)] bg-no-repeat">
                 참여 여정
               </span>
             </>
@@ -601,7 +574,7 @@ export default async function Partner() {
               width="40"
               height="40"
               viewBox="0 0 24 24"
-              fill="#FAE100"
+              fill="#e470dc"
               aria-hidden
             >
               <path d="M10 5C6.7 5 4 7.7 4 11v6a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H7c0-1.7 1.3-3 3-3a1 1 0 1 0 0-3z" />
@@ -647,7 +620,7 @@ export default async function Partner() {
           title={
             <>
               사회혁신가{" "}
-              <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
+              <span className="bg-[linear-gradient(transparent_62%,#e470dc_62%)] bg-no-repeat">
                 FAQ
               </span>
             </>
@@ -662,7 +635,7 @@ export default async function Partner() {
             n="06"
             title={
               <>
-                <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
+                <span className="bg-[linear-gradient(transparent_62%,#e470dc_62%)] bg-no-repeat">
                   돕는 기술
                 </span>{" "}
                 프로젝트 사례
@@ -746,7 +719,7 @@ export default async function Partner() {
           title={
             <>
               함께하는{" "}
-              <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
+              <span className="bg-[linear-gradient(transparent_62%,#e470dc_62%)] bg-no-repeat">
                 파트너
               </span>
             </>
@@ -821,7 +794,7 @@ export default async function Partner() {
           n="08"
           title={
             <>
-              <span className="bg-[linear-gradient(transparent_62%,#FFEA2C_62%)] bg-no-repeat">
+              <span className="bg-[linear-gradient(transparent_62%,#e470dc_62%)] bg-no-repeat">
                 사전 설명회
               </span>{" "}
               신청하기

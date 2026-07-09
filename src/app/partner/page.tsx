@@ -367,7 +367,7 @@ export default async function Partner() {
       {/* 밴드 높이는 고정하고 bg-cover 로 세로만 살짝 크롭 (전체 비율은 너무 높아 축소).
           텍스트는 세로 중앙 정렬, 작은 화면에선 최소 높이 보장. */}
       <div
-        className="flex min-h-[520px] items-center break-keep border-b border-hair bg-soft bg-cover bg-[center_42%] py-14 md:min-h-[520px]"
+        className="flex min-h-[520px] items-center break-keep border-b border-hair bg-soft bg-cover bg-[center_42%] py-14 md:min-h-[580px]"
         style={{ backgroundImage: `url(${ASSET_BASE}/hero-bg.jpg)` }}
       >
         <div className="mx-auto w-full max-w-[1280px] px-8">
@@ -387,10 +387,28 @@ export default async function Partner() {
             <br className="md:hidden" />
             새로운 해결 가능성을 제안합니다
           </p>
-          {/* 핵심 요약 (한 줄, 가운데점 구분) */}
-          <p className="mt-7 text-[15px] font-medium text-[#555] md:mt-9">
-            3개월 프로젝트 · 200만원 지원 · 기술 아이디어 발굴
-          </p>
+          {/* 핵심 요약 — 항목별 흰색 박스 (버튼의 rounded-full 보다 덜 둥근 모서리) */}
+          <div className="mt-7 flex flex-wrap gap-3 md:mt-9">
+            {["4개월 프로젝트", "200만원 지원", "기술 아이디어 발굴"].map(
+              (item) => (
+                <span
+                  key={item}
+                  className="relative rounded-lg bg-white px-5 py-3 font-kakao text-[16px] font-bold text-ink shadow-[0_1px_3px_rgba(0,0,0,0.06)]"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`${ASSET_BASE}/star.svg`}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="absolute -top-1.5 -right-1.5 size-5"
+                    aria-hidden
+                  />
+                  {item}
+                </span>
+              ),
+            )}
+          </div>
           <ApplyButton
             href={APPLY_URL}
             deadline="2026-07-17"

@@ -29,7 +29,7 @@ export default function ApplyButton({
   }, [deadline]);
 
   const base =
-    "inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold transition";
+    "inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-kakao text-[17px] font-semibold transition";
 
   if (closed) {
     return (

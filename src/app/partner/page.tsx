@@ -57,7 +57,7 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
           href={INFO_SESSION_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full bg-[#eceff3] px-3 py-0.5 text-[14px] font-semibold text-ink transition hover:bg-[#e1e6ec]"
+          className="inline-flex items-center gap-1.5 rounded-full bg-[#eceff3] px-3 py-0.5 font-kakao text-[14px] font-semibold text-ink transition hover:bg-[#e1e6ec]"
         >
           사전 설명회 신청하기
           <svg
@@ -88,7 +88,7 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
         href={APPLY_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 rounded-full bg-[#eceff3] px-3 py-0.5 text-[14px] font-semibold text-ink transition hover:bg-[#e1e6ec]"
+        className="inline-flex items-center gap-1.5 rounded-full bg-[#eceff3] px-3 py-0.5 font-kakao text-[14px] font-semibold text-ink transition hover:bg-[#e1e6ec]"
       >
         참여 신청하기
         <svg
@@ -413,7 +413,7 @@ export default async function Partner() {
             새로운 해결 가능성을 제안합니다
           </p>
           {/* 핵심 요약 — 항목별 흰색 박스 (버튼의 rounded-full 보다 덜 둥근 모서리) */}
-          <div className="mt-7 flex flex-col items-start gap-3 md:mt-9 md:flex-row md:flex-wrap">
+          <div className="mt-10 flex flex-wrap items-start gap-3 md:mt-9">
             {["4개월 프로젝트", "200만원 지원", "기술 아이디어 발굴"].map(
               (item) => (
                 <span
@@ -538,7 +538,7 @@ export default async function Partner() {
                   className="size-[52px]"
                   aria-hidden
                 />
-                <h4 className="mt-5 text-[20px] font-bold text-ink">
+                <h4 className="mt-5 font-kakao text-[20px] font-extrabold text-ink">
                   {b.title}
                 </h4>
                 <p className="mt-3 text-[15px] leading-[1.7] text-[#555]">
@@ -565,7 +565,7 @@ export default async function Partner() {
             한 학기 동안{" "}
             <b className="font-semibold text-ink">월 1~2회 내외</b>의 온·오프라인
             활동에 참여하며,{" "}
-            <br />
+            <br className="max-md:hidden" />
             학생들의 ‘돕는 기술’ 프로젝트가 현장과 연결될 수 있도록 경험을
             공유하고 피드백을 제공합니다.
           </p>
@@ -622,7 +622,7 @@ export default async function Partner() {
               <path d="M10 5C6.7 5 4 7.7 4 11v6a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H7c0-1.7 1.3-3 3-3a1 1 0 1 0 0-3z" />
               <path d="M20 5c-3.3 0-6 2.7-6 6v6a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-3c0-1.7 1.3-3 3-3a1 1 0 1 0 0-3z" />
             </svg>
-            <p className="mt-4 font-kakao text-[19px] font-bold leading-[1.8] text-[#333] max-md:text-[17px]">
+            <p className="mt-4 font-kakao text-[21px] font-bold leading-[1.8] text-[#333] max-md:text-[18px]">
               첫 술에 배부를 리 없지만,
               <br className="md:hidden" /> 분명 아주 맛있을 거예요.
               <br />
@@ -637,7 +637,7 @@ export default async function Partner() {
             href={APPLY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1C1C1C] px-7 py-3.5 text-[15px] font-semibold text-white transition hover:opacity-90"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1C1C1C] px-7 py-3.5 font-kakao text-[17px] font-semibold text-white transition hover:opacity-90"
           >
             참여 신청하기
             <svg
@@ -855,7 +855,7 @@ export default async function Partner() {
               href={INFO_SESSION_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#1C1C1C] px-6 py-3 text-[15px] font-semibold text-white transition hover:opacity-90"
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#1C1C1C] px-7 py-3.5 font-kakao text-[17px] font-semibold text-white transition hover:opacity-90"
             >
               사전 설명회 신청하기
               <svg

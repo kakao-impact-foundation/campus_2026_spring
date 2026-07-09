@@ -28,8 +28,9 @@ export default function ApplyButton({
     setClosed(days < 0);
   }, [deadline]);
 
+  // border border-transparent: 아웃라인 버튼(1px 테두리)과 높이를 정확히 맞추기 위함
   const base =
-    "inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-kakao text-[17px] font-semibold transition";
+    "inline-flex items-center gap-2 rounded-full border border-transparent px-7 py-3.5 font-kakao text-[17px] font-semibold transition";
 
   if (closed) {
     return (

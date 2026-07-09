@@ -434,12 +434,36 @@ export default async function Partner() {
               ),
             )}
           </div>
-          <ApplyButton
-            href={APPLY_URL}
-            deadline="2026-07-17"
-            label="참여 신청하기"
-            className="mt-14 md:mt-16"
-          />
+          {/* 신청 버튼 2종 — 데스크톱 가로 나란히, 모바일 세로 스택 */}
+          <div className="mt-14 flex flex-col items-start gap-3 md:mt-16 md:flex-row md:items-center">
+            <ApplyButton
+              href={APPLY_URL}
+              deadline="2026-07-17"
+              label="참여 신청하기"
+            />
+            {/* 사전 설명회 — 아웃라인(흰 배경·검은 글씨·검은 테두리) */}
+            <a
+              href={INFO_SESSION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-[#1C1C1C] bg-white px-7 py-3.5 font-kakao text-[17px] font-semibold text-[#1C1C1C] transition hover:bg-[#1C1C1C]/[0.06]"
+            >
+              사전 설명회 신청하기
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 18 18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d="M4.5 13.5L13.5 4.5M13.5 4.5H6M13.5 4.5V12" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -872,7 +896,7 @@ export default async function Partner() {
                 <path d="M4.5 13.5L13.5 4.5M13.5 4.5H6M13.5 4.5V12" />
               </svg>
             </a>
-            <p className="mt-8 text-[15px] font-semibold text-muted">
+            <p className="mt-12 text-[15px] font-semibold text-muted">
               카카오임팩트 에듀임팩트팀
             </p>
             <a

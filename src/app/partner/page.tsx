@@ -111,25 +111,50 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
 ];
 
 // 아이콘 = 배경 원(포인트 핑크)이 포함된 SVG (public/benefits). <img>로 렌더.
-const BENEFITS = [
+// desc의 <br /> = 뒷부분 문구를 모바일·데스크톱 모두 다음 줄로 줄바꿈.
+const BENEFITS: { title: string; desc: React.ReactNode; icon: string }[] = [
   {
     title: "현장에 필요한 기술",
-    desc: "현장에 필요한 기술 아이디어와 새로운 해결 가능성 모색",
+    desc: (
+      <>
+        현장에 필요한 기술 아이디어와{" "}
+        <br />
+        새로운 해결 가능성 모색
+      </>
+    ),
     icon: "/benefits/idea.svg",
   },
   {
     title: "현장 적용 지원",
-    desc: "후속 활동과 현장 적용을 검토하고 필요시 추가 지원 연계",
+    desc: (
+      <>
+        후속 활동과 현장 적용을 검토하고{" "}
+        <br />
+        필요시 추가 지원 연계
+      </>
+    ),
     icon: "/benefits/handshake.svg",
   },
   {
     title: "조직 홍보",
-    desc: "카카오임팩트 채널과 성과발표회로 조직의 활동을 널리 확산",
+    desc: (
+      <>
+        카카오임팩트 채널과 성과발표회로{" "}
+        <br />
+        조직의 활동을 널리 확산
+      </>
+    ),
     icon: "/benefits/megaphone.svg",
   },
   {
     title: "활동비 200만원",
-    desc: "한 학기 동안 함께하는 조직에 활동 지원비 제공",
+    desc: (
+      <>
+        한 학기 동안 함께하는 조직에{" "}
+        <br />
+        활동 지원비 제공
+      </>
+    ),
     icon: "/benefits/money.svg",
   },
 ];
@@ -388,12 +413,12 @@ export default async function Partner() {
             새로운 해결 가능성을 제안합니다
           </p>
           {/* 핵심 요약 — 항목별 흰색 박스 (버튼의 rounded-full 보다 덜 둥근 모서리) */}
-          <div className="mt-7 flex flex-wrap gap-3 md:mt-9">
+          <div className="mt-7 flex flex-col items-start gap-3 md:mt-9 md:flex-row md:flex-wrap">
             {["4개월 프로젝트", "200만원 지원", "기술 아이디어 발굴"].map(
               (item) => (
                 <span
                   key={item}
-                  className="relative rounded-lg bg-white px-5 py-3 font-kakao text-[16px] font-bold text-ink shadow-[0_1px_3px_rgba(0,0,0,0.06)]"
+                  className="relative rounded-lg bg-white px-5 py-4 font-kakao text-[16px] font-bold text-ink shadow-[0_1px_3px_rgba(0,0,0,0.06)]"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -413,7 +438,7 @@ export default async function Partner() {
             href={APPLY_URL}
             deadline="2026-07-17"
             label="참여 신청하기"
-            className="mt-10 md:mt-12"
+            className="mt-14 md:mt-16"
           />
         </div>
       </div>
@@ -494,6 +519,7 @@ export default async function Partner() {
           title={
             <>
               테크포임팩트 캠퍼스{" "}
+              <br className="md:hidden" />
               <span className="bg-[linear-gradient(transparent_62%,#e470dc_62%)] bg-no-repeat">
                 참여 혜택
               </span>
@@ -539,7 +565,7 @@ export default async function Partner() {
             한 학기 동안{" "}
             <b className="font-semibold text-ink">월 1~2회 내외</b>의 온·오프라인
             활동에 참여하며,{" "}
-            <br className="max-md:hidden" />
+            <br />
             학생들의 ‘돕는 기술’ 프로젝트가 현장과 연결될 수 있도록 경험을
             공유하고 피드백을 제공합니다.
           </p>
@@ -822,7 +848,7 @@ export default async function Partner() {
               프로그램이 궁금하시다면{" "}
               <b className="font-bold text-ink">7월 14일(화) 19:00 온라인 설명회</b>
               에서 자세히 소개해 드립니다.{" "}
-              <br className="max-md:hidden" />
+              <br />
               추가로 궁금한 사항은 언제든 편하게 문의해 주세요.
             </p>
             <a

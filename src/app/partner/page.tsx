@@ -492,8 +492,6 @@ export default async function Partner() {
                   width={52}
                   height={52}
                   className="size-[52px]"
-                  loading="lazy"
-                  decoding="async"
                   aria-hidden
                 />
                 <h4 className="mt-5 text-[20px] font-bold text-ink">

@@ -29,7 +29,13 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
     <>
       <div className="grid grid-cols-3 gap-4 max-[780px]:grid-cols-2 max-[540px]:grid-cols-1">
         {projects.map((p) => (
-          <ProjectCard key={p.id} project={p} hideAward onSelect={setSelected} />
+          <ProjectCard
+            key={p.id}
+            project={p}
+            hideAward
+            onSelect={setSelected}
+            surface="bg-[#F6F8FA] hover:bg-[#eceff3]"
+          />
         ))}
       </div>
 

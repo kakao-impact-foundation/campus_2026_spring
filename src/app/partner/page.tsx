@@ -57,7 +57,7 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
           href={INFO_SESSION_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full bg-[#e8e8e6] px-3 py-0.5 text-[14px] font-semibold text-ink ring-1 ring-black/[0.12] transition hover:bg-[#dedede]"
+          className="inline-flex items-center gap-1.5 rounded-full bg-[#eceff3] px-3 py-0.5 text-[14px] font-semibold text-ink transition hover:bg-[#e1e6ec]"
         >
           사전 설명회 신청하기
           <svg
@@ -88,7 +88,7 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
         href={APPLY_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 rounded-full bg-[#e8e8e6] px-3 py-0.5 text-[14px] font-semibold text-ink ring-1 ring-black/[0.12] transition hover:bg-[#dedede]"
+        className="inline-flex items-center gap-1.5 rounded-full bg-[#eceff3] px-3 py-0.5 text-[14px] font-semibold text-ink transition hover:bg-[#e1e6ec]"
       >
         참여 신청하기
         <svg
@@ -484,7 +484,7 @@ export default async function Partner() {
         >
           <div className="grid grid-cols-4 gap-4 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
             {BENEFITS.map((b) => (
-              <div key={b.title} className="rounded-2xl bg-soft px-5 py-6">
+              <div key={b.title} className="rounded-2xl bg-[#F6F8FA] px-5 py-6">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={`${ASSET_BASE}${b.icon}`}
@@ -544,7 +544,7 @@ export default async function Partner() {
                 <div className={i < JOURNEY.length - 1 ? "flex-1 pb-9" : "flex-1"}>
                   <div className="flex flex-wrap items-center gap-2">
                     <h4 className="text-[17px] font-bold text-ink">{j.title}</h4>
-                    <span className="rounded-full bg-soft px-2.5 py-0.5 text-[12px] font-semibold text-muted">
+                    <span className="rounded-full bg-[#F6F8FA] px-2.5 py-0.5 text-[12px] font-semibold text-muted">
                       {j.mode}
                     </span>
                   </div>
@@ -565,7 +565,7 @@ export default async function Partner() {
         </Section>
 
         {/* 하단 CTA */}
-        <div className="mt-20 flex flex-col items-center gap-5 rounded-[24px] bg-soft px-8 py-10 text-center">
+        <div className="mt-20 flex flex-col items-center gap-5 rounded-[24px] bg-[#F6F8FA] px-8 py-10 text-center">
           <blockquote className="flex max-w-[620px] flex-col items-center">
             {/* 장식용 인용부호 */}
             <svg

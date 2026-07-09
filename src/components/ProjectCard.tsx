@@ -11,16 +11,19 @@ export default function ProjectCard({
   project,
   hideAward = false,
   onSelect,
+  surface = "bg-soft hover:bg-soft2",
 }: {
   project: Project;
   hideAward?: boolean;
   onSelect?: (project: Project) => void;
+  // 카드 면 색상 클래스 (기본: 옅은 회색). 파트너 페이지는 #F6F8FA 로 덮어씀.
+  surface?: string;
 }) {
   const cat = project.category;
   const color = cat ? CATEGORY_COLOR[cat] : "#e5e5e5";
   const showAward = !!project.award && !hideAward;
   const className =
-    "relative flex h-[206px] w-full flex-col gap-[9px] overflow-hidden rounded-[18px] bg-soft p-[22px_22px_20px] text-left transition hover:-translate-y-[3px] hover:bg-soft2 focus-visible:outline focus-visible:outline-[2.5px] focus-visible:outline-offset-[3px] focus-visible:outline-accent";
+    `relative flex h-[206px] w-full flex-col gap-[9px] overflow-hidden rounded-[18px] ${surface} p-[22px_22px_20px] text-left transition hover:-translate-y-[3px] focus-visible:outline focus-visible:outline-[2.5px] focus-visible:outline-offset-[3px] focus-visible:outline-accent`;
 
   const inner = (
     <>

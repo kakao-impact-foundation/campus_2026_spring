@@ -33,8 +33,8 @@ function featuredProjects(projects: Project[]): Project[] {
 
 // 지원(구글 폼) 링크 — 상단 버튼·신청 방법·하단 CTA 공통.
 const APPLY_URL = "https://forms.gle/8qbE1hWpAeVDRkZA7";
-// 온라인 사전 설명회 참석 신청 링크
-const INFO_SESSION_URL = "https://forms.gle/Q3sQ9JYtcsPKnrnE8";
+// 사전 설명회 다시 보기 (유튜브 녹화본)
+const INFO_SESSION_URL = "https://www.youtube.com/watch?v=i1d9LH6I2jI";
 
 // ── 섹션 데이터 (초안 — 실제 모집 내용 확정 후 교체) ──
 const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
@@ -59,7 +59,7 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 rounded-full bg-[#eceff3] px-3 py-0.5 font-kakao text-[14px] font-semibold text-ink transition hover:bg-[#e1e6ec]"
         >
-          사전 설명회 신청하기
+          사전 설명회 다시 보기
           <svg
             width="13"
             height="13"
@@ -448,7 +448,7 @@ export default async function Partner() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-[#1C1C1C] bg-white px-7 py-3.5 font-kakao text-[17px] font-semibold text-[#1C1C1C] transition hover:bg-[#1C1C1C]/[0.06]"
             >
-              사전 설명회 신청하기
+              사전 설명회 다시 보기
               <svg
                 width="14"
                 height="14"
@@ -881,7 +881,7 @@ export default async function Partner() {
               rel="noopener noreferrer"
               className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#1C1C1C] px-7 py-3.5 font-kakao text-[17px] font-semibold text-white transition hover:opacity-90"
             >
-              사전 설명회 신청하기
+              사전 설명회 다시 보기
               <svg
                 width="14"
                 height="14"

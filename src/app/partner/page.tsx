@@ -33,6 +33,8 @@ function featuredProjects(projects: Project[]): Project[] {
 
 // 지원(구글 폼) 링크 — 상단 버튼·신청 방법·하단 CTA 공통.
 const APPLY_URL = "https://forms.gle/8qbE1hWpAeVDRkZA7";
+// 모집 마감 스위치 — true 로 바꾸면 참여 신청하기 버튼이 "모집 마감"으로 비활성화된다.
+const RECRUIT_CLOSED = false;
 // 사전 설명회 다시 보기 (유튜브 녹화본)
 const INFO_SESSION_URL = "https://www.youtube.com/watch?v=i1d9LH6I2jI";
 
@@ -438,7 +440,7 @@ export default async function Partner() {
           <div className="mt-14 flex flex-col items-start gap-3 md:mt-16 md:flex-row md:items-center">
             <ApplyButton
               href={APPLY_URL}
-              deadline="2026-07-17"
+              closed={RECRUIT_CLOSED}
               label="참여 신청하기"
             />
             {/* 사전 설명회 — 아웃라인(흰 배경·검은 글씨·검은 테두리) */}

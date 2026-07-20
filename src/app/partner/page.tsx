@@ -34,7 +34,7 @@ function featuredProjects(projects: Project[]): Project[] {
 // 지원(구글 폼) 링크 — 상단 버튼·신청 방법·하단 CTA 공통.
 const APPLY_URL = "https://forms.gle/8qbE1hWpAeVDRkZA7";
 // 모집 마감 스위치 — true 로 바꾸면 참여 신청하기 버튼이 "모집 마감"으로 비활성화된다.
-const RECRUIT_CLOSED = false;
+const RECRUIT_CLOSED = true;
 // 사전 설명회 다시 보기 (유튜브 녹화본)
 const INFO_SESSION_URL = "https://www.youtube.com/watch?v=i1d9LH6I2jI";
 
@@ -86,27 +86,33 @@ const TARGET_SPECS: { k: string; v: React.ReactNode }[] = [
     v: (
       <span className="inline-flex flex-wrap items-center gap-x-2.5 gap-y-1">
         온라인 설문폼 제출
-      <a
-        href={APPLY_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 rounded-full bg-[#eceff3] px-3 py-0.5 font-kakao text-[14px] font-semibold text-ink transition hover:bg-[#e1e6ec]"
-      >
-        참여 신청하기
-        <svg
-          width="13"
-          height="13"
-          viewBox="0 0 18 18"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden
-        >
-          <path d="M4.5 13.5L13.5 4.5M13.5 4.5H6M13.5 4.5V12" />
-        </svg>
-      </a>
+        {RECRUIT_CLOSED ? (
+          <span className="inline-flex items-center rounded-full bg-soft px-3 py-0.5 font-kakao text-[14px] font-semibold text-muted">
+            모집 마감
+          </span>
+        ) : (
+          <a
+            href={APPLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full bg-[#eceff3] px-3 py-0.5 font-kakao text-[14px] font-semibold text-ink transition hover:bg-[#e1e6ec]"
+          >
+            참여 신청하기
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 18 18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="M4.5 13.5L13.5 4.5M13.5 4.5H6M13.5 4.5V12" />
+            </svg>
+          </a>
+        )}
       </span>
     ),
   },
@@ -659,27 +665,12 @@ export default async function Partner() {
               최문철 · 꿈이자라는뜰사회적협동조합 조합장
             </footer>
           </blockquote>
-          <a
+          <ApplyButton
             href={APPLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1C1C1C] px-7 py-3.5 font-kakao text-[17px] font-semibold text-white transition hover:opacity-90"
-          >
-            참여 신청하기
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 18 18"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
-            >
-              <path d="M4.5 13.5L13.5 4.5M13.5 4.5H6M13.5 4.5V12" />
-            </svg>
-          </a>
+            closed={RECRUIT_CLOSED}
+            label="참여 신청하기"
+            className="mt-6"
+          />
         </div>
 
         {/* 05 · 사회혁신가 FAQ */}

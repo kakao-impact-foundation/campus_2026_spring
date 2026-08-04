@@ -7,12 +7,17 @@ import KakaoImpactLogo from "./KakaoImpactLogo";
 import TechForImpactCampusLogo from "./TechForImpactCampusLogo";
 
 // 카카오임팩트 GNB 구조: 워드마크 + 중앙 메뉴 + Family site / 언어 액션.
+// PARTNER 는 메뉴에서만 내렸다 — /partner 라우트는 그대로 살아 있다(직접 링크 유효).
 const NAV: { label: string; href: string; external?: boolean }[] = [
   { label: "PROJECTS", href: "/" },
   { label: "STORIES", href: "/stories" },
   { label: "GALLERY", href: "/gallery" },
-  { label: "PARTNER", href: "/partner" },
-  { label: "ABOUT", href: "https://techforimpact.io/campus/info", external: true },
+  { label: "2026 FALL", href: "/2026-fall" },
+  {
+    label: "ABOUT",
+    href: "https://techforimpact.io/campus/info",
+    external: true,
+  },
 ];
 
 // 외부 링크 아이콘 (옅은 회색 ↗)
@@ -125,7 +130,7 @@ export default function Header() {
           onClick={() => setOpen((o) => !o)}
           aria-label="메뉴"
           aria-expanded={open}
-          className="hidden text-[#1C1C1C] md:hidden max-md:flex"
+          className="hidden text-[#1C1C1C] max-md:flex md:hidden"
         >
           <svg
             width="26"

@@ -7,9 +7,17 @@ import Footer from "@/components/Footer";
 // 카카오 큰 글씨 (KakaoBigSans) — 메뉴·히어로 타이틀 등 브랜드 강조용
 const kakaoBig = localFont({
   src: [
-    { path: "./fonts/KakaoBigSans-Regular.woff2", weight: "400", style: "normal" },
+    {
+      path: "./fonts/KakaoBigSans-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
     { path: "./fonts/KakaoBigSans-Bold.woff2", weight: "700", style: "normal" },
-    { path: "./fonts/KakaoBigSans-ExtraBold.woff2", weight: "800", style: "normal" },
+    {
+      path: "./fonts/KakaoBigSans-ExtraBold.woff2",
+      weight: "800",
+      style: "normal",
+    },
   ],
   variable: "--kakao-big",
   display: "swap",

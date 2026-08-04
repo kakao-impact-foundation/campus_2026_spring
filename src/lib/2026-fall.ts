@@ -2,10 +2,10 @@ import { parseCsv } from "./sheet";
 import { CATEGORY_COLOR } from "./categories";
 
 // 2학기 프로젝트 주제(= 사회혁신가) 데이터.
-//  · 별도 구글 시트(gid=1607864104)를 CSV 로 빌드 시 1회 fetch → SSG.
+//  · 갤러리와 같은 통합 시트의 "사회혁신가" 탭(gid=828875153)을 CSV 로 빌드 시 1회 fetch → SSG.
 //  · 환경변수 SHEET_INNOVATORS_CSV_URL 로 덮어쓸 수 있다.
-const SHEET_ID = "13T-rtHCFIKb5VHrFL5AMgqNB5KmIHSyEc0KB-C8nrac";
-const SHEET_GID = "1607864104";
+const SHEET_ID = "1Amhg64VmJujZLI-H3uO_9b9-yhB758gJlcsBJ2UJquw";
+const SHEET_GID = "828875153";
 const CSV_URL =
   process.env.SHEET_INNOVATORS_CSV_URL ??
   `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;

@@ -20,6 +20,7 @@ const SCHOOL_SLUG: Record<string, string> = {
   서강대: "sogang",
   연세대: "yonsei",
   이화여대: "ewha",
+  이화여자대: "ewha", // 시트 표기가 "이화여자대학교" 여도 URL 은 ewha 유지
 };
 
 // 시트 갤러리 탭을 읽어 Gallery[] 로 변환 (빌드 시 1회)

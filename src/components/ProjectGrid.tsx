@@ -8,9 +8,18 @@ import FilterSidebar, { Selection } from "./FilterSidebar";
 import SchoolBar from "./SchoolBar";
 import ProjectCard from "./ProjectCard";
 
-// 학교 칩 표시 순서 (데이터에 있는 학교만 노출)
-// 가나다 순 (전체 다음 단국대부터)
-const SCHOOL_ORDER = ["단국대", "서강대", "연세대", "이화여대", "한양대"];
+// 학교 칩 표시 순서 (데이터에 있는 학교만 노출) — 가나다 순, KAIST 먼저.
+// 목록에 없는 학교는 시트 순서대로 뒤에 붙는다.
+const SCHOOL_ORDER = [
+  "KAIST",
+  "가천대",
+  "단국대",
+  "서강대",
+  "서울대",
+  "연세대",
+  "이화여대",
+  "한양대",
+];
 
 // 시안과 동일한 결정적 셔플 — 서버/클라이언트 렌더 결과가 일치해 하이드레이션 안전.
 function shuffleSeeded<T>(arr: T[], seed: number): T[] {
@@ -32,10 +41,20 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
   const [seed, setSeed] = useState(7); // 셔플 순서 — 공유 대상 아님(URL 미포함)
 
   const schools = useMemo(() => {
-    const present = new Set(projects.map((p) => p.school));
-    return ["전체", ...SCHOOL_ORDER.filter((s) => present.has(s))];
+    const present = [...new Set(projects.map((p) => p.school))];
+    const known = SCHOOL_ORDER.filter((s) => present.includes(s));
+    const rest = present.filter((s) => !SCHOOL_ORDER.includes(s));
+    return ["전체", ...known, ...rest];
   }, [projects]);
   const orgSet = useMemo(() => new Set(projects.map((p) => p.org)), [projects]);
+
+  // 주제 카테고리는 이 학기의 모든 사회혁신조직이 CATEGORY_ORGS 에 매핑돼 있을 때만.
+  // (과거 학기 조직은 아직 매핑이 없어 사이드바가 조직 목록만 보여준다 —
+  //  lib/categories.ts 에 조직을 추가하면 자동으로 카테고리 UI 로 바뀐다)
+  const showCategories = useMemo(
+    () => projects.length > 0 && projects.every((p) => p.category),
+    [projects],
+  );
 
   // 최초 마운트 시 URL → 초기 필터 (유효하지 않은 값은 전체로 폴백)
   const [school, setSchoolState] = useState(() => {
@@ -44,8 +63,9 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
   });
   const [selection, setSelectionState] = useState<Selection>(() => {
     const cat = searchParams.get("cat");
-    if (cat && (CATEGORIES as readonly string[]).includes(cat))
-      return { kind: "cat", val: cat as Category };
+    const catValid =
+      showCategories && !!cat && (CATEGORIES as readonly string[]).includes(cat);
+    if (catValid) return { kind: "cat", val: cat as Category };
     const org = searchParams.get("org");
     if (org && orgSet.has(org)) return { kind: "org", val: org };
     return { kind: "all" };
@@ -111,6 +131,7 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
         <div className="sticky top-[96px] self-start max-[780px]:static">
           <FilterSidebar
             projects={projects}
+            showCategories={showCategories}
             selection={selection}
             onSelect={setSelection}
             onReset={reset}

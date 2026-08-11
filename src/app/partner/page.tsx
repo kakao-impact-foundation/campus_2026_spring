@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllProjects } from "@/lib/projects";
+import { getProjectsBySemester } from "@/lib/projects";
+import { CURRENT_SEMESTER } from "@/lib/semesters";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import FaqTabs from "@/components/FaqTabs";
 import ApplyButton from "@/components/ApplyButton";
@@ -391,7 +392,10 @@ const PARTNER_SCHOOLS: { name: string; logo: string; imgCls?: string }[] = [
 ];
 
 export default async function Partner() {
-  const featured = featuredProjects(await getAllProjects());
+  // 이름 기준 매칭이라 과거 학기 동명 프로젝트가 잡히지 않게 현재 학기로 한정한다.
+  const featured = featuredProjects(
+    await getProjectsBySemester(CURRENT_SEMESTER),
+  );
   return (
     <>
       {/* Hero — 배경 이미지 풀블리드 밴드 (본문 흰 배경과 구분) */}

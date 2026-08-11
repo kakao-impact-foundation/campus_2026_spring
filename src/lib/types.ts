@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CATEGORIES } from "./categories";
+import { CURRENT_SEMESTER } from "./semesters";
 
 // 상세 페이지 스토리(주관식 5문항)
 export const StorySchema = z.object({
@@ -12,6 +13,9 @@ export const StorySchema = z.object({
 
 export const ProjectSchema = z.object({
   id: z.string(),
+  // 시트 "학기" 값 ("2026-1" 등). 목록 페이지 분리 기준.
+  // default 를 둬서 샘플 데이터(src/lib/sample.ts)는 그대로 쓸 수 있다.
+  semester: z.string().default(CURRENT_SEMESTER),
   school: z.string(), // "단국대" 등 ("학교" 제거)
   org: z.string(), // 함께한 사회혁신조직
   team: z.string(),

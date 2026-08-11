@@ -1,6 +1,7 @@
 import { Project, ProjectSchema } from "./types";
 import { categoryOf } from "./categories";
 import { toDrivePreview } from "./drive";
+import { CURRENT_SEMESTER, LEGACY_NUMERIC_SEMESTER } from "./semesters";
 
 // 빌드 시 1회 호출하여 프로젝트 데이터를 가져온다.
 //  · 기본: 공개 구글 시트를 CSV 로 직접 fetch (아래 SHEET_ID/GID).
@@ -22,6 +23,7 @@ function bust(url: string): string {
 
 // 구글 시트 헤더명 (원본과 정확히 일치해야 함)
 const COL = {
+  semester: "학기",
   school: "학교명",
   org: "함께한 사회혁신조직",
   team: "팀 이름",
@@ -54,9 +56,16 @@ type Row = Record<string, string | undefined>;
 export async function getProjects(): Promise<Project[]> {
   try {
     const rows = JSON_URL ? await fetchJson(JSON_URL) : await fetchCsv(CSV_URL);
+    // 학기별 순번 카운터 — ID 를 "학기 안에서의 순서"로 고정한다.
+    // (시트에 과거 학기 행이 더 붙어도 기존 학기의 ID 가 밀리지 않는다)
+    const seq: Record<string, number> = {};
     return rows
-      .filter((r) => (r[COL.name] ?? "").trim()) // 프로젝트명 없는 빈 행 제외
-      .map(normalize);
+      .filter((r) => titleOf(r)) // 프로젝트명·팀 이름 둘 다 없는 빈 행 제외
+      .map((r) => {
+        const semester = (r[COL.semester] ?? "").trim() || CURRENT_SEMESTER;
+        seq[semester] = (seq[semester] ?? 0) + 1;
+        return normalize(r, semester, seq[semester]);
+      });
   } catch (e) {
     console.warn(
       `[sheet] 데이터 로드 실패 — 빈 배열 반환 (샘플로 폴백). ${String(e)}`,
@@ -133,19 +142,43 @@ function normSchool(raw: string): string {
   return t.replace(/대학교$/, "대").replace(/학교$/, "");
 }
 
-function normalize(r: Row, i: number): Project {
+// 목록·상세의 제목. 과거 학기(2025-1)는 프로젝트명 없이 팀 이름만 있어 그걸 쓴다.
+function titleOf(r: Row): string {
+  return (r[COL.name] ?? "").trim() || (r[COL.team] ?? "").trim();
+}
+
+// "결과물·핵심 기술" 행의 값.
+// 26-1 부터는 통합 컬럼("결과물 유형 및 핵심 기술")을 쓰고, 그 전 학기는 아직
+// 구 컬럼(결과물 유형 · 핵심 기술 분야)만 채워져 있어 둘을 합쳐 같은 행에 보여준다.
+function outputTechOf(r: Row): string {
+  const merged = (r[COL.outputTech] ?? "").trim();
+  if (merged) return merged;
+  return [r[COL.outputType], r[COL.techField]]
+    .map((s) => (s ?? "").trim())
+    .filter(Boolean)
+    .join(" · ");
+}
+
+// 상세 URL 의 ID. 26-1 은 이미 /projects/37 형태로 공유돼 있어 숫자를 유지하고,
+// 그 외 학기는 "2025-2-3" 처럼 학기 접두사를 붙인다.
+function idOf(semester: string, n: number): string {
+  return semester === LEGACY_NUMERIC_SEMESTER ? String(n) : `${semester}-${n}`;
+}
+
+function normalize(r: Row, semester: string, n: number): Project {
   const org = (r[COL.org] ?? "").trim();
   return ProjectSchema.parse({
-    id: String(i + 1),
+    id: idOf(semester, n),
+    semester,
     school: normSchool(r[COL.school] ?? ""),
     org,
     team: (r[COL.team] ?? "").trim(),
-    name: (r[COL.name] ?? "").trim(),
+    name: titleOf(r),
     oneLiner: (r[COL.oneLiner] ?? "").trim(),
     category: categoryOf(org),
     award: (r[COL.award] ?? "").trim(),
     outputType: r[COL.outputType] ?? "",
-    outputTech: r[COL.outputTech] ?? "",
+    outputTech: outputTechOf(r),
     stage: r[COL.stage] ?? "",
     techField: r[COL.techField] ?? "",
     techStack: r[COL.techStack] ?? "",

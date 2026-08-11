@@ -43,7 +43,12 @@ function ExternalIcon() {
 // 현재 경로가 해당 메뉴의 활성 상태인지
 function isActive(href: string, pathname: string): boolean {
   if (href === "#") return false;
-  if (href === "/") return pathname === "/" || pathname.startsWith("/projects");
+  if (href === "/")
+    return (
+      pathname === "/" ||
+      pathname.startsWith("/projects") ||
+      pathname.startsWith("/semesters")
+    );
   return pathname === href || pathname.startsWith(href + "/");
 }
 

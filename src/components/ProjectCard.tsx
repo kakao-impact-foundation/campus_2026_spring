@@ -22,6 +22,13 @@ export default function ProjectCard({
   const cat = project.category;
   const color = cat ? CATEGORY_COLOR[cat] : "#e5e5e5";
   const showAward = !!project.award && !hideAward;
+  // 프로젝트명이 없어 팀 이름이 제목이 된 학기(2025-1)는 상단 줄에서 팀을 뺀다.
+  const meta =
+    project.name.trim() === project.team.trim()
+      ? project.school
+      : `${project.school} · ${project.team}`;
+  // 과거 학기 프로젝트명은 한 문장 길이 — 두 줄까지 허용하고 길면 살짝 줄인다.
+  const titleSize = project.name.length > 30 ? "text-[17px]" : "text-[20px]";
   const className =
     `relative flex h-[206px] w-full flex-col gap-[9px] overflow-hidden rounded-[18px] ${surface} p-[22px_22px_20px] text-left transition hover:-translate-y-[3px] focus-visible:outline focus-visible:outline-[2.5px] focus-visible:outline-offset-[3px] focus-visible:outline-accent`;
 
@@ -36,9 +43,11 @@ export default function ProjectCard({
       <div
         className={`text-[12.5px] font-semibold text-muted ${showAward ? "truncate pr-[92px]" : ""}`}
       >
-        {project.school} · {project.team}
+        {meta}
       </div>
-      <div className="truncate text-[20px] font-extrabold leading-[1.3] tracking-[-0.015em]">
+      <div
+        className={`line-clamp-2 font-extrabold leading-[1.3] tracking-[-0.015em] ${titleSize}`}
+      >
         {project.name}
       </div>
       <p className="line-clamp-2 max-h-[2.9em] text-[13.5px] leading-[1.55] text-[#4a4a4a]">
@@ -54,7 +63,10 @@ export default function ProjectCard({
             {cat}
           </span>
         )}
-        <span className="text-xs font-semibold text-muted before:mr-2 before:text-[#cfcfcf] before:content-['·']">
+        {/* 카테고리 칩이 없는 학기(주제 매핑 없음)에는 앞의 가운뎃점도 빼야 한다 */}
+        <span
+          className={`text-xs font-semibold text-muted ${cat ? "before:mr-2 before:text-[#cfcfcf] before:content-['·']" : ""}`}
+        >
           {project.org}
         </span>
       </div>

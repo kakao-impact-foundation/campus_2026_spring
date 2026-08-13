@@ -11,6 +11,13 @@ export const CURRENT_SEMESTER = "2026-1";
 // 나머지 학기는 "2025-2-1" 처럼 학기 접두사를 붙여 ID 충돌을 막는다. (src/lib/sheet.ts)
 export const LEGACY_NUMERIC_SEMESTER = "2026-1";
 
+// 시트 단축 표기("26-1")를 표준("2026-1")으로. 이미 표준이거나 모르는 형식이면 그대로.
+// (갤러리 탭은 "26-1"·"25-2" 로 적혀 있어 프로젝트 탭 표기와 맞춰준다)
+export function normalizeSemester(raw: string): string {
+  const m = raw.trim().match(/^(\d{2})-([12])$/);
+  return m ? `20${m[1]}-${m[2]}` : raw.trim();
+}
+
 // "2026-1" → { year: 2026, term: 1 } (형식이 어긋나면 null)
 function parse(semester: string): { year: number; term: number } | null {
   const m = semester.trim().match(/^(\d{4})-([12])$/);

@@ -1,13 +1,19 @@
 // 성과발표회 갤러리 — 시트(gid=97676482)에서 대학별 폴더/날짜를 빌드 시 읽어온다.
 // 사진은 폴더에서 파일 ID 를 가져와 썸네일로 렌더.
 import { parseCsv } from "./sheet";
+import { normalizeSemester, sortSemesters } from "./semesters";
 
 export type Gallery = {
   id: string; // 라우트 슬러그
+  semester: string; // 학기 (표준 표기 "2026-1")
   school: string; // 표시용 학교명
   date: string; // 성과발표회 날짜 (YYYY-MM-DD)
   folderId: string | null; // 구글드라이브 폴더 ID
 };
+
+// 26-1 상세는 이미 /gallery/dankook 처럼 학교 슬러그 URL 로 공유돼 있어 그대로 유지한다.
+// 나머지 학기는 "2025-2-kaist" 처럼 학기 접두사를 붙여 학교가 겹쳐도 충돌하지 않게 한다.
+const LEGACY_SLUG_SEMESTER = "2026-1";
 
 const GALLERY_CSV_URL =
   process.env.GALLERY_CSV_URL ??
@@ -21,6 +27,12 @@ const SCHOOL_SLUG: Record<string, string> = {
   연세대: "yonsei",
   이화여대: "ewha",
   이화여자대: "ewha", // 시트 표기가 "이화여자대학교" 여도 URL 은 ewha 유지
+  KAIST: "kaist",
+  카이스트: "kaist",
+  서울대: "snu",
+  가천대: "gachon",
+  개강워크숍: "workshop",
+  개강워크샵: "workshop",
 };
 
 // 시트 갤러리 탭을 읽어 Gallery[] 로 변환 (빌드 시 1회)
@@ -37,6 +49,7 @@ export async function getGalleries(): Promise<Gallery[]> {
     if (hRow < 0) return [];
     const header = table[hRow].map((h) => h.trim());
     const ci = {
+      semester: header.indexOf("학기"),
       school: header.indexOf("학교"),
       date: header.indexOf("날짜"),
       link: header.findIndex((h) => h.includes("드라이브")),
@@ -50,8 +63,12 @@ export async function getGalleries(): Promise<Gallery[]> {
         const slugKey = school.replace(/대학교$/, "대").replace(/학교$/, "");
         const link = get(r, ci.link);
         const m = link.match(/\/folders\/([\w-]+)/);
+        // 학기 컬럼이 없던 초기 시트도 26-1 로 간주해 기존 URL 을 지킨다.
+        const semester = normalizeSemester(get(r, ci.semester)) || LEGACY_SLUG_SEMESTER;
+        const slug = SCHOOL_SLUG[slugKey] ?? `g${i + 1}`;
         return {
-          id: SCHOOL_SLUG[slugKey] ?? `g${i + 1}`,
+          id: semester === LEGACY_SLUG_SEMESTER ? slug : `${semester}-${slug}`,
+          semester,
           school,
           date: get(r, ci.date),
           folderId: m ? m[1] : null,
@@ -65,6 +82,29 @@ export async function getGalleries(): Promise<Gallery[]> {
 
 export async function getGalleryById(id: string): Promise<Gallery | null> {
   return (await getGalleries()).find((g) => g.id === id) ?? null;
+}
+
+// 갤러리 데이터가 있는 학기 목록 (최신순) — 드롭다운·정적 경로 생성에 쓴다.
+export async function getGallerySemesters(): Promise<string[]> {
+  const all = await getGalleries();
+  return sortSemesters([...new Set(all.map((g) => g.semester))]);
+}
+
+// 한 학기의 갤러리만 (시트 행 순서 유지)
+export async function getGalleriesBySemester(
+  semester: string,
+): Promise<Gallery[]> {
+  return (await getGalleries()).filter((g) => g.semester === semester);
+}
+
+// 학기별 갤러리 목록 경로. 최신 학기는 /gallery, 지난 학기는 /gallery/semesters/<학기>.
+export function gallerySemesterHref(semester: string, latest: string): string {
+  return semester === latest ? "/gallery" : `/gallery/semesters/${semester}`;
+}
+
+// 상세·메타 제목: 학교 행은 "○○대학교 성과발표회", 워크숍 같은 행사 행은 이름 그대로.
+export function galleryTitle(g: Gallery): string {
+  return /워크숍|워크샵/.test(g.school) ? g.school : `${g.school} 성과발표회`;
 }
 
 // 공유용 폴더 링크 (복사 버튼)

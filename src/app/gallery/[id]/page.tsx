@@ -6,10 +6,14 @@ import PhotoGrid from "@/components/PhotoGrid";
 import {
   getGalleries,
   getGalleryById,
+  getGallerySemesters,
+  gallerySemesterHref,
+  galleryTitle,
   folderShareUrl,
   getFolderImageIds,
   formatDate,
 } from "@/lib/gallery";
+import { semesterLabel } from "@/lib/semesters";
 
 // 정적 export: 모든 갤러리 상세를 빌드 시 생성, 그 외 404.
 export const dynamicParams = false;
@@ -26,7 +30,7 @@ export async function generateMetadata({
   const { id } = await params;
   const g = await getGalleryById(id);
   if (!g) return {};
-  return { title: `${g.school} 성과발표회 갤러리 — 테크포임팩트 캠퍼스` };
+  return { title: `${galleryTitle(g)} 갤러리 — 테크포임팩트 캠퍼스` };
 }
 
 export default async function GalleryDetail({
@@ -39,12 +43,15 @@ export default async function GalleryDetail({
   if (!g) notFound();
 
   const photoIds = g.folderId ? await getFolderImageIds(g.folderId) : [];
+  // 뒤로가기: 이 갤러리가 속한 학기의 목록으로 (최신 학기 = /gallery)
+  const latest = (await getGallerySemesters())[0];
+  const backHref = gallerySemesterHref(g.semester, latest);
 
   return (
     <div className="pt-[30px] pb-[110px]">
       <div className="mx-auto max-w-[1280px] px-8">
         <Link
-          href="/gallery"
+          href={backHref}
           className="inline-block text-[13.5px] font-semibold text-muted hover:text-ink"
         >
           ← 갤러리
@@ -54,10 +61,10 @@ export default async function GalleryDetail({
         <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
           <div>
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-              Gallery · {formatDate(g.date)}
+              Gallery · {semesterLabel(g.semester)} · {formatDate(g.date)}
             </span>
             <h1 className="mt-2.5 font-kakao text-[40px] font-extrabold leading-[1.1] tracking-[-0.03em] max-md:text-[30px]">
-              {g.school} 성과발표회
+              {galleryTitle(g)}
             </h1>
           </div>
           {g.folderId && <CopyLinkButton url={folderShareUrl(g.folderId)} />}
@@ -75,7 +82,7 @@ export default async function GalleryDetail({
           <div className="mt-8 py-24 text-center text-muted">
             {g.folderId
               ? "사진을 불러오지 못했어요. 폴더 공개 설정을 확인해 주세요."
-              : `${g.school} 성과발표회 사진은 곧 공개됩니다.`}
+              : `${galleryTitle(g)} 사진은 곧 공개됩니다.`}
           </div>
         )}
       </div>

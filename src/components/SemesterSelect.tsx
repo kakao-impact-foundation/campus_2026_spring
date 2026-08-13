@@ -10,9 +10,12 @@ import { semesterHref, semesterOptionLabel } from "@/lib/semesters";
 export default function SemesterSelect({
   semester,
   semesters,
+  hrefs,
 }: {
   semester: string;
   semesters: string[];
+  // 항목별 이동 경로 재정의(갤러리 등 다른 탭용). 없으면 프로젝트 경로(semesterHref).
+  hrefs?: Record<string, string>;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -70,7 +73,7 @@ export default function SemesterSelect({
             return (
               <li key={s}>
                 <Link
-                  href={semesterHref(s)}
+                  href={hrefs?.[s] ?? semesterHref(s)}
                   onClick={() => setOpen(false)}
                   aria-current={active ? "true" : undefined}
                   className={`flex items-center justify-between gap-3 px-4 py-2.5 text-[13.5px] whitespace-nowrap hover:bg-soft ${

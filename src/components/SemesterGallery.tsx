@@ -4,7 +4,7 @@ import SemesterSelect from "@/components/SemesterSelect";
 import {
   type Gallery,
   formatDate,
-  getFolderImageIds,
+  getFolderCoverId,
   driveThumb,
   folderShareUrl,
   gallerySemesterHref,
@@ -21,10 +21,10 @@ export default async function SemesterGallery({
   semesters: string[]; // 드롭다운 목록 (최신순)
   galleries: Gallery[]; // 해당 학기 갤러리
 }) {
-  // 카드 썸네일 = 각 폴더의 첫 번째 사진
+  // 카드 썸네일 = 폴더의 "대표사진" 파일, 없으면 첫 번째 사진
   const cards = await Promise.all(
     galleries.map(async (g) => {
-      const cover = g.folderId ? ((await getFolderImageIds(g.folderId))[0] ?? null) : null;
+      const cover = g.folderId ? await getFolderCoverId(g.folderId) : null;
       return { ...g, cover };
     }),
   );

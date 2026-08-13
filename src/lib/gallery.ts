@@ -143,6 +143,56 @@ export async function getFolderImageIds(folderId: string): Promise<string[]> {
   return scrapeFolderIds(folderId);
 }
 
+// 카드 표지 사진 — 폴더에서 이름에 "대표사진"이 들어간 파일을 우선, 없으면 첫 번째 사진.
+// (운영자가 드라이브에서 파일명만 "대표사진"으로 바꾸면 표지가 지정된다)
+export async function getFolderCoverId(
+  folderId: string,
+): Promise<string | null> {
+  const rep = API_KEY
+    ? await findCoverViaDriveApi(folderId).catch(() => null)
+    : await scrapeCoverId(folderId);
+  if (rep) return rep;
+  return (await getFolderImageIds(folderId))[0] ?? null;
+}
+
+// Drive API 로 이름에 "대표사진"이 들어간 이미지 1개 조회
+async function findCoverViaDriveApi(folderId: string): Promise<string | null> {
+  const u = new URL("https://www.googleapis.com/drive/v3/files");
+  u.searchParams.set(
+    "q",
+    `'${folderId}' in parents and name contains '대표사진' and mimeType contains 'image/' and trashed = false`,
+  );
+  u.searchParams.set("key", API_KEY as string);
+  u.searchParams.set("fields", "files(id)");
+  u.searchParams.set("pageSize", "1");
+  u.searchParams.set("supportsAllDrives", "true");
+  u.searchParams.set("includeItemsFromAllDrives", "true");
+  u.searchParams.set("_", BUILD_TOKEN);
+  const res = await fetch(u.toString(), { cache: "force-cache" });
+  if (!res.ok) throw new Error(`Drive API ${res.status}`);
+  const data = (await res.json()) as { files?: { id: string }[] };
+  return data.files?.[0]?.id ?? null;
+}
+
+// 폴백: 공개 폴더 HTML 의 임베드 데이터에서 (파일 ID, 파일명) 쌍을 찾아
+// "대표사진" 파일을 고른다. 형식: \x22<id>\x22,\x5b\x22<부모>\x22\x5d,\x22<이름>\x22,\x22image
+async function scrapeCoverId(folderId: string): Promise<string | null> {
+  try {
+    const res = await fetch(
+      `https://drive.google.com/drive/folders/${folderId}?_=${BUILD_TOKEN}`,
+      { cache: "force-cache", headers: { "User-Agent": "Mozilla/5.0" } },
+    );
+    if (!res.ok) return null;
+    const html = await res.text();
+    const m = html.match(
+      /\\x22([\w-]{25,})\\x22,\\x5b\\x22[\w-]{25,}\\x22\\x5d,\\x22[^\\"]*대표사진[^\\"]*\\x22,\\x22image/,
+    );
+    return m?.[1] ?? null;
+  } catch {
+    return null;
+  }
+}
+
 // Drive API v3 — 공개 폴더는 API 키만으로 조회 가능. nextPageToken 으로 전량 페이지네이션.
 async function listViaDriveApi(folderId: string): Promise<string[]> {
   const ids: string[] = [];

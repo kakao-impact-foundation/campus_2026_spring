@@ -8,25 +8,21 @@ const Q_LABELS = {
   q4: "사회혁신가님이 만들고 싶은 변화가 충분히 쌓인 사회는 어떤 모습일까요?",
 };
 
-// Platform link detection — handles both https:// URLs and bare URLs (twitter.com/…, pf.kakao.com/…)
+// "- 플랫폼명: URL" 형식 파싱 — https:// 없는 bare URL(twitter.com/…)도 처리
 const LINK_LINE_RE =
-  /^[-•＊*]?\s*(홈페이지|웹사이트|인스타그램|유튜브|YouTube|블로그|Blog|페이스북|링크드인|트위터|카카오톡채널|카카오톡|카카오채널|카카오|X)\s*[:：]\s*(https?:\/\/\S+|[a-zA-Z0-9][\w.-]+\.\w{2,}[^\s]*)/i;
+  /^[-•＊*]?\s*(홈페이지|웹사이트|인스타그램|유튜브|YouTube|블로그|Blog|페이스북|Facebook|링크드인|LinkedIn|링크트리|Linktree|트위터|카카오톡채널|카카오톡|카카오채널|카카오|X|기타)\s*[:：]\s*(https?:\/\/\S+|[a-zA-Z0-9][\w.-]+\.\w{2,}[^\s]*)/i;
 
-function extractLinkLines(text: string) {
-  const lines = text.split("\n");
-  const links: { label: string; url: string }[] = [];
-  const rest: string[] = [];
-  for (const ln of lines) {
-    const m = ln.match(LINK_LINE_RE);
-    if (m) {
+function parseSocialLinks(text: string): { label: string; url: string }[] {
+  if (!text) return [];
+  return text
+    .split("\n")
+    .flatMap((ln) => {
+      const m = ln.match(LINK_LINE_RE);
+      if (!m) return [];
       const raw = m[2].replace(/[),.'"]+$/, "");
       const url = raw.startsWith("http") ? raw : `https://${raw}`;
-      links.push({ label: m[1], url });
-    } else {
-      rest.push(ln);
-    }
-  }
-  return { cleaned: rest.join("\n").trim(), links };
+      return [{ label: m[1], url }];
+    });
 }
 
 export default function InnovatorDetailView({
@@ -35,9 +31,9 @@ export default function InnovatorDetailView({
   innovator: Innovator;
 }) {
   const color = themeColor(v.tags) ?? "#d4d4d4";
-  const { cleaned: introText, links: introLinks } = extractLinkLines(v.intro);
+  const socialLinks = parseSocialLinks(v.socialLinks);
 
-  const hasSec01 = !!(introText || v.questions.length);
+  const hasSec01 = !!(v.intro || v.questions.length);
   const hasSec02 = !!(v.q1 || v.q2 || v.q3 || v.q4);
   const hasSec03 = !!v.studyMaterials;
   const sections: string[] = [];
@@ -84,9 +80,9 @@ export default function InnovatorDetailView({
           {v.schools.length > 0 && (
             <InfoRow label="매칭 학교">{v.schools.join(" · ")}</InfoRow>
           )}
-          {introLinks.length > 0 && (
+          {socialLinks.length > 0 && (
             <InfoRow label="공식 SNS">
-              <PlatformLinks links={introLinks} />
+              <PlatformLinks links={socialLinks} />
             </InfoRow>
           )}
         </dl>
@@ -96,9 +92,9 @@ export default function InnovatorDetailView({
           <section className="mt-14">
             <SectionTitle>{secNo("s01")}. 사회혁신가 소개</SectionTitle>
             <dl className="divide-y divide-black/[0.06] rounded-2xl border border-[#e6e6e6] px-7">
-              {introText && (
+              {v.intro && (
                 <DetailRow label="조직 소개">
-                  <RichText text={introText} />
+                  <RichText text={v.intro} />
                 </DetailRow>
               )}
               {v.questions.length > 0 && (
@@ -297,6 +293,33 @@ function XIcon() {
   );
 }
 
+function FacebookIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+function LinktreeIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
+  );
+}
+
 function PlatformIcon({ label }: { label: string }) {
   const lc = label.toLowerCase();
   if (lc.includes("인스타") || lc.includes("instagram")) return <InstagramIcon />;
@@ -304,6 +327,9 @@ function PlatformIcon({ label }: { label: string }) {
   if (lc.includes("블로그") || lc.includes("blog")) return <BlogIcon />;
   if (lc.includes("카카오")) return <KakaoIcon />;
   if (lc === "x" || lc.includes("트위터") || lc.includes("twitter")) return <XIcon />;
+  if (lc.includes("페이스북") || lc.includes("facebook")) return <FacebookIcon />;
+  if (lc.includes("링크드인") || lc.includes("linkedin")) return <LinkedInIcon />;
+  if (lc.includes("링크트리") || lc.includes("linktree")) return <LinktreeIcon />;
   return <GlobeIcon />;
 }
 

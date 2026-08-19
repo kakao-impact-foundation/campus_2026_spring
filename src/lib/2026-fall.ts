@@ -26,6 +26,7 @@ const COL = {
   questions: "질문 키트",
   intro: "조직 소개",
   schools: "학교 매칭",
+  socialLinks: "공식 SNS",
 } as const;
 
 export interface Innovator {
@@ -37,6 +38,7 @@ export interface Innovator {
   questions: string[]; // 질문 키트 (번호 제거·문항별 분리)
   intro: string; // 조직 소개 (원문 줄바꿈 유지)
   schools: string[]; // 매칭된 학교
+  socialLinks: string; // 공식 SNS (원문: "- 플랫폼: URL" 형식)
   q1: string; // 사회혁신가 이야기 Q1
   q2: string; // 사회혁신가 이야기 Q2
   q3: string; // 사회혁신가 이야기 Q3
@@ -92,6 +94,7 @@ function normalize(r: Row, i: number): Innovator {
     questions: parseQuestions(r[COL.questions] ?? ""),
     intro: (r[COL.intro] ?? "").trim(),
     schools: parseSchools(r[COL.schools] ?? ""),
+    socialLinks: (r[COL.socialLinks] ?? "").trim(),
     q1: byPrefix(r, "Q1."),
     q2: byPrefix(r, "Q2."),
     q3: byPrefix(r, "Q3."),

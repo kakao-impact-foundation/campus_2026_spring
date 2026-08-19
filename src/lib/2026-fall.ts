@@ -78,6 +78,14 @@ async function fetchCsv(url: string): Promise<Row[]> {
   });
 }
 
+// "공식"과 "SNS" 를 모두 포함하는 컬럼 검색 (헤더명 변형 대응)
+function bySnsCol(r: Row): string {
+  const key = Object.keys(r).find(
+    (k) => k.includes("공식") && k.includes("SNS"),
+  );
+  return key ? (r[key] ?? "").trim() : "";
+}
+
 // Q1~Q4 열 헤더는 여러 줄을 포함하므로 prefix 로 검색
 function byPrefix(r: Row, prefix: string): string {
   const key = Object.keys(r).find((k) => k.trimStart().startsWith(prefix));
@@ -94,7 +102,7 @@ function normalize(r: Row, i: number): Innovator {
     questions: parseQuestions(r[COL.questions] ?? ""),
     intro: (r[COL.intro] ?? "").trim(),
     schools: parseSchools(r[COL.schools] ?? ""),
-    socialLinks: byPrefix(r, "공식"),
+    socialLinks: bySnsCol(r),
     q1: byPrefix(r, "Q1."),
     q2: byPrefix(r, "Q2."),
     q3: byPrefix(r, "Q3."),

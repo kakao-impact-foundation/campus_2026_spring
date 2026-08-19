@@ -48,7 +48,7 @@ export default function InnovatorDetailView({
         </div>
 
         {/* 기관명 */}
-        <h1 className="font-kakao mb-3.5 text-[46px] font-extrabold leading-[1.12] tracking-[-0.03em] max-md:text-[32px]">
+        <h1 className="mb-3.5 text-[46px] font-extrabold leading-[1.12] tracking-[-0.03em] max-md:text-[32px] break-keep">
           {v.org}
         </h1>
 

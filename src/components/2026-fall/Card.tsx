@@ -21,17 +21,15 @@ export default function InnovatorCard({ innovator }: { innovator: Innovator }) {
       </div>
 
       {/* 대표 태그 */}
-      <div className="mt-auto flex flex-wrap gap-1.5">
-        {tags.map((t, i) => (
+      {tags[0] && (
+        <div className="mt-auto flex items-center gap-2">
           <span
-            key={t}
-            className="rounded-full px-2.5 py-1 text-[12px] font-semibold text-[#444]"
-            style={{ background: i === 0 && color ? color : "white" }}
-          >
-            #{t}
-          </span>
-        ))}
-      </div>
+            className="size-2 shrink-0 rounded-full"
+            style={{ background: color ?? "#d4d4d4" }}
+          />
+          <span className="text-[13px] font-bold text-ink">{tags[0]}</span>
+        </div>
+      )}
     </Link>
   );
 }

@@ -37,6 +37,11 @@ export interface Innovator {
   questions: string[]; // 질문 키트 (번호 제거·문항별 분리)
   intro: string; // 조직 소개 (원문 줄바꿈 유지)
   schools: string[]; // 매칭된 학교
+  q1: string; // 사회혁신가 이야기 Q1
+  q2: string; // 사회혁신가 이야기 Q2
+  q3: string; // 사회혁신가 이야기 Q3
+  q4: string; // 사회혁신가 이야기 Q4
+  studyMaterials: string; // 추천 학습 자료 (원문)
 }
 
 type Row = Record<string, string | undefined>;
@@ -53,6 +58,11 @@ export async function getInnovators(): Promise<Innovator[]> {
   }
 }
 
+export async function getInnovatorById(id: string): Promise<Innovator | null> {
+  const all = await getInnovators();
+  return all.find((v) => v.id === id) ?? null;
+}
+
 async function fetchCsv(url: string): Promise<Row[]> {
   const res = await fetch(bust(url), { cache: "force-cache" });
   if (!res.ok) throw new Error(`CSV fetch ${res.status}`);
@@ -66,6 +76,12 @@ async function fetchCsv(url: string): Promise<Row[]> {
   });
 }
 
+// Q1~Q4 열 헤더는 여러 줄을 포함하므로 prefix 로 검색
+function byPrefix(r: Row, prefix: string): string {
+  const key = Object.keys(r).find((k) => k.trimStart().startsWith(prefix));
+  return key ? (r[key] ?? "").trim() : "";
+}
+
 function normalize(r: Row, i: number): Innovator {
   return {
     id: (r[COL.no] ?? "").trim() || String(i + 1),
@@ -76,6 +92,11 @@ function normalize(r: Row, i: number): Innovator {
     questions: parseQuestions(r[COL.questions] ?? ""),
     intro: (r[COL.intro] ?? "").trim(),
     schools: parseSchools(r[COL.schools] ?? ""),
+    q1: byPrefix(r, "Q1."),
+    q2: byPrefix(r, "Q2."),
+    q3: byPrefix(r, "Q3."),
+    q4: byPrefix(r, "Q4."),
+    studyMaterials: (r["추천 학습 자료"] ?? "").trim(),
   };
 }
 

@@ -80,7 +80,15 @@ export default function InnovatorDetailView({
             <dl className="divide-y divide-black/[0.06] rounded-2xl border border-[#e6e6e6] px-7">
               {v.intro && (
                 <DetailRow label="조직 소개">
-                  <RichText text={v.intro} />
+                  {(() => {
+                    const { cleaned, links } = extractLinkLines(v.intro);
+                    return (
+                      <>
+                        {cleaned && <RichText text={cleaned} />}
+                        <PlatformLinks links={links} />
+                      </>
+                    );
+                  })()}
                 </DetailRow>
               )}
               {v.questions.length > 0 && (
@@ -197,6 +205,91 @@ function DetailRow({
         {label}
       </dt>
       <dd className="min-w-0 text-[15px] leading-[1.6]">{children}</dd>
+    </div>
+  );
+}
+
+/* ── 플랫폼 링크 감지·추출 ── */
+const LINK_LINE_RE =
+  /^[-•＊*]?\s*(홈페이지|웹사이트|인스타그램|유튜브|YouTube|블로그|Blog|페이스북|링크드인|트위터|X)\s*[:：]\s*(https?:\/\/\S+)/i;
+
+function extractLinkLines(text: string) {
+  const lines = text.split("\n");
+  const links: { label: string; url: string }[] = [];
+  const rest: string[] = [];
+  for (const ln of lines) {
+    const m = ln.match(LINK_LINE_RE);
+    if (m) links.push({ label: m[1], url: m[2].replace(/[),.'"]+$/, "") });
+    else rest.push(ln);
+  }
+  return { cleaned: rest.join("\n").trim(), links };
+}
+
+function GlobeIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="2" y1="12" x2="22" y2="12"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="0.7" fill="currentColor" stroke="none"/>
+    </svg>
+  );
+}
+
+function YouTubeIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+      <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+    </svg>
+  );
+}
+
+function BlogIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+    </svg>
+  );
+}
+
+function PlatformIcon({ label }: { label: string }) {
+  const lc = label.toLowerCase();
+  if (lc.includes("인스타") || lc.includes("instagram")) return <InstagramIcon />;
+  if (lc.includes("유튜브") || lc.includes("youtube")) return <YouTubeIcon />;
+  if (lc.includes("블로그") || lc.includes("blog")) return <BlogIcon />;
+  return <GlobeIcon />;
+}
+
+function PlatformLinks({ links }: { links: { label: string; url: string }[] }) {
+  if (!links.length) return null;
+  return (
+    <div className="mt-3 flex flex-wrap gap-2">
+      {links.map(({ label, url }) => (
+        <a
+          key={url}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-full border border-[#e0e0e0] bg-white px-3 py-[6px] text-[12.5px] font-semibold text-[#444] transition-colors hover:bg-[#f5f5f5]"
+        >
+          <PlatformIcon label={label} />
+          {label}
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+            <path d="M3.5 8.5L8.5 3.5M8.5 3.5H4.5M8.5 3.5V7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </a>
+      ))}
     </div>
   );
 }

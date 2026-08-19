@@ -31,9 +31,18 @@ export default function InnovatorDetailView({
   innovator: Innovator;
 }) {
   const color = themeColor(v.tags) ?? "#d4d4d4";
-  const socialLinks = parseSocialLinks(v.socialLinks);
 
-  const hasSec01 = !!(v.intro || v.questions.length);
+  // 전용 컬럼이 있으면 사용, 없으면 intro에서 링크 라인 추출 (폴백)
+  const socialLinks = v.socialLinks
+    ? parseSocialLinks(v.socialLinks)
+    : parseSocialLinks(v.intro);
+
+  // 폴백 시 intro에서 링크 라인 제거해서 SECTION 01에 표시
+  const introText = !v.socialLinks
+    ? v.intro.split("\n").filter((ln) => !LINK_LINE_RE.test(ln)).join("\n").trim()
+    : v.intro;
+
+  const hasSec01 = !!(introText || v.questions.length);
   const hasSec02 = !!(v.q1 || v.q2 || v.q3 || v.q4);
   const hasSec03 = !!v.studyMaterials;
   const sections: string[] = [];
@@ -92,9 +101,9 @@ export default function InnovatorDetailView({
           <section className="mt-14">
             <SectionTitle>{secNo("s01")}. 사회혁신가 소개</SectionTitle>
             <dl className="divide-y divide-black/[0.06] rounded-2xl border border-[#e6e6e6] px-7">
-              {v.intro && (
+              {introText && (
                 <DetailRow label="조직 소개">
-                  <RichText text={v.intro} />
+                  <RichText text={introText} />
                 </DetailRow>
               )}
               {v.questions.length > 0 && (

@@ -94,7 +94,7 @@ function normalize(r: Row, i: number): Innovator {
     questions: parseQuestions(r[COL.questions] ?? ""),
     intro: (r[COL.intro] ?? "").trim(),
     schools: parseSchools(r[COL.schools] ?? ""),
-    socialLinks: (r[COL.socialLinks] ?? "").trim(),
+    socialLinks: byPrefix(r, "공식"),
     q1: byPrefix(r, "Q1."),
     q2: byPrefix(r, "Q2."),
     q3: byPrefix(r, "Q3."),

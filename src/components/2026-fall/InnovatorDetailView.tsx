@@ -178,12 +178,12 @@ export default function InnovatorDetailView({
         {hasSec03 && (
           <section className="mt-16">
             <SectionTitle>{secNo("s03")}. 추천 학습 자료</SectionTitle>
-            <div className="mb-4 rounded-2xl bg-[#191919] px-7 py-6">
-              <p className="text-[14px] leading-[1.85] text-white/75">
+            <div className="mb-4 rounded-2xl bg-soft px-7 py-6">
+              <p className="text-[14px] leading-[1.85] text-[#555]">
                 사회혁신가가 직접 선정한 참고하면 좋은 자료 모음입니다. 이
                 자료를 활용해 일상에서 마주하는 사회 문제를 깊이 들여다보고,
                 솔루션이 필요한 현장을 조사해보세요. 이를 통해{" "}
-                <span className="font-bold text-white">
+                <span className="font-bold text-ink">
                   ① 사회 문제 및 현장 조사 → ② 문제 정의 → ③ 돕는 기술 솔루션
                   초기 기획
                 </span>

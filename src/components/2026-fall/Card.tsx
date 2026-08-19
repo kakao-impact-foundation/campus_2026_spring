@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Innovator } from "@/lib/2026-fall";
+import { Innovator, themeColor } from "@/lib/2026-fall";
 
 export default function InnovatorCard({ innovator }: { innovator: Innovator }) {
   const tags = innovator.tags.slice(0, 3);
+  const color = themeColor(innovator.tags);
 
   return (
     <Link
@@ -21,10 +22,11 @@ export default function InnovatorCard({ innovator }: { innovator: Innovator }) {
 
       {/* 대표 태그 */}
       <div className="mt-auto flex flex-wrap gap-1.5">
-        {tags.map((t) => (
+        {tags.map((t, i) => (
           <span
             key={t}
-            className="rounded-full bg-white px-2.5 py-1 text-[12px] font-semibold text-[#444]"
+            className="rounded-full px-2.5 py-1 text-[12px] font-semibold text-[#444]"
+            style={{ background: i === 0 && color ? color : "white" }}
           >
             #{t}
           </span>

@@ -191,8 +191,12 @@ export default function InnovatorDetailView({
               </p>
             </div>
             <div className="rounded-2xl border border-[#e6e6e6] px-7 py-[18px]">
-              <div className="text-[15px] leading-[1.8]">
-                <RichText text={v.studyMaterials} />
+              <div className="text-[15px] leading-[1.8] [&_a]:font-medium [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[#ccc] [&_a:hover]:decoration-ink [&_a]:transition-[text-decoration-color]">
+                {v.studyMaterialsHtml ? (
+                  <div dangerouslySetInnerHTML={{ __html: v.studyMaterialsHtml }} />
+                ) : (
+                  <RichText text={v.studyMaterials} />
+                )}
               </div>
             </div>
           </section>

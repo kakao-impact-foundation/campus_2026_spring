@@ -9,6 +9,7 @@ const SHEET_GID = "828875153";
 const CSV_URL =
   process.env.SHEET_INNOVATORS_CSV_URL ??
   `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
+const HTML_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=html&gid=${SHEET_GID}`;
 
 // 빌드마다 새 토큰 → 빌드 간 영구 캐시(.next/cache)를 URL 로 버스트해 최신 시트 반영.
 const BUILD_TOKEN = String(Date.now());
@@ -43,17 +44,24 @@ export interface Innovator {
   q2: string; // 사회혁신가 이야기 Q2
   q3: string; // 사회혁신가 이야기 Q3
   q4: string; // 사회혁신가 이야기 Q4
-  studyMaterials: string; // 추천 학습 자료 (원문)
+  studyMaterials: string; // 추천 학습 자료 (원문 plain text)
+  studyMaterialsHtml: string; // 추천 학습 자료 — 시트 하이퍼링크 보존 HTML
 }
 
 type Row = Record<string, string | undefined>;
 
 export async function getInnovators(): Promise<Innovator[]> {
   try {
-    const rows = await fetchCsv(CSV_URL);
-    return rows
+    const [csvRows, htmlMap] = await Promise.all([
+      fetchCsv(CSV_URL),
+      fetchStudyMaterialsHtml(),
+    ]);
+    return csvRows
       .filter((r) => (r[COL.org] ?? "").trim() && (r[COL.name] ?? "").trim())
-      .map(normalize);
+      .map((r, i) => ({
+        ...normalize(r, i),
+        studyMaterialsHtml: htmlMap.get((r[COL.org] ?? "").trim()) ?? "",
+      }));
   } catch (e) {
     console.warn(`[innovators] 데이터 로드 실패 — 빈 배열 반환. ${String(e)}`);
     return [];
@@ -76,6 +84,95 @@ async function fetchCsv(url: string): Promise<Row[]> {
     header.forEach((h, i) => (row[h] = cells[i] ?? ""));
     return row;
   });
+}
+
+// ── HTML export → 추천 학습 자료 하이퍼링크 추출 ──────────────────────
+
+async function fetchStudyMaterialsHtml(): Promise<Map<string, string>> {
+  try {
+    const res = await fetch(bust(HTML_URL), { cache: "force-cache" });
+    if (!res.ok) return new Map();
+    return parseSheetForStudyMaterials(await res.text());
+  } catch {
+    return new Map();
+  }
+}
+
+function parseSheetForStudyMaterials(html: string): Map<string, string> {
+  const result = new Map<string, string>();
+  const rows: string[][] = [];
+
+  const trRe = /<tr\b[^>]*>([\s\S]*?)<\/tr>/gi;
+  let trM: RegExpExecArray | null;
+  while ((trM = trRe.exec(html))) {
+    const cells: string[] = [];
+    const tdRe = /<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi;
+    let tdM: RegExpExecArray | null;
+    while ((tdM = tdRe.exec(trM[1]))) cells.push(tdM[1]);
+    if (cells.length) rows.push(cells);
+  }
+
+  if (rows.length < 2) return result;
+
+  const headerText = rows[0].map((c) =>
+    c.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").trim(),
+  );
+  const orgCol = headerText.findIndex((h) => h === "조직명");
+  const matCol = headerText.findIndex((h) => h.includes("추천 학습 자료"));
+  if (orgCol === -1 || matCol === -1) return result;
+
+  for (let i = 1; i < rows.length; i++) {
+    const cells = rows[i];
+    const orgName = (cells[orgCol] ?? "")
+      .replace(/<[^>]+>/g, "")
+      .replace(/&nbsp;/g, " ")
+      .trim();
+    const matHtml = extractCellHtml(cells[matCol] ?? "");
+    if (orgName && matHtml) result.set(orgName, matHtml);
+  }
+
+  return result;
+}
+
+// 셀 내용에서 <a> 하이퍼링크만 보존하고 나머지 태그 제거
+function extractCellHtml(cellContent: string): string {
+  const links: string[] = [];
+  let s = cellContent;
+
+  // <a href="...">inner</a> 보존
+  s = s.replace(
+    /<a\b[^>]*?\bhref=["']([^"']*)["'][^>]*>([\s\S]*?)<\/a>/gi,
+    (_: string, href: string, inner: string) => {
+      const text = inner.replace(/<[^>]+>/g, "").trim();
+      if (!text) return "";
+      const safeHref = href.replace(/^javascript:/i, "").replace(/&amp;/g, "&");
+      const idx = links.length;
+      links.push(
+        `<a href="${safeHref}" target="_blank" rel="noopener noreferrer">${text}</a>`,
+      );
+      return `\x00L${idx}\x00`;
+    },
+  );
+
+  // <br> 보존
+  s = s.replace(/<br\s*\/?>/gi, "\x00B\x00");
+  // 나머지 태그 제거
+  s = s.replace(/<[^>]+>/g, "");
+
+  // 플레이스홀더 복원
+  links.forEach((link, i) => {
+    s = s.replace(`\x00L${i}\x00`, link);
+  });
+  s = s.replace(/\x00B\x00/g, "<br>");
+
+  return s
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .trim();
 }
 
 // "공식"과 "SNS" 를 모두 포함하는 컬럼 검색 (헤더명 변형 대응)
@@ -108,6 +205,7 @@ function normalize(r: Row, i: number): Innovator {
     q3: byPrefix(r, "Q3."),
     q4: byPrefix(r, "Q4."),
     studyMaterials: (r["추천 학습 자료"] ?? "").trim(),
+    studyMaterialsHtml: "", // getInnovators()에서 HTML fetch 후 덮어씀
   };
 }
 

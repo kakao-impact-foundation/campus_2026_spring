@@ -370,8 +370,13 @@ function PlatformLinks({ links }: { links: { label: string; url: string }[] }) {
 }
 
 /* ── 줄바꿈 유지 + URL·마크다운 링크 자동 링크 ── */
-// [표시글자](URL) 형식과 raw https:// URL 모두 지원
+// 지원 형식:
+//   [표시글자](url)          → 표시글자가 링크
+//   표시글자 (url)           → 표시글자가 링크 (콜론 없는 단어·문장)
+//   https://raw-url          → URL 자체가 링크
 const MD_LINK_RE = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+// "글자 (https://url)" — 콜론·공백·괄호로 시작하지 않는 텍스트 앞에 붙은 괄호형 URL
+const PAREN_LINK_RE = /([^\s:(\n][^:(\n]*?)\s+\((https?:\/\/[^\s)]+)\)/g;
 const LINK_RE = /(https?:\/\/[^\s\n]+|www\.[^\s\n]+)/g;
 
 const LINK_CLASS =
@@ -417,9 +422,34 @@ function linkifyLine(line: string): React.ReactNode[] {
     });
   }
 
+  // "표시글자 (https://url)" 형식 — 표시글자가 링크 텍스트가 됨
+  PAREN_LINK_RE.lastIndex = 0;
+  while ((m = PAREN_LINK_RE.exec(line))) {
+    const inside = segments.some((s) => m!.index >= s.start && m!.index < s.end);
+    if (inside) continue;
+    const label = m[1].trim();
+    const href = m[2];
+    // m.index 는 label 시작점, end 는 닫는 ) 포함
+    segments.push({
+      start: m.index,
+      end: m.index + m[0].length,
+      node: (
+        <a
+          key={`paren-${m.index}`}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={LINK_CLASS}
+        >
+          {label}
+        </a>
+      ),
+    });
+  }
+
   LINK_RE.lastIndex = 0;
   while ((m = LINK_RE.exec(line))) {
-    // 마크다운 링크 내부에 포함된 URL이면 건너뜀
+    // 이미 처리된 세그먼트 내부 URL 이면 건너뜀
     const inside = segments.some((s) => m!.index >= s.start && m!.index < s.end);
     if (inside) continue;
     const raw = m[0].replace(/[),.'"]+$/, "");

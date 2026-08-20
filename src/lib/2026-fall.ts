@@ -10,6 +10,8 @@ const CSV_URL =
   process.env.SHEET_INNOVATORS_CSV_URL ??
   `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
 const HTML_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=html&gid=${SHEET_GID}`;
+// 시트를 "웹에 게시"하면 인증 없이 HTML 접근 가능 (export?format=html 은 인증 필요)
+const PUBHTML_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/pubhtml?gid=${SHEET_GID}&single=true`;
 
 // 빌드마다 새 토큰 → 빌드 간 영구 캐시(.next/cache)를 URL 로 버스트해 최신 시트 반영.
 const BUILD_TOKEN = String(Date.now());
@@ -89,13 +91,18 @@ async function fetchCsv(url: string): Promise<Row[]> {
 // ── HTML export → 추천 학습 자료 하이퍼링크 추출 ──────────────────────
 
 async function fetchStudyMaterialsHtml(): Promise<Map<string, string>> {
-  try {
-    const res = await fetch(bust(HTML_URL), { cache: "force-cache" });
-    if (!res.ok) return new Map();
-    return parseSheetForStudyMaterials(await res.text());
-  } catch {
-    return new Map();
+  // export?format=html 은 공개 시트라도 인증 필요 → pubhtml(웹에 게시 시) 로 폴백
+  for (const url of [HTML_URL, PUBHTML_URL]) {
+    try {
+      const res = await fetch(bust(url), { cache: "force-cache" });
+      if (!res.ok) continue;
+      const result = parseSheetForStudyMaterials(await res.text());
+      if (result.size > 0) return result;
+    } catch {
+      continue;
+    }
   }
+  return new Map();
 }
 
 function parseSheetForStudyMaterials(html: string): Map<string, string> {

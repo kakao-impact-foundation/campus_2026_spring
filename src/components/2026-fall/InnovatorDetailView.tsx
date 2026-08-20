@@ -369,8 +369,13 @@ function PlatformLinks({ links }: { links: { label: string; url: string }[] }) {
   );
 }
 
-/* ── 줄바꿈 유지 + URL 자동 링크 ── */
+/* ── 줄바꿈 유지 + URL·마크다운 링크 자동 링크 ── */
+// [표시글자](URL) 형식과 raw https:// URL 모두 지원
+const MD_LINK_RE = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
 const LINK_RE = /(https?:\/\/[^\s\n]+|www\.[^\s\n]+)/g;
+
+const LINK_CLASS =
+  "font-medium underline underline-offset-2 decoration-[#ccc] hover:decoration-ink transition-[text-decoration-color]";
 
 function RichText({ text }: { text: string }) {
   return (
@@ -388,26 +393,64 @@ function RichText({ text }: { text: string }) {
 function linkifyLine(line: string): React.ReactNode[] {
   const out: React.ReactNode[] = [];
   let last = 0;
+
+  // 먼저 [text](url) 마크다운 링크를 처리
+  const segments: { start: number; end: number; node: React.ReactNode }[] = [];
   let m: RegExpExecArray | null;
+
+  MD_LINK_RE.lastIndex = 0;
+  while ((m = MD_LINK_RE.exec(line))) {
+    segments.push({
+      start: m.index,
+      end: m.index + m[0].length,
+      node: (
+        <a
+          key={`md-${m.index}`}
+          href={m[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={LINK_CLASS}
+        >
+          {m[1]}
+        </a>
+      ),
+    });
+  }
+
   LINK_RE.lastIndex = 0;
   while ((m = LINK_RE.exec(line))) {
-    if (m.index > last) out.push(line.slice(last, m.index));
+    // 마크다운 링크 내부에 포함된 URL이면 건너뜀
+    const inside = segments.some((s) => m!.index >= s.start && m!.index < s.end);
+    if (inside) continue;
     const raw = m[0].replace(/[),.'"]+$/, "");
     const trailing = m[0].slice(raw.length);
     const href = raw.startsWith("http") ? raw : `https://${raw}`;
-    out.push(
-      <a
-        key={`${m.index}`}
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-medium underline underline-offset-2 decoration-[#ccc] hover:decoration-ink transition-[text-decoration-color]"
-      >
-        {raw}
-      </a>,
-    );
-    if (trailing) out.push(trailing);
-    last = m.index + m[0].length;
+    segments.push({
+      start: m.index,
+      end: m.index + m[0].length,
+      node: (
+        <>
+          <a
+            key={`url-${m.index}`}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={LINK_CLASS}
+          >
+            {raw}
+          </a>
+          {trailing}
+        </>
+      ),
+    });
+  }
+
+  segments.sort((a, b) => a.start - b.start);
+
+  for (const seg of segments) {
+    if (seg.start > last) out.push(line.slice(last, seg.start));
+    out.push(seg.node);
+    last = seg.end;
   }
   if (last < line.length) out.push(line.slice(last));
   return out;

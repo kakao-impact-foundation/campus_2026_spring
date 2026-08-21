@@ -42,6 +42,7 @@ export interface Innovator {
   intro: string; // 조직 소개 (원문 줄바꿈 유지)
   schools: string[]; // 매칭된 학교
   socialLinks: string; // 공식 SNS (원문: "- 플랫폼: URL" 형식)
+  cardImageUrl: string; // 카드용 이미지 URL (Google Drive → 직접 URL로 변환됨)
   q1: string; // 사회혁신가 이야기 Q1
   q2: string; // 사회혁신가 이야기 Q2
   q3: string; // 사회혁신가 이야기 Q3
@@ -182,6 +183,21 @@ function extractCellHtml(cellContent: string): string {
     .trim();
 }
 
+// Google Drive 공유 URL → 직접 이미지 URL 변환
+// https://drive.google.com/file/d/{ID}/view → https://drive.google.com/uc?export=view&id={ID}
+export function driveToDirectUrl(url: string): string {
+  if (!url) return "";
+  const m = url.match(/\/file\/d\/([^/?#]+)/);
+  if (!m) return url;
+  return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+}
+
+// "로고" 를 포함하는 컬럼 검색 (헤더: "로고/ 이미지")
+function byLogoCol(r: Row): string {
+  const key = Object.keys(r).find((k) => k.includes("로고"));
+  return key ? driveToDirectUrl((r[key] ?? "").trim()) : "";
+}
+
 // "공식"과 "SNS" 를 모두 포함하는 컬럼 검색 (헤더명 변형 대응)
 function bySnsCol(r: Row): string {
   const key = Object.keys(r).find(
@@ -207,6 +223,7 @@ function normalize(r: Row, i: number): Innovator {
     intro: (r[COL.intro] ?? "").trim(),
     schools: parseSchools(r[COL.schools] ?? ""),
     socialLinks: bySnsCol(r),
+    cardImageUrl: byLogoCol(r),
     q1: byPrefix(r, "Q1."),
     q2: byPrefix(r, "Q2."),
     q3: byPrefix(r, "Q3."),

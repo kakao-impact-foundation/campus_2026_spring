@@ -183,13 +183,13 @@ function extractCellHtml(cellContent: string): string {
     .trim();
 }
 
-// Google Drive 공유 URL → 직접 이미지 URL 변환
-// https://drive.google.com/file/d/{ID}/view → https://drive.google.com/uc?export=view&id={ID}
+// Google Drive 공유 URL → 이미지 직접 URL 변환
+// thumbnail API는 공개 공유 파일에서 인증 없이 작동함
 export function driveToDirectUrl(url: string): string {
   if (!url) return "";
   const m = url.match(/\/file\/d\/([^/?#]+)/);
   if (!m) return url;
-  return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800`;
 }
 
 // "로고" 를 포함하는 컬럼 검색 (헤더: "로고/ 이미지")

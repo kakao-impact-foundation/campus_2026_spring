@@ -53,7 +53,7 @@ export default function InnovatorCard({ innovator }: { innovator: Innovator }) {
       {/* 텍스트 영역 */}
       <div className="flex flex-1 flex-col gap-[7px] p-[22px_22px_20px]">
         <div
-          className={`line-clamp-2 text-[21px] leading-[1.3] font-extrabold tracking-[-0.015em] ${isLogo ? "pr-[72px]" : ""}`}
+          className={`line-clamp-2 text-[21px] leading-[1.3] font-extrabold tracking-[-0.015em] ${isLogo ? "pr-[108px]" : ""}`}
         >
           {innovator.org}
         </div>
@@ -71,12 +71,14 @@ export default function InnovatorCard({ innovator }: { innovator: Innovator }) {
         )}
       </div>
 
-      {/* 로고 (우측 상단) */}
+      {/* 로고 (우측 상단, 배경 없이 투명 부유) */}
       {isLogo && (
-        <div className="absolute top-[18px] right-[18px] flex h-[60px] w-[60px] items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={img} alt="" className="h-full w-full object-contain p-[6px]" />
-        </div>
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={img}
+          alt=""
+          className="absolute top-[14px] right-[14px] h-[90px] w-[90px] object-contain"
+        />
       )}
     </Link>
   );

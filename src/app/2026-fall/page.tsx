@@ -23,7 +23,7 @@ export default async function InnovatorsPage() {
           26-2학기 사회혁신가
         </h1>
         <p className="mt-5 text-[18px] text-[#555]">
-          <b className="text-ink font-bold">22인의 사회혁신가</b>가 테크포임팩트
+          <b className="text-ink font-bold">{innovators.length}인의 사회혁신가</b>가 테크포임팩트
           캠퍼스 여정을 함께합니다.
           {/* 강제 줄바꿈은 데스크톱에서만 — 모바일은 자연스럽게 흐르게 둔다 */}
           <br className="max-md:hidden" /> 현장의 문제를 가장 가까이에서

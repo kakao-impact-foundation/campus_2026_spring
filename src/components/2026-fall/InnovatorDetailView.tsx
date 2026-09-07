@@ -43,10 +43,12 @@ export default function InnovatorDetailView({
     : v.intro;
 
   const hasSec01 = !!(introText || v.questions.length);
+  const hasSec_workshop = !!v.workshopVideoId;
   const hasSec02 = !!(v.q1 || v.q2 || v.q3 || v.q4);
   const hasSec03 = !!v.studyMaterials;
   const sections: string[] = [];
   if (hasSec01) sections.push("s01");
+  if (hasSec_workshop) sections.push("s_workshop");
   if (hasSec02) sections.push("s02");
   if (hasSec03) sections.push("s03");
   const secNo = (key: string) =>
@@ -137,7 +139,22 @@ export default function InnovatorDetailView({
           </section>
         )}
 
-        {/* ── SECTION 02. 사회혁신가 이야기 ── */}
+        {/* ── SECTION 02. 사회혁신가 특강 ── */}
+        {hasSec_workshop && (
+          <section className="mt-16">
+            <SectionTitle>{secNo("s_workshop")}. 사회혁신가 특강 (2026-2학기 개강워크숍)</SectionTitle>
+            <div className="mt-5 overflow-hidden rounded-2xl bg-black aspect-video">
+              <iframe
+                src={`https://drive.google.com/file/d/${v.workshopVideoId}/preview`}
+                className="h-full w-full"
+                allow="autoplay"
+                allowFullScreen
+              />
+            </div>
+          </section>
+        )}
+
+        {/* ── SECTION 03. 사회혁신가 이야기 ── */}
         {hasSec02 && (
           <section className="mt-16">
             <SectionTitle>{secNo("s02")}. 사회혁신가 이야기</SectionTitle>

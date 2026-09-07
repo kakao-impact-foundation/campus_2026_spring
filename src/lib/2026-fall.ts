@@ -42,6 +42,7 @@ export interface Innovator {
   intro: string; // 조직 소개 (원문 줄바꿈 유지)
   schools: string[]; // 매칭된 학교
   socialLinks: string; // 공식 SNS (원문: "- 플랫폼: URL" 형식)
+  workshopVideoId: string; // 개강 워크숍 Google Drive 파일 ID
   q1: string; // 사회혁신가 이야기 Q1
   q2: string; // 사회혁신가 이야기 Q2
   q3: string; // 사회혁신가 이야기 Q3
@@ -182,6 +183,37 @@ function extractCellHtml(cellContent: string): string {
     .trim();
 }
 
+// 개강 워크숍 파일명 → Google Drive 파일 ID
+const WORKSHOP_VIDEO_MAP: Record<string, string> = {
+  "260829_소그룹C_1_경북시민재단(손정아).mp4":       "1UeG4iMCgxMpqBfUE5Z8OZ07GZW0ZGbfk",
+  "260829_소그룹A_2_그린테라피(최유진).mp4":         "1GcBx70ktpRSK9kXf-mcmZnR7AjvmX1tq",
+  "260829_소그룹B_4_거꾸로캠퍼스(이정백).mp4":       "15yBofWioDWjIoQnLhIyj15B94LnDgPB4",
+  "260829_소그룹A_1_경기연구원(김한수).mp4":         "1siekhbIDMgewa6m09Y8eXJau4HKXhcZi",
+  "260829_소그룹A_3_어필(이일) .mp4":               "1EMvn8oEBj7HoUphjZlvNdkDWberv9z1l",
+  "260829_소그룹A_5_링키지랩(이호경).mp4":           "13gJeC8EkznzwP7P1SSlMZbiZrsZe5yY_",
+  "260829_소그룹B_5_온기(조현식).mp4":               "1G32EkXztcX-hFkaXz-P9r5GKdwchsVZn",
+  "260829_소그룹C_4_다로리인(서삼열).mp4":           "1UuDVBYjhGaSyBPxJzT3pBweG-fPFpLse",
+  "260829_소그룹B_6_서울환경연합(최진우).mp4":       "1NK159VvEKEEBRG5r5RKB3B7b0i07ymr1",
+  "260829_소그룹C_2_아시안허브(최진희).mp4":         "1xsU9iprDXxtgHO3JCbkwQ_wwxDlq4Vu0",
+  "260829_소그룹B_1_안무서운회사(유승규).mp4":       "1B7L9qx-BkINtjsT-MyFsIS8VuQjMHamn",
+  "260829_소그룹B_2_오롯플래닛(황운주).mp4":         "1QeUSNiPh7Evp7cjb4xXfpQpHX3UD_y4J",
+  "260829_소그룹A_4_옥천신문(황민호).mp4":           "1xz502cZ9CThEjySce3m2N2Nx0JZEAbLc",
+  "260829_소그룹A_7_유난무브먼트(양소희).mp4":       "1kpzPdRRXkxEc3j8Af1_HnvLdzvj9S5au",
+  "260829_소그룹C_5_자원(이수영).mp4":               "1XZ6xlGEvLZ6qe96au08nvzpHcdn3Lm3S",
+  "260829_소그룹B_3_조금다른주식회사(이충현).mp4":   "1w66qJEoTSNZK57seVEJtBN4VUppVLybU",
+  "260829_소그룹A_6_아립앤위립(심현보).mp4":         "1LxrVal3iaKXRITeoLwrRLJUTb-e0BOMT",
+  "260829_소그룹D_1_중앙청소년문화의집(이제우).mp4": "15ly4fidOJk9NON9xNpk5viEg0Ilo69KD",
+  "260829_소그룹B_7_커뮤니T(박에디).mp4":            "1TckoOARiD6WX4pYxw7stSfVkLtRxE-QN",
+  "260829_소그룹C_3_토닥토닥협동조합(이영희).mp4":   "105rIdZU3yLbXIm9cgzr0dQxvaHJm-Jqb",
+  "260829_소그룹D_2_혜진원(김경미).mp4":             "190dNLqglOnz1BKbTyJexEs-z0lIDW6RC",
+};
+
+function byWorkshopCol(r: Row): string {
+  const key = Object.keys(r).find((k) => k.includes("개강") && k.includes("동영상"));
+  const filename = key ? (r[key] ?? "").trim() : "";
+  return WORKSHOP_VIDEO_MAP[filename] ?? "";
+}
+
 // "공식"과 "SNS" 를 모두 포함하는 컬럼 검색 (헤더명 변형 대응)
 function bySnsCol(r: Row): string {
   const key = Object.keys(r).find(
@@ -207,6 +239,7 @@ function normalize(r: Row, i: number): Innovator {
     intro: (r[COL.intro] ?? "").trim(),
     schools: parseSchools(r[COL.schools] ?? ""),
     socialLinks: bySnsCol(r),
+    workshopVideoId: byWorkshopCol(r),
     q1: byPrefix(r, "Q1."),
     q2: byPrefix(r, "Q2."),
     q3: byPrefix(r, "Q3."),

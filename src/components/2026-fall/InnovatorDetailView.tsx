@@ -144,7 +144,6 @@ export default function InnovatorDetailView({
           <section className="mt-16">
             <SectionTitle>{secNo("s_workshop")}. 사회혁신가 특강 (2026-2학기 개강워크숍)</SectionTitle>
             <div className="mt-5 overflow-hidden rounded-2xl bg-black aspect-video">
-              {/* eslint-disable-next-line jsx-a11y/iframe-has-title */}
               <iframe
                 src={`https://drive.google.com/file/d/${v.workshopVideoId}/preview`}
                 title="사회혁신가 특강 영상"

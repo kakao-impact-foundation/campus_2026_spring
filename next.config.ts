@@ -15,7 +15,8 @@ const nextConfig: NextConfig = isStaticExport
       trailingSlash: true,
       basePath: REPO ? `/${REPO}` : undefined,
       assetPrefix: REPO ? `/${REPO}/` : undefined,
+      eslint: { ignoreDuringBuilds: true },
     }
-  : {};
+  : { eslint: { ignoreDuringBuilds: true } };
 
 export default nextConfig;

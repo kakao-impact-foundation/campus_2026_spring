@@ -42,7 +42,7 @@ export interface Innovator {
   intro: string; // 조직 소개 (원문 줄바꿈 유지)
   schools: string[]; // 매칭된 학교
   socialLinks: string; // 공식 SNS (원문: "- 플랫폼: URL" 형식)
-  workshopVideoId: string; // 개강 워크숍 Google Drive 파일 ID
+  workshopVideoId: string; // 개강 워크숍 embed URL (YouTube or Drive preview)
   q1: string; // 사회혁신가 이야기 Q1
   q2: string; // 사회혁신가 이야기 Q2
   q3: string; // 사회혁신가 이야기 Q3
@@ -183,18 +183,27 @@ function extractCellHtml(cellContent: string): string {
     .trim();
 }
 
-// Google Drive URL 에서 파일 ID 추출
-// 지원 형식: /file/d/{ID}/view, /file/d/{ID}, open?id={ID}
-function driveFileId(url: string): string {
+// 시트 URL → iframe embed URL 변환
+// YouTube: youtu.be/{ID} 또는 youtube.com/watch?v={ID}  → youtube.com/embed/{ID}
+// Drive:   drive.google.com/file/d/{ID}/...             → drive.google.com/file/d/{ID}/preview
+function toEmbedUrl(raw: string): string {
+  const url = raw.trim();
   if (!url) return "";
-  const m = url.match(/\/file\/d\/([A-Za-z0-9_-]+)/) ?? url.match(/[?&]id=([A-Za-z0-9_-]+)/);
-  return m ? m[1] : "";
+  // YouTube
+  const ytShort = url.match(/youtu\.be\/([A-Za-z0-9_-]+)/);
+  if (ytShort) return `https://www.youtube.com/embed/${ytShort[1]}`;
+  const ytLong = url.match(/youtube\.com\/watch\?.*v=([A-Za-z0-9_-]+)/);
+  if (ytLong) return `https://www.youtube.com/embed/${ytLong[1]}`;
+  // Google Drive
+  const drive = url.match(/\/file\/d\/([A-Za-z0-9_-]+)/);
+  if (drive) return `https://drive.google.com/file/d/${drive[1]}/preview`;
+  return "";
 }
 
 function byWorkshopCol(r: Row): string {
   const key = Object.keys(r).find((k) => k.includes("개강") && k.includes("동영상"));
   const val = key ? (r[key] ?? "").trim() : "";
-  return driveFileId(val);
+  return toEmbedUrl(val);
 }
 
 // "공식"과 "SNS" 를 모두 포함하는 컬럼 검색 (헤더명 변형 대응)

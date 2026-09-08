@@ -145,7 +145,7 @@ export default function InnovatorDetailView({
             <SectionTitle>{secNo("s_workshop")}. 사회혁신가 특강 (2026-2학기 개강워크숍)</SectionTitle>
             <div className="mt-5 overflow-hidden rounded-2xl bg-black aspect-video">
               <iframe
-                src={`https://drive.google.com/file/d/${v.workshopVideoId}/preview`}
+                src={v.workshopVideoId}
                 title="사회혁신가 특강 영상"
                 className="h-full w-full"
                 allow="autoplay"

@@ -185,13 +185,13 @@
 
   /* ---------- gallery ---------- */
   .show{background:#fff}
-  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;max-width:1000px;margin-left:auto;margin-right:auto}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;max-width:1150px;margin-left:auto;margin-right:auto}
   .g-item{position:relative;border-radius:26px;overflow:hidden;background:var(--cream)}
   .g-item.wide{grid-column:1/-1}
   .g-item img{display:block;width:100%;height:100%;object-fit:cover}
-  .g-item.wide{height:min(42vh,560px)}
-  .g-item:not(.wide){height:min(21vh,280px)}
-  .g-cap{position:absolute;left:18px;bottom:18px;background:var(--point);color:var(--pill-txt);font-family:var(--display);font-weight:800;font-size:14px;padding:8px 16px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+  .g-item.wide{height:min(44vh,640px)}
+  .g-item:not(.wide){height:min(23vh,330px)}
+  .g-cap{position:absolute;left:14px;bottom:14px;background:var(--point);color:var(--pill-txt);font-family:var(--display);font-weight:700;font-size:13px;padding:7px 14px;border-radius:9px;box-shadow:0 4px 14px rgba(0,0,0,.18);max-width:85%}
   @media(max-width:720px){.gallery-grid{grid-template-columns:1fr}}
 
   /* ---------- universities ---------- */

@@ -103,8 +103,13 @@ h1.title{font-family:var(--font-display);font-size:46px;font-weight:800;letter-s
 .sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:22px}
 .sec-h h2{font-size:14px;font-weight:700;letter-spacing:.01em}
 .sec-h .sub{font-size:12.5px;color:var(--muted);margin-top:4px;font-weight:400;letter-spacing:0}
-.open-btn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;border:1px solid var(--hair);border-radius:999px;padding:7px 14px;white-space:nowrap}
-.open-btn:hover{border-color:#bbb}
+.ht{position:relative;border:1px solid var(--hair);border-radius:18px;padding:28px 32px 10px;background:#fff;overflow:hidden}
+.ht::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--kc,var(--accent))}
+.ht-lead{font-family:var(--font-display);font-size:18px;font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
+.ht-row{display:grid;grid-template-columns:110px 1fr;gap:20px;padding:16px 0;border-top:1px solid var(--hair)}
+.ht-row:first-child{border-top:0}
+.ht-row dt{align-self:start;justify-self:start;font-size:12px;font-weight:700;color:#555;background:var(--soft);border-radius:999px;padding:4px 10px;white-space:nowrap}
+.ht-row dd{font-size:16px;line-height:1.6;color:var(--ink)}
 .pdf{overflow:hidden;border-radius:18px;background:var(--soft);height:min(82vh,960px);border:1px solid var(--hair)}
 .pdf iframe{width:100%;height:100%;border:0;display:block}
 .pdf-missing{display:flex;align-items:center;justify-content:center;height:220px;color:var(--muted);font-size:14px}
@@ -165,6 +170,8 @@ footer .bot a:hover{color:#fff}
   .search{min-width:0}
   .info{padding:4px 18px}
   .info .row{grid-template-columns:1fr;gap:4px}
+  .ht{padding:22px 20px 6px 24px}
+  .ht-row{grid-template-columns:1fr;gap:8px}
   .link{grid-template-columns:1fr auto;padding:16px 18px}
   .link .kind{grid-column:1/-1}
   .pdf{height:70vh}
@@ -238,12 +245,26 @@ const PROJECTS = [
   "school": "가천대",
   "team": "이끼마우스",
   "leader": "김민성",
-  "members": [],
+  "members": [
+   "권민재",
+   "이재관",
+   "최형균"
+  ],
   "org": "경기연구원",
   "keyword": "기후/환경",
   "innovator": "김한수 실장",
   "name": "우리 공원 생명 도감",
+  "mentors": [
+   "신현지 (lesser.panda)",
+   "이다니엘 (daniel.v)",
+   "김재훈 (josh.uak)"
+  ],
   "summary": "경기도 도시공원의 생태 데이터로 만든 어린이·가족용 수집형 디지털 도감",
+  "helping": [
+   "경기도 도시공원의 어린이와 가족 방문객",
+   "공원 속 생물을 모른 채 지나치는 문제",
+   "공원별 생태 데이터로 만든 수집형 디지털 도감"
+  ],
   "worksheet": "1zXcVZvbar1acQk2cv8gwd7tX85cwID66",
   "worksheetUrl": "https://drive.google.com/open?id=1zXcVZvbar1acQk2cv8gwd7tX85cwID66",
   "links": [
@@ -259,12 +280,26 @@ const PROJECTS = [
   "school": "가천대",
   "team": "브릿지",
   "leader": "박소윤",
-  "members": [],
+  "members": [
+   "김유신",
+   "신민서",
+   "윤지환"
+  ],
   "org": "유난무브먼트",
   "keyword": "교육/제도",
   "innovator": "양소희 대표",
   "name": "Whose Side?",
+  "mentors": [
+   "신현지 (lesser.panda)",
+   "이다니엘 (daniel.v)",
+   "김재훈 (josh.uak)"
+  ],
   "summary": "내 생각과 다른 관점을 내 입장처럼 대변해 상대를 속이는 사회이슈 마피아 게임",
+  "helping": [
+   "경기도 성남시 학교의 중고등학생과 청년",
+   "사회 이슈에 관한 발언과 반대 관점을 이해할 기회가 부족한 문제",
+   "역할 추리 게임과 구조화된 채팅 토론"
+  ],
   "worksheet": "10xzO7WmG0uA6gHtoXp5qikLDC34CqhK3",
   "worksheetUrl": "https://drive.google.com/open?id=10xzO7WmG0uA6gHtoXp5qikLDC34CqhK3",
   "links": [
@@ -285,12 +320,26 @@ const PROJECTS = [
   "school": "가천대",
   "team": "식물집사",
   "leader": "정민혁",
-  "members": [],
+  "members": [
+   "김지혁",
+   "백현종",
+   "우지성",
+   "이태현"
+  ],
   "org": "(주)그린테라피",
   "keyword": "마음건강/돌봄",
   "innovator": "최유진 대표",
   "name": "말하는 수호식물",
+  "mentors": [
+   "김수지 (lyn.kim)",
+   "민경훈 (hooni.dev)"
+  ],
   "summary": "혼자 구직하는 청년이 식물과 음성으로 대화하며 마음을 돌보는 스마트 화분",
+  "helping": [
+   "경기도 성남시에서 혼자 구직을 버티는 청년",
+   "한 일에 돌아오는 것이 없어 스스로를 돌보는 일마저 끊기는 문제",
+   "흙이 마르면 먼저 말을 걸고, 돌봄에 응답하며 하루를 함께 이야기하는 '말하는 수호식물' 화분"
+  ],
   "worksheet": "1eoYk-TT5v1FbM9liApax0jL6CaG1slEt",
   "worksheetUrl": "https://drive.google.com/open?id=1eoYk-TT5v1FbM9liApax0jL6CaG1slEt",
   "links": [
@@ -306,12 +355,26 @@ const PROJECTS = [
   "school": "가천대",
   "team": "Re:born",
   "leader": "강태이",
-  "members": [],
+  "members": [
+   "마랄마",
+   "이수인",
+   "정원준"
+  ],
   "org": "공익법센터 어필",
   "keyword": "사회적포용",
   "innovator": "이일 대표",
   "name": "Re:Cord",
+  "mentors": [
+   "이소영 (rachel.ly)",
+   "김승민 (vincent.os)",
+   "장지석 (kante.j)"
+  ],
   "summary": "흩어진 사건 자료를 타임라인과 근거로 정리해 증거 중심의 난민 심사를 돕는 서비스",
+  "helping": [
+   "대한민국의 난민 1차 심사 실무자",
+   "증거가 설명 없이 흩어져 검토되지 못하고, 심사가 진술의 일관성에만 의존하는 문제",
+   "다국어 자료 번역, 사건 타임라인 구조화, 주장별 근거 연결 도구"
+  ],
   "worksheet": "1X_cGPxiU7Chtqes6H2ZIGoqrgXZ8XihU",
   "worksheetUrl": "https://drive.google.com/open?id=1X_cGPxiU7Chtqes6H2ZIGoqrgXZ8XihU",
   "links": [
@@ -327,12 +390,27 @@ const PROJECTS = [
   "school": "가천대",
   "team": "어만더나세",
   "leader": "송채우",
-  "members": [],
+  "members": [
+   "김지원",
+   "박재민",
+   "정효림",
+   "최은찬"
+  ],
   "org": "링키지랩",
   "keyword": "접근성",
   "innovator": "이호경 책임",
   "name": "징징이징",
+  "mentors": [
+   "이소영 (rachel.ly)",
+   "김승민 (vincent.os)",
+   "장지석 (kante.j)"
+  ],
   "summary": "버스가 몰리는 정류장에서 저시력·시각장애인의 승차 의사를 기사에게 전달하는 솔루션",
+  "helping": [
+   "교통이 혼잡한 서울시 버스정류장에서 매일 특정 버스를 타는 저시력·시각장애인",
+   "여러 버스가 동시에 도착할 때 탈 버스를 찾기 어렵고, 기사에게 승차 의사를 전하지 못해 버스를 놓치는 문제",
+   "승차 요청과 기사 확인을 주고받고, 출입문까지의 거리와 방향을 음성·진동으로 안내하는 근거리 무선통신(BLE·UWB) 기반 승차 지원 서비스"
+  ],
   "worksheet": "10lphtlGY-xY2_Gly9Av5eSDz7gZ94mix",
   "worksheetUrl": "https://drive.google.com/open?id=10lphtlGY-xY2_Gly9Av5eSDz7gZ94mix",
   "links": [
@@ -348,12 +426,25 @@ const PROJECTS = [
   "school": "가천대",
   "team": "삼삼일일",
   "leader": "엄주원",
-  "members": [],
+  "members": [
+   "김태호",
+   "이영민",
+   "정준호"
+  ],
   "org": "옥천신문사",
   "keyword": "지역소멸",
   "innovator": "황민호 대표",
   "name": "옥키(OKEY)",
+  "mentors": [
+   "김수지 (lyn.kim)",
+   "민경훈 (hooni.dev)"
+  ],
   "summary": "일자리는 있지만 집이 없어 떠나는 옥천 청년이 머물 수 있게 집을 연결하는 서비스",
+  "helping": [
+   "충청북도 옥천군에 외지에서 취업해 온 20~30대 1인 청년",
+   "일자리는 있지만 머물 집이 없어 정착하지 못하고 대전으로 빠져나가는 문제",
+   "고용주와 지역의 숨은 매물을 모아 입사 전에 집을 연결하고, 부족한 주거 수요를 데이터로 군에 전하는 모바일 웹 '옥키'"
+  ],
   "worksheet": "1MKSurYKCpdl_E8N-nQK2AVUSf7P1h8ni",
   "worksheetUrl": "https://drive.google.com/open?id=1MKSurYKCpdl_E8N-nQK2AVUSf7P1h8ni",
   "links": []
@@ -363,12 +454,27 @@ const PROJECTS = [
   "school": "경운대",
   "team": "이음",
   "leader": "이재형",
-  "members": [],
+  "members": [
+   "김혁진",
+   "김민아",
+   "염상화",
+   "조한별"
+  ],
   "org": "(사)경북시민재단",
   "keyword": "지역소멸",
   "innovator": "손정아 본부장",
   "name": "이동식 상점 키오스크",
+  "mentors": [
+   "안영진 (ian.hellozin)",
+   "신채린 (rina.chae)",
+   "박기쁨 (joey.park)"
+  ],
   "summary": "시니어 고객이 찾는 이동식 상점 기사님을 위한 키오스크형 판매 프로그램",
+  "helping": [
+   "경북 청도군에서 지역에 고립된 주민",
+   "생활 인프라가 부족하고 접근하기 어려운 문제",
+   "이동식 상점과 돌봄 서비스"
+  ],
   "worksheet": "1gJFVXAVMgDudxnIx3t1X3tX-40cZJkYf",
   "worksheetUrl": "https://drive.google.com/open?id=1gJFVXAVMgDudxnIx3t1X3tX-40cZJkYf",
   "links": []
@@ -378,12 +484,27 @@ const PROJECTS = [
   "school": "경운대",
   "team": "햇살",
   "leader": "김지우",
-  "members": [],
+  "members": [
+   "최율",
+   "김소희",
+   "이지호",
+   "이수경"
+  ],
   "org": "사회적기업(주)다로리인",
   "keyword": "지역소멸",
   "innovator": "서삼열 대표",
   "name": "청년도감",
+  "mentors": [
+   "차경준 (lex.63)",
+   "신채린 (rina.chae)",
+   "박기쁨 (joey.park)"
+  ],
   "summary": "전국 대학생 멘토와 청도군 아이들을 잇는 청도 밀착형 교육·소통 플랫폼",
+  "helping": [
+   "경북 청도군의 초·중·고등학생과 지역 주민",
+   "교육·문화 인프라가 부족하고 이동이 불편한 문제",
+   "지역 연계 멘토링과 공간·프로그램 매칭 플랫폼"
+  ],
   "worksheet": "1wC18ASeNO6UoD2JBRiejNy2E6onFJT2c",
   "worksheetUrl": "https://drive.google.com/open?id=1wC18ASeNO6UoD2JBRiejNy2E6onFJT2c",
   "links": []
@@ -393,12 +514,27 @@ const PROJECTS = [
   "school": "경운대",
   "team": "Let's go",
   "leader": "송진호",
-  "members": [],
+  "members": [
+   "윤동현",
+   "김가연",
+   "임세연",
+   "김주영"
+  ],
   "org": "아시안허브",
   "keyword": "사회적포용",
   "innovator": "최진희 대표",
   "name": "프로필 및 강의계획서 제작•관리 코디네이터 플랫폼",
+  "mentors": [
+   "신채린 (rina.chae)",
+   "박기쁨 (joey.park)",
+   "안용준 (asher.an)"
+  ],
   "summary": "이주민 강사의 강의계획서와 활동 프로필을 만들고 관리해 활동 기회로 잇는 통합 플랫폼",
+  "helping": [
+   "전국 다문화·이주민 밀집 지역의 이주민 강사",
+   "강사 역량을 개발하고 일자리를 확보하기 어려운 문제",
+   "교육자료 통합과 강의 홍보 플랫폼"
+  ],
   "worksheet": "1lXoUnaAHeAMK2xe4wysB1FwDbYJBBg6i",
   "worksheetUrl": "https://drive.google.com/open?id=1lXoUnaAHeAMK2xe4wysB1FwDbYJBBg6i",
   "links": []
@@ -408,12 +544,26 @@ const PROJECTS = [
   "school": "경운대",
   "team": "리소스",
   "leader": "조성환",
-  "members": [],
+  "members": [
+   "허지우",
+   "김지수",
+   "이시아"
+  ],
   "org": "자원(ZAONE)",
   "keyword": "기후/환경",
   "innovator": "이수영 대표",
   "name": "휴면자원 초기검토 보조 시스템",
+  "mentors": [
+   "박기쁨 (joey.park)",
+   "신채린 (rina.chae)",
+   "안용준 (asher.an)"
+  ],
   "summary": "신규 휴면자원 정보에서 빠진 내용과 추가로 확인할 부분을 짚어주는 자원 담당자용 검토 보조 시스템",
+  "helping": [
+   "ZAONE과 연계된 제조기업·공장에서 나온 휴면자원을 검토하는 ZAONE 담당자",
+   "휴면자원 정보가 불충분하거나 불명확해 같은 내용을 반복해서 확인하는 문제",
+   "정보 충족 여부와 추가 확인이 필요한 부분을 짚어주는 검토 보조 시스템"
+  ],
   "worksheet": "1TArUJbEQm4XTleNxj_tMfYjAah6Cma9c",
   "worksheetUrl": "https://drive.google.com/open?id=1TArUJbEQm4XTleNxj_tMfYjAah6Cma9c",
   "links": []
@@ -423,12 +573,27 @@ const PROJECTS = [
   "school": "경운대",
   "team": "S.O.S",
   "leader": "이종수",
-  "members": [],
+  "members": [
+   "안성용",
+   "김승우",
+   "이인호",
+   "김정훈"
+  ],
   "org": "토닥토닥협동조합",
   "keyword": "마음건강/돌봄",
   "innovator": "이영희 대표",
   "name": "(미정)",
+  "mentors": [
+   "고병일 (kobi.go)",
+   "신채린 (rina.chae)",
+   "박기쁨 (joey.park)"
+  ],
   "summary": "상담과 상담 사이를 게임형 리워드와 AI 기록 분석으로 채워 꾸준한 마음 관리를 돕는 서비스",
+  "helping": [
+   "대한민국 전 지역에서 대인관계로 심리적 어려움을 겪는 20대 심리상담 이용자",
+   "상담과 상담 사이 공백 기간에 관계와 감정을 꾸준히 기록하기 어려운 문제",
+   "게임형 리워드 기반 마음 기록과 AI 누적 분석, 상담 연계 서비스"
+  ],
   "worksheet": "1RKBMspA7iuyHXK9ME9qPbm_sUN3icOS4",
   "worksheetUrl": "https://drive.google.com/open?id=1RKBMspA7iuyHXK9ME9qPbm_sUN3icOS4",
   "links": [
@@ -444,12 +609,26 @@ const PROJECTS = [
   "school": "고려대 세종",
   "team": "미플",
   "leader": "김민서",
-  "members": [],
+  "members": [
+   "임서윤",
+   "장지호",
+   "정동규",
+   "조윤서"
+  ],
   "org": "유난무브먼트",
   "keyword": "교육/제도",
   "innovator": "양소희 대표",
   "name": "일상 속 대화를 여는 보드게임",
+  "mentors": [
+   "김송진 (pine.thx)",
+   "노원재 (raw.data)"
+  ],
   "summary": "정치/사회 이슈 앞에서 침묵에 익숙해진 사람들이 가볍게 접근할 수 있는 연동 보드게임",
+  "helping": [
+   "대한민국에서 정치·사회 이슈를 편하게 이야기하고 싶은 사람들",
+   "침묵이 익숙해진 소통 문화",
+   "누구나 가볍게 시작할 수 있는 앱 연동 보드게임"
+  ],
   "worksheet": "1zilF_OAQw3OPWVzpglhLXjn3ecy7KqcI",
   "worksheetUrl": "https://drive.google.com/open?id=1zilF_OAQw3OPWVzpglhLXjn3ecy7KqcI",
   "links": []
@@ -459,12 +638,26 @@ const PROJECTS = [
   "school": "고려대 세종",
   "team": "경기연구원팀",
   "leader": "이현지",
-  "members": [],
+  "members": [
+   "류한서",
+   "문준용",
+   "오서영",
+   "이주형"
+  ],
   "org": "경기연구원",
   "keyword": "기후/환경",
   "innovator": "김한수 실장",
   "name": "햇빛아파트",
+  "mentors": [
+   "신지현 (lina.hyun)",
+   "노원재 (raw.data)"
+  ],
   "summary": "경기 아파트 맞춤형 태양광 도입 및 주민동의 의사결정 지원 플랫폼",
+  "helping": [
+   "경기도 기존 공동주택의 입주자대표회의·관리사무소와 입주민",
+   "태양광 도입 정보를 해석하고 주민 의견을 모아 결정하기 어려운 문제",
+   "경기기후플랫폼 등 공공데이터 기반 관리비 영향 시뮬레이션과 주민용 AI 의사결정 브리프"
+  ],
   "worksheet": "11M6AhG1ePIFIq_n9vOW-gMoWE3o34NQY",
   "worksheetUrl": "https://drive.google.com/open?id=11M6AhG1ePIFIq_n9vOW-gMoWE3o34NQY",
   "links": []
@@ -474,12 +667,26 @@ const PROJECTS = [
   "school": "고려대 세종",
   "team": "KU:NNECT",
   "leader": "정해찬",
-  "members": [],
+  "members": [
+   "권수연",
+   "김대현",
+   "노현서",
+   "박귀환"
+  ],
   "org": "(주)그린테라피",
   "keyword": "마음건강/돌봄",
   "innovator": "최유진 대표",
   "name": "PIC your Moment (픽쳐모먼트)",
+  "mentors": [
+   "김보현 (tami.kim)",
+   "이서린 (kina.lee)"
+  ],
   "summary": "취미에 몰입했던 순간을 사진과 기록으로 남기고 돌아보며 지친 마음을 회복하는 기록 서비스",
+  "helping": [
+   "전국(초기 시범: 고려대 세종캠퍼스)에서 일상 속 역할을 유지하느라 지친 청년",
+   "바쁜 일정과 역할 때문에 좋아하는 활동에 집중하며 회복할 기회를 놓치는 문제",
+   "좋아하는 활동으로 전환하고 몰입하는 경험을 부담 없이 이어가도록 돕는 서비스"
+  ],
   "worksheet": "1csLFHHVcTI1Rml8-tHIHzpikJGXwzxg7",
   "worksheetUrl": "https://drive.google.com/open?id=1csLFHHVcTI1Rml8-tHIHzpikJGXwzxg7",
   "links": []
@@ -489,12 +696,26 @@ const PROJECTS = [
   "school": "고려대 세종",
   "team": "하츠투옥천",
   "leader": "김은수",
-  "members": [],
+  "members": [
+   "김규원",
+   "남유정",
+   "서동규",
+   "윤이루"
+  ],
   "org": "옥천신문사",
   "keyword": "지역소멸",
   "innovator": "황민호 대표",
   "name": "옥!소리",
+  "mentors": [
+   "박지환 (kai.jh)",
+   "백민서 (blair.baik)"
+  ],
   "summary": "흩어진 옥천 동네 소식을 모으고 옥천신문이 사실을 확인해 주는 동네 소식 앱",
+  "helping": [
+   "충청북도 옥천군에서 입소문 네트워크 밖에 있는 주민과 방문자",
+   "오늘 동네 가게와 소식을 알 수 없는 정보 소외",
+   "옥천신문이 관리하고 확인하는 동네 소식 앱 '옥!소리'"
+  ],
   "worksheet": "1TB9hq13locG3FmYO3_Tr00-qmWW7XObD",
   "worksheetUrl": "https://drive.google.com/open?id=1TB9hq13locG3FmYO3_Tr00-qmWW7XObD",
   "links": [
@@ -510,12 +731,26 @@ const PROJECTS = [
   "school": "고려대 세종",
   "team": "워밍업",
   "leader": "김주희",
-  "members": [],
+  "members": [
+   "김덕훈",
+   "이승주",
+   "장재원",
+   "정지영"
+  ],
   "org": "주식회사 아립앤위립",
   "keyword": "접근성",
   "innovator": "심현보 대표",
   "name": "밥뭇나? 밥뭇다!",
+  "mentors": [
+   "김보현 (tami.kim)",
+   "유재민 (yuja.emin)"
+  ],
   "summary": "시니어의 기술 사용 부담 없이 끊기지 않는 안부 확인을 돕는 IoT 서비스",
+  "helping": [
+   "세종·대전의 원거리 부양가족",
+   "떨어져 사는 부모님의 영양 상태에 대한 불안",
+   "IoT 연동 앱으로 식사 여부를 알려주는 서비스"
+  ],
   "worksheet": "1sQpRVXsQKEHgRJ5dZWVZ8g8BR4dMlnWb",
   "worksheetUrl": "https://drive.google.com/open?id=1sQpRVXsQKEHgRJ5dZWVZ8g8BR4dMlnWb",
   "links": [
@@ -531,12 +766,26 @@ const PROJECTS = [
   "school": "고려대 세종",
   "team": "AIgo",
   "leader": "차고은",
-  "members": [],
+  "members": [
+   "김찬우",
+   "김태경",
+   "송명재",
+   "오승재"
+  ],
   "org": "주식회사 아립앤위립",
   "keyword": "접근성",
   "innovator": "심현보 대표",
   "name": "느린 지도",
+  "mentors": [
+   "김송진 (pine.thx)",
+   "유재민 (yuja.emin)"
+  ],
   "summary": "시니어의 일상 경험을 쓸모 있는 지역 데이터로 바꾸고 그 가치를 다른 사람에게 잇는 서비스",
+  "helping": [
+   "시니어 거주 비중이 높은 지역에서 은퇴 후 새로운 역할과 생활 리듬을 찾지 못한 시니어",
+   "시간적 공백과 사회적 역할 상실, 효율만을 중시하는 사회 분위기",
+   "시니어의 산책 경험을 지역 데이터로 만들어 '경험 중심 길'을 추천하는 위치 기반 서비스"
+  ],
   "worksheet": "1ciJaSoXk82jPB3WKK1sX_9NnLSTSSfrX",
   "worksheetUrl": "https://drive.google.com/open?id=1ciJaSoXk82jPB3WKK1sX_9NnLSTSSfrX",
   "links": []
@@ -546,12 +795,26 @@ const PROJECTS = [
   "school": "고려대 세종",
   "team": "Upheal",
   "leader": "박종환",
-  "members": [],
+  "members": [
+   "이윤진",
+   "정석우",
+   "정수민",
+   "정지원"
+  ],
   "org": "공익법센터 어필",
   "keyword": "사회적포용",
   "innovator": "이일 대표",
   "name": "브리프케이스",
+  "mentors": [
+   "박지환 (kai.jh)",
+   "조선웅 (leon.jo)"
+  ],
   "summary": "빠르게 쌓이는 난민 업무를 쉽고 빠르게 관리하는 업무 관리 도구",
+  "helping": [
+   "국내 난민 법률지원 실무자",
+   "조력 요청 검토가 2~4주씩 지연되고, 사실관계 정리와 국가정황정보 조사를 매번 반복해야 하는 부담",
+   "로컬 AI 기반 검토 브리프 생성과 국가정황정보 정리 도구"
+  ],
   "worksheet": "1ftG92qd3XGP1nmpCVjpPeex3CXwi56uQ",
   "worksheetUrl": "https://drive.google.com/open?id=1ftG92qd3XGP1nmpCVjpPeex3CXwi56uQ",
   "links": []
@@ -561,12 +824,25 @@ const PROJECTS = [
   "school": "동국대",
   "team": "그루터기(stump)",
   "leader": "김태형",
-  "members": [],
+  "members": [
+   "김양우",
+   "김현",
+   "오승현"
+  ],
   "org": "서울환경연합",
   "keyword": "기후/환경",
   "innovator": "최진우 위원",
   "name": "서울 TreeMate",
+  "mentors": [
+   "임수진 (remy.lim)",
+   "위성철 (us.castle)"
+  ],
   "summary": "시민이 나무를 아끼는 마음을 구청이 쓸 수 있는 관리 데이터와 재원으로 바꾸는 서비스",
+  "helping": [
+   "서울시 25개 자치구의 가로수 담당 공무원과 가로수에 애착을 가진 시민",
+   "시민의 관심이 관리 데이터와 재원으로 이어지지 않아 물 부족과 이상 징후를 놓치는 문제",
+   "시민 기록·공공데이터 기반 나무 상태 계산과 '신고 → 구청 조치 → 알림' 피드백 루프를 갖춘 가로수 명예 입양 웹 플랫폼 '서울 TreeMate'"
+  ],
   "worksheet": "1x7XxTjDnzR-sPfSEQ0MY7l3cqytg774H",
   "worksheetUrl": "https://drive.google.com/open?id=1x7XxTjDnzR-sPfSEQ0MY7l3cqytg774H",
   "links": []
@@ -576,12 +852,25 @@ const PROJECTS = [
   "school": "동국대",
   "team": "핑(PING)",
   "leader": "권민재",
-  "members": [],
+  "members": [
+   "김연비",
+   "어수빈",
+   "홍선빈"
+  ],
   "org": "안무서운회사",
   "keyword": "사회적포용",
   "innovator": "유승규 대표",
   "name": "별일컴퍼니",
+  "mentors": [
+   "이민정 (jeju.ii)",
+   "나병호 (waylon.n)"
+  ],
   "summary": "시차 기반 단계형 일경험 및 사회적 연결 플랫폼",
+  "helping": [
+   "서울 등 국내의 주야가 바뀐 고립·은둔 청년",
+   "일반 취업 환경의 진입 장벽이 높고, 일경험·경제활동으로 이어지는 중간 단계가 없는 문제",
+   "시차를 고려한 AI 코디네이터 기반 원격 마이크로태스크 플랫폼"
+  ],
   "worksheet": "1r5zMdSv-HAhxjBC6ZNxVc8AbsroFYRvP",
   "worksheetUrl": "https://drive.google.com/open?id=1r5zMdSv-HAhxjBC6ZNxVc8AbsroFYRvP",
   "links": [
@@ -602,12 +891,24 @@ const PROJECTS = [
   "school": "동국대",
   "team": "헬퍼(helper)",
   "leader": "김소영",
-  "members": [],
+  "members": [
+   "강지호",
+   "이동은"
+  ],
   "org": "오롯플래닛",
   "keyword": "접근성",
   "innovator": "황운주 팀장",
   "name": "음성인식 기반 공연 자막 오퍼레이터 보조 시스템",
+  "mentors": [
+   "이상은 (leesa.l)",
+   "이민정 (jeju.ii)"
+  ],
   "summary": "공연 현장 음성과 사전 대본을 실시간으로 비교해 대본 이탈, 복귀 위치를 알려주는 자막 오퍼레이터 보조 시스템",
+  "helping": [
+   "서울 지역 공연장의 외국인·청각장애인 관객",
+   "수동 대본 추적과 대본 이탈 대응이 어려워 생기는 자막 지연과 공백",
+   "음성인식 기반 실시간 대본 위치 추적 기술"
+  ],
   "worksheet": "1JYTwEwmt8t0GyZ1jR8ySKPiIfO5KoHdw",
   "worksheetUrl": "https://drive.google.com/open?id=1JYTwEwmt8t0GyZ1jR8ySKPiIfO5KoHdw",
   "links": [
@@ -623,12 +924,25 @@ const PROJECTS = [
   "school": "동국대",
   "team": "리버스(RE:VERSE)",
   "leader": "임여민",
-  "members": [],
+  "members": [
+   "이영민",
+   "정재윤",
+   "조현서"
+  ],
   "org": "거꾸로캠퍼스",
   "keyword": "교육/제도",
   "innovator": "이정백 교장",
   "name": "RE:Cord",
+  "mentors": [
+   "송지현 (sophia.song)",
+   "임수진 (remy.lim)"
+  ],
   "summary": "대안학교 학생의 분산된 프로젝트 기록과 경험을 연결·축적하고, 배움이 진로 기회로 이어지도록 다음 기록과 준비 방향을 제안하는 웹서비스",
+  "helping": [
+   "서울 거꾸로캠퍼스를 시작으로 한 국내 대안교육 현장의 대안학교 학생",
+   "프로젝트 기록이 흩어지고, 정작 필요할 때 활용으로 이어지지 않는 문제",
+   "경험과 근거를 구조화·연결하고 다음 기록과 준비 방향을 제안하는 AI 기반 웹서비스"
+  ],
   "worksheet": "1iJdbnu_e2dMpze5Hy_kT-t4VPjOBz-mv",
   "worksheetUrl": "https://drive.google.com/open?id=1iJdbnu_e2dMpze5Hy_kT-t4VPjOBz-mv",
   "links": [
@@ -644,12 +958,24 @@ const PROJECTS = [
   "school": "동국대",
   "team": "웜플러스(Warm+)",
   "leader": "조수아",
-  "members": [],
+  "members": [
+   "박현준",
+   "전동현"
+  ],
   "org": "사단법인 온기",
   "keyword": "마음건강/돌봄",
   "innovator": "조현식 대표",
   "name": "On Letter",
+  "mentors": [
+   "김성현 (kane.woz)",
+   "노채영 (chloe.roh)"
+  ],
   "summary": "도움을 요청하기 전의 청년에게 실제 손편지를 먼저 건네는 마음 돌봄 웹앱",
+  "helping": [
+   "전국(1차 테스트: 서울 대학가)의 도움을 요청하기 전 단계에 있는 20~34세 청년",
+   "힘들지만 도움을 청하는 첫 행동이 너무 무거운 문제",
+   "고르기만 하면 되는 마음 질문으로 시작해 손편지를 먼저 받아보고, 작은 일상 미션을 거쳐 손편지 쓰기로 이어지는 모바일 웹앱 'On Letter'"
+  ],
   "worksheet": "1eyc3Z6lJKro6rwdMza_mgmXJYwTMggFK",
   "worksheetUrl": "https://drive.google.com/open?id=1eyc3Z6lJKro6rwdMza_mgmXJYwTMggFK",
   "links": [
@@ -670,12 +996,25 @@ const PROJECTS = [
   "school": "부산외대",
   "team": "감동",
   "leader": "윤경호",
-  "members": [],
+  "members": [
+   "감동빈",
+   "이유성",
+   "전유나",
+   "정영민"
+  ],
   "org": "토닥토닥협동조합",
   "keyword": "마음건강/돌봄",
   "innovator": "이영희 대표",
   "name": "사이로",
+  "mentors": [
+   "김정태 (link.origogi)"
+  ],
   "summary": "상담을 마친 내담자가 대인관계 상황을 시청각 시뮬레이션으로 연습하며 자신만의 대처법을 찾는 심리 케어 앱",
+  "helping": [
+   "어디서든 대인관계 고민을 안고 있는 20대",
+   "대인관계 고민을 털어놓고 풀어낼 곳이 마땅치 않은 문제",
+   "고민을 들어주고 해결의 실마리를 함께 찾는 대화형 AI"
+  ],
   "worksheet": "1fn9msooutqCIZ2WDMDAs-uak2otS80y5",
   "worksheetUrl": "https://drive.google.com/open?id=1fn9msooutqCIZ2WDMDAs-uak2otS80y5",
   "links": []
@@ -685,12 +1024,25 @@ const PROJECTS = [
   "school": "부산외대",
   "team": "이음",
   "leader": "이수진",
-  "members": [],
+  "members": [
+   "김수민",
+   "김지수",
+   "박미란",
+   "조연아"
+  ],
   "org": "사회적기업(주)다로리인",
   "keyword": "지역소멸",
   "innovator": "서삼열 대표",
   "name": "이음",
+  "mentors": [
+   "김희기 (hazel.ly)"
+  ],
   "summary": "도농 지역 다문화 가정과 한국 가정의 언어·문화 갈등을 줄이는 언어문화 교육 서비스",
+  "helping": [
+   "도농 지역의 다문화 가정과 한국 가정",
+   "언어와 문화 차이에서 오는 갈등",
+   "언어·문화 교육 서비스"
+  ],
   "worksheet": "1KA9cl1MlejJKLgEDDA3FApntomUNN5c0YqpppdzavRg",
   "worksheetUrl": "https://drive.google.com/open?id=1KA9cl1MlejJKLgEDDA3FApntomUNN5c0YqpppdzavRg",
   "links": []
@@ -700,12 +1052,25 @@ const PROJECTS = [
   "school": "부산외대",
   "team": "온길",
   "leader": "황성열",
-  "members": [],
+  "members": [
+   "김현서",
+   "박소정",
+   "염혜정",
+   "이연수"
+  ],
   "org": "사회적기업(주)다로리인",
   "keyword": "지역소멸",
   "innovator": "서삼열 대표",
   "name": "다로온",
-  "summary": "따뜻한",
+  "mentors": [
+   "정욱조 (ed.jung)"
+  ],
+  "summary": "어르신·보호자·지자체가 일상을 공유하고 소통하며 지역 프로그램을 안내·신청할 수 있는 알림장 앱",
+  "helping": [
+   "경북 청도군 다로리마을의 어르신",
+   "돌봄 공백",
+   "어르신·보호자·지자체가 일상을 공유하고 소통하며 지역 프로그램을 안내·신청할 수 있는 알림장 앱 '다로온'"
+  ],
   "worksheet": "1d7p5rQ0L98MWuD2wjvC8bgwM4s2Xm1L7",
   "worksheetUrl": "https://drive.google.com/open?id=1d7p5rQ0L98MWuD2wjvC8bgwM4s2Xm1L7",
   "links": []
@@ -715,12 +1080,25 @@ const PROJECTS = [
   "school": "부산외대",
   "team": "웰컴 홈",
   "leader": "박초윤",
-  "members": [],
+  "members": [
+   "사와다 린",
+   "신지혜",
+   "이예음",
+   "황고은"
+  ],
   "org": "아시안허브",
   "keyword": "사회적포용",
   "innovator": "최진희 대표",
   "name": "이주ON AI",
+  "mentors": [
+   "이동준 (genos.lee)"
+  ],
   "summary": "AI로 이주민 강사의 다문화교육 수업 준비를 지원하고 학교·교육기관과 잇는 통합 플랫폼",
+  "helping": [
+   "부산의 이주민 강사",
+   "강의 콘텐츠를 만들고 교육기관과 연결되기 어려운 문제",
+   "AI 기반 콘텐츠 생성, 다국어 지원, 강사 매칭 웹앱"
+  ],
   "worksheet": "12omapRd3JeHbJSPWfCSHfJMkvQX4XJNx",
   "worksheetUrl": "https://drive.google.com/open?id=12omapRd3JeHbJSPWfCSHfJMkvQX4XJNx",
   "links": []
@@ -730,12 +1108,25 @@ const PROJECTS = [
   "school": "부산외대",
   "team": "사이",
   "leader": "문지연",
-  "members": [],
+  "members": [
+   "신동식",
+   "아베 사쿠라코",
+   "장수빈",
+   "황보혜"
+  ],
   "org": "토닥토닥협동조합",
   "keyword": "마음건강/돌봄",
   "innovator": "이영희 대표",
   "name": "마음 징검다리",
+  "mentors": [
+   "이채록 (roki.lee)"
+  ],
   "summary": "오늘의 마음을 3초 만에 돌멩이로 남기면 필요한 순간 상담사에게 이어주는 AI 마음 기록 서비스",
+  "helping": [
+   "대한민국 전 지역의 상담 경험이 없는 10~20대 청년과 직장인",
+   "일상 속 마음의 신호를 방치하다 뒤늦게 도움을 찾는 조기 발견 사각지대",
+   "3초 감정 기록, 힐링형 징검다리 시각화, AI 고민 깊이 판단, 동의 기반 상담센터 연계 서비스"
+  ],
   "worksheet": "1UMjxz6u7GfypmMlY5rnesZtSk1Cf4sK1",
   "worksheetUrl": "https://drive.google.com/open?id=1UMjxz6u7GfypmMlY5rnesZtSk1Cf4sK1",
   "links": []
@@ -745,12 +1136,25 @@ const PROJECTS = [
   "school": "부산외대",
   "team": "업키즈(Upkids)",
   "leader": "백주영",
-  "members": [],
+  "members": [
+   "라혜원",
+   "조원준",
+   "타지한 아데마",
+   "홍용진"
+  ],
   "org": "자원(ZAONE)",
   "keyword": "기후/환경",
   "innovator": "이수영 대표",
   "name": "Creaving",
+  "mentors": [
+   "이승윤 (yoony.corn)"
+  ],
   "summary": "자재 자원맵, 어린이 창작 블로그, 기업 공급 문의를 한곳에 모은 창작교육 웹커뮤니티",
+  "helping": [
+   "전국의 아동과 교육자",
+   "자원(ZAONE)이 관리하는 자재 정보와 아이들의 창작 경험이 원활하게 공유되지 않는 문제",
+   "자재·공급처를 지도와 목록으로 보여주는 자원맵, 아이들의 창작 블로그, 기업 공급 문의를 한곳에 모은 웹 커뮤니티"
+  ],
   "worksheet": "1tU7pwgBeruLkCBtTChwnuIDsWnDD7HvS",
   "worksheetUrl": "https://drive.google.com/open?id=1tU7pwgBeruLkCBtTChwnuIDsWnDD7HvS",
   "links": [
@@ -766,12 +1170,23 @@ const PROJECTS = [
   "school": "부산외대",
   "team": "루트",
   "leader": "한정원",
-  "members": [],
+  "members": [
+   "윤해강",
+   "이지민"
+  ],
   "org": "아시안허브",
   "keyword": "사회적포용",
   "innovator": "최진희 대표",
   "name": "아시안허그",
+  "mentors": [
+   "천진우 (jc.cheon)"
+  ],
   "summary": "결혼 이주 여성에게 역량에 맞는 교육·일자리와 새로운 기회를 연결하는 통합 플랫폼",
+  "helping": [
+   "대한민국에서 아시안허브와 함께하는 결혼이주여성",
+   "사회적 인식이 좋은 일자리를 구하기 어려운 문제",
+   "구직을 돕는 통합 플랫폼"
+  ],
   "worksheet": "15hYCJS6cdQfOL8YvhPQ92anJw3OmuF9o",
   "worksheetUrl": "https://drive.google.com/open?id=15hYCJS6cdQfOL8YvhPQ92anJw3OmuF9o",
   "links": []
@@ -781,12 +1196,26 @@ const PROJECTS = [
   "school": "서울대",
   "team": "로꾸거 팀",
   "leader": "성은영",
-  "members": [],
+  "members": [
+   "박수민",
+   "이수민",
+   "지현선",
+   "허승빈"
+  ],
   "org": "거꾸로캠퍼스",
   "keyword": "교육/제도",
   "innovator": "이정백 교장",
   "name": "꾸로",
+  "mentors": [
+   "이세원 (punch.lee)",
+   "노주희 (eve.n)"
+  ],
   "summary": "거꾸로캠퍼스의 흩어진 학습 데이터를 객관적으로 조회할 수 있게 가공하는 역량 평가 지원 도구",
+  "helping": [
+   "거꾸로캠퍼스의 교사와 학생",
+   "역량 성장을 평가할 데이터를 꾸준히 모으고 정리하기 어려운 문제",
+   "학습 과정에서 쌓이는 다양한 형식의 방대한 데이터를 객관적으로 조회할 수 있게 가공하는 기술"
+  ],
   "worksheet": "1c7ayxM-EA15oyQJrohoDehSbQHDp9rS9",
   "worksheetUrl": "https://drive.google.com/open?id=1c7ayxM-EA15oyQJrohoDehSbQHDp9rS9",
   "links": []
@@ -796,12 +1225,26 @@ const PROJECTS = [
   "school": "서울대",
   "team": "온기종기",
   "leader": "유호준",
-  "members": [],
+  "members": [
+   "권수민",
+   "박인하",
+   "이현서",
+   "최민서"
+  ],
   "org": "사단법인 온기",
   "keyword": "마음건강/돌봄",
   "innovator": "조현식 대표",
   "name": "온기채움",
+  "mentors": [
+   "주형진 (benjamin.flac)",
+   "염수연 (anya.yeom)"
+  ],
   "summary": "과거 사례, 작성 가이드, 동료 연결로 온기우체부의 답장 작성과 꾸준한 활동을 돕는 디지털 답장 보조 및 커뮤니티 서비스",
+  "helping": [
+   "온·오프라인에서 활동하는 온기우체부",
+   "답장 작성의 막막함과 활동을 이어가기 어려운 문제",
+   "과거 사례·작성 가이드·동료 연결을 제공하는 디지털 답장 보조 및 커뮤니티 솔루션"
+  ],
   "worksheet": "1s_asMCjDjXjwjtG1RhcPy5fP6zNT-tNG",
   "worksheetUrl": "https://drive.google.com/open?id=1s_asMCjDjXjwjtG1RhcPy5fP6zNT-tNG",
   "links": []
@@ -811,12 +1254,26 @@ const PROJECTS = [
   "school": "서울대",
   "team": "나무늘보",
   "leader": "김현진",
-  "members": [],
+  "members": [
+   "김나현",
+   "박서연",
+   "정경섭",
+   "최미혜"
+  ],
   "org": "서울환경연합",
   "keyword": "기후/환경",
   "innovator": "최진우 위원",
   "name": "나무늘봄",
+  "mentors": [
+   "손재완 (ethan.son)",
+   "양진영 (lynne.723)"
+  ],
   "summary": "서울 가로수 노선별로 시민 기록과 관리 정보를 모아 정비 판단 과정을 함께 보는 시민참여 도구",
+  "helping": [
+   "서울의 가로수 길을 이용하는 시민과 관리 담당자",
+   "시민의 일상적인 자연 경험과 관찰이 정비 판단 전에 전달·검토되기 어려운 문제",
+   "시민 기록과 관리 정보를 노선별로 모아 공유하고, 판단 과정을 확인할 수 있게 하는 도구"
+  ],
   "worksheet": "1f0qUDfHNHZRAcMtG9_d4cXBO7Z3SAvFi",
   "worksheetUrl": "https://drive.google.com/open?id=1f0qUDfHNHZRAcMtG9_d4cXBO7Z3SAvFi",
   "links": [
@@ -832,12 +1289,26 @@ const PROJECTS = [
   "school": "서울대",
   "team": "일단",
   "leader": "손보람",
-  "members": [],
+  "members": [
+   "강혜나",
+   "김태림",
+   "전소은",
+   "정진서"
+  ],
   "org": "안무서운회사",
   "keyword": "사회적포용",
   "innovator": "유승규 대표",
   "name": "잇다",
+  "mentors": [
+   "노주희 (eve.n)",
+   "황준익 (bryan.ik)"
+  ],
   "summary": "프로그램이 끝난 뒤에도 고립·은둔 청년이 다시 사람과 도움에 연결되도록 곁을 잇는 서비스",
+  "helping": [
+   "서울청년기지개센터를 거쳐 회복 중인 서울의 청년",
+   "재고립이 길어지고, 그 시기에 스스로 도움을 요청하기 어려운 문제",
+   "일상 데이터로 변화를 조기에 감지해 본인과 센터에 알리는 서비스"
+  ],
   "worksheet": "1BQJ4i0sOIWrr49PHyn0UusNh1ZF3YQ5J",
   "worksheetUrl": "https://drive.google.com/open?id=1BQJ4i0sOIWrr49PHyn0UusNh1ZF3YQ5J",
   "links": [
@@ -853,12 +1324,26 @@ const PROJECTS = [
   "school": "서울대",
   "team": "많이다른대학생들",
   "leader": "김예지",
-  "members": [],
+  "members": [
+   "신승주",
+   "이시흥",
+   "이지민",
+   "이해창"
+  ],
   "org": "조금다른 주식회사",
   "keyword": "접근성",
   "innovator": "이충현 대표",
   "name": "갈수있담",
+  "mentors": [
+   "염수연 (anya.yeom)",
+   "이재욱 (robert.lee)"
+  ],
   "summary": "흩어진 공연·접근성 정보를 정리해 시각장애인 관객의 공연 탐색을 돕는 서비스",
+  "helping": [
+   "대한민국의 시각장애인 관객",
+   "공연 정보가 흩어져 있어 탐색이 비효율적인 문제",
+   "공연·접근성 정보를 모아 구조화하고, 필요한 정보를 먼저 확인할 수 있게 하는 서비스"
+  ],
   "worksheet": "102jpyNVZHO_ZywAOyBYLQenWTqBkEn54",
   "worksheetUrl": "https://drive.google.com/open?id=102jpyNVZHO_ZywAOyBYLQenWTqBkEn54",
   "links": [
@@ -879,12 +1364,26 @@ const PROJECTS = [
   "school": "서울대",
   "team": "틔움",
   "leader": "조경민",
-  "members": [],
+  "members": [
+   "김기연",
+   "서지희",
+   "최현준",
+   "한정혁"
+  ],
   "org": "커뮤니T",
   "keyword": "사회적포용",
   "innovator": "박에디 대표",
   "name": "콜렉T브",
+  "mentors": [
+   "양진영 (lynne.723)",
+   "오세민 (simon.oo)"
+  ],
   "summary": "흩어진 트랜스젠더 관련 의료·행사 정보를 모으고 이용자 통계를 시각화하는 정보 아카이빙 플랫폼",
+  "helping": [
+   "국내의 비가시화된 트랜스젠더",
+   "통계 데이터가 없어 제도적 지원을 받기 어려운 문제",
+   "실효성 있는 정보 아카이빙 플랫폼으로 통계 데이터를 모으는 기술"
+  ],
   "worksheet": "1FbH9I1tmDNvoqgSgIZPNbmatlmJr1vih",
   "worksheetUrl": "https://drive.google.com/open?id=1FbH9I1tmDNvoqgSgIZPNbmatlmJr1vih",
   "links": []
@@ -894,12 +1393,28 @@ const PROJECTS = [
   "school": "서울시립대",
   "team": "헛똑똑이",
   "leader": "정승민",
-  "members": [],
+  "members": [
+   "김민재",
+   "신성웅",
+   "장민지",
+   "정우현"
+  ],
   "org": "서울환경연합",
   "keyword": "기후/환경",
   "innovator": "최진우 위원",
   "name": "나무 ON",
+  "mentors": [
+   "김남희 (nami.roo)",
+   "김채현 (charlotte.chk)",
+   "유완식 (rilla.re)",
+   "조혜민 (chloe.1004)"
+  ],
   "summary": "가로수 신규 설치와 안전 조치 등을 돕는 시민참여형 가로수 의사결정 플랫폼",
+  "helping": [
+   "서울 도심의 주민과 가로수 담당 공무원",
+   "가로수 관리 계획을 미리 알기 어렵고, 주민 의견과 판단 근거가 흩어져 결정이 갈등으로 이어지는 문제",
+   "위치 기반 정보 통합, 사전 알림, 인증형 의견 수렴, AI 요약과 근거 기록을 제공하는 시민참여형 가로수 의사결정 플랫폼"
+  ],
   "worksheet": "1JpcXKRGDqWvU_zTH_evCBgM7ynM_35hg",
   "worksheetUrl": "https://drive.google.com/open?id=1JpcXKRGDqWvU_zTH_evCBgM7ynM_35hg",
   "links": []
@@ -909,12 +1424,29 @@ const PROJECTS = [
   "school": "서울시립대",
   "team": "노키",
   "leader": "이민주",
-  "members": [],
+  "members": [
+   "김서연",
+   "김유영",
+   "김진주",
+   "임혜원",
+   "조한나"
+  ],
   "org": "조금다른 주식회사",
   "keyword": "접근성",
   "innovator": "이충현 대표",
   "name": "후보: '노키 with color vision'",
+  "mentors": [
+   "김시진 (fancy.jin)",
+   "이상헌 (colin.sh)",
+   "유완식 (rilla.re)",
+   "조혜민 (chloe.1004)"
+  ],
   "summary": "색각 차이가 있는 관람객이 작품 속 색의 차이를 선·패턴·공간·언어로 탐색하는 미술 감상 플랫폼",
+  "helping": [
+   "서울·경기 미술관과 전시공간을 찾는 색각이상(색약·색맹 등) 관람객",
+   "작품을 관람할 때 감각 정보에 접근하기 어려운 문제",
+   "감각 아카이빙 서비스"
+  ],
   "worksheet": "1q6DdgwAuboEJygxBa2Du3hVzbA4g9wUL",
   "worksheetUrl": "https://drive.google.com/open?id=1q6DdgwAuboEJygxBa2Du3hVzbA4g9wUL",
   "links": [
@@ -930,12 +1462,30 @@ const PROJECTS = [
   "school": "서울시립대",
   "team": "거꾸로청년들",
   "leader": "유수정",
-  "members": [],
+  "members": [
+   "김나연",
+   "김성태",
+   "박채빈",
+   "서리화",
+   "이재영",
+   "황지선"
+  ],
   "org": "거꾸로캠퍼스",
   "keyword": "교육/제도",
   "innovator": "이정백 교장",
   "name": "꾸로록(꾸로log)",
+  "mentors": [
+   "이대진 (kenny.l)",
+   "조재호 (danny.ho)",
+   "유완식 (rilla.re)",
+   "조혜민 (chloe.1004)"
+  ],
   "summary": "거꾸로캠퍼스 학생이 비슷한 고민을 겪은 선배와 연결돼 진로 조언을 얻는 서비스",
+  "helping": [
+   "진로 방향을 세우기 어려운 거꾸로캠퍼스 재학생",
+   "진로 탐색이 흩어져 있고 선배에게 묻기 부담스러운 정보 격차",
+   "LLM 기반 질문 정제와 RAG 기반 선배 경험·Q&A 매칭 플랫폼"
+  ],
   "worksheet": "1sUeqdIBxkhDwQyX2QqJ8PygPbJmlENnW",
   "worksheetUrl": "https://drive.google.com/open?id=1sUeqdIBxkhDwQyX2QqJ8PygPbJmlENnW",
   "links": [
@@ -951,12 +1501,29 @@ const PROJECTS = [
   "school": "서울여대",
   "team": "RE:PLAY (리플레이)",
   "leader": "박지현",
-  "members": [],
+  "members": [
+   "김도연",
+   "김은지",
+   "김채연",
+   "남예은",
+   "이수민",
+   "지현아"
+  ],
   "org": "자원(ZAONE)",
   "keyword": "기후/환경",
   "innovator": "이수영 대표",
   "name": "ZAONE LINK",
+  "mentors": [
+   "임현지 (bennie.lim)",
+   "박시창 (simon.spear)",
+   "김민수 (piglet.xd)"
+  ],
   "summary": "기업 휴면자원이 교육 현장으로 순환되는 과정의 병목을 찾아 업무 부담 없이 연결을 돕는 디지털 서비스",
+  "helping": [
+   "ZAONE의 휴면자원 순환 현장의 실무자와 이해관계자",
+   "자원 공급부터 교육 현장 활용까지 이어지는 과정에서 반복되는 병목",
+   "기존 업무 부담을 최소화하는 디지털 서비스"
+  ],
   "worksheet": "17QnkfHkQgIBjzjQHubAVsskljcFKXNSf",
   "worksheetUrl": "https://drive.google.com/open?id=17QnkfHkQgIBjzjQHubAVsskljcFKXNSf",
   "links": [
@@ -972,12 +1539,27 @@ const PROJECTS = [
   "school": "서울여대",
   "team": "슈위치(SWU-itch)",
   "leader": "김지유",
-  "members": [],
+  "members": [
+   "김민선",
+   "김서현",
+   "유새나",
+   "유우정",
+   "최아영"
+  ],
   "org": "조금다른 주식회사",
   "keyword": "접근성",
   "innovator": "이충현 대표",
   "name": "귀뜸",
+  "mentors": [
+   "임현지 (bennie.lim)",
+   "김현준 (nex.kim)"
+  ],
   "summary": "온라인 탐색이 어려운 시니어가 관심 있는 전시를 쉽게 찾고 방문을 계획하는 전시 안내 서비스",
+  "helping": [
+   "전시에 관심은 있지만 온라인 정보 탐색이 어려운 65세 이상 시니어",
+   "관심사에 맞는 전시를 찾고 방문을 계획하기 어려운 문제",
+   "관심 전시를 쉽게 발견하고 방문을 계획하도록 돕는 서비스"
+  ],
   "worksheet": "1qMYLdFMMrR6qTpIhgUkdcYijPvSQyIwV",
   "worksheetUrl": "https://drive.google.com/open?id=1qMYLdFMMrR6qTpIhgUkdcYijPvSQyIwV",
   "links": []
@@ -987,12 +1569,27 @@ const PROJECTS = [
   "school": "서울여대",
   "team": "경칩",
   "leader": "박나현",
-  "members": [],
+  "members": [
+   "김온유",
+   "박서진",
+   "신서현",
+   "안세은",
+   "이서현"
+  ],
   "org": "안무서운회사",
   "keyword": "사회적포용",
   "innovator": "유승규 대표",
   "name": "경칩 프로젝트: 봄이 오기 전, 작은 성공 쌓기",
+  "mentors": [
+   "심유민 (ella.sim)",
+   "박민지 (mei.yo)"
+  ],
   "summary": "고립 청년이 집과 사회 사이에서 부담 없이 작은 역할을 경험하고 다음 단계를 고르도록 잇는 서비스",
+  "helping": [
+   "서울(잠정)에서 변화를 원하지만 대면 활동·정기 외출·취업을 바로 시작하기 어려운 고립 청년",
+   "집 안 생활과 사회활동 사이를 잇는 저위험·저부담의 단계적 역할 경험이 부족한 문제",
+   "컨디션별 작은 퀘스트, 온라인 역할, 실패 없는 기록을 담은 익명 캐릭터 기반 게임형 온라인 서비스"
+  ],
   "worksheet": "1WXyRRVwPbwYeyqjTW8aiszJj4-u6nja-",
   "worksheetUrl": "https://drive.google.com/open?id=1WXyRRVwPbwYeyqjTW8aiszJj4-u6nja-",
   "links": []
@@ -1002,12 +1599,27 @@ const PROJECTS = [
   "school": "서울여대",
   "team": "다로리인",
   "leader": "정도현",
-  "members": [],
+  "members": [
+   "김채현",
+   "민윤서",
+   "송예나",
+   "엄규리",
+   "정수진"
+  ],
   "org": "사회적기업(주)다로리인",
   "keyword": "지역소멸",
   "innovator": "서삼열 대표",
   "name": "마을 온(on)",
+  "mentors": [
+   "추재경 (Jacey.chu)",
+   "이재복 (jayb.lee)"
+  ],
   "summary": "청도의 지역 수요와 외부 사람들의 경험·재능을 연결해 방문을 지속적인 관계로 잇는 플랫폼",
+  "helping": [
+   "경북 청도군의 교육 공동체(다로리인)와 시골 경험·재능 기부를 원하는 예비 방문자",
+   "서로의 필요를 몰라 인력 부족과 단발성 방문이 반복되는 문제",
+   "지역의 필요를 알리고 쉬운 참여까지 이어주는 서비스"
+  ],
   "worksheet": "1pCGmmvYCjEasawqk_dXS8lvoPleJ5SN9",
   "worksheetUrl": "https://drive.google.com/open?id=1pCGmmvYCjEasawqk_dXS8lvoPleJ5SN9",
   "links": [
@@ -1023,12 +1635,26 @@ const PROJECTS = [
   "school": "한라대",
   "team": "에브리띵",
   "leader": "김찬수",
-  "members": [],
+  "members": [
+   "이기원",
+   "이재훈",
+   "이석민",
+   "최서윤"
+  ],
   "org": "중앙청소년문화의집",
   "keyword": "교육/제도",
   "innovator": "이제우 관장",
   "name": "시민참여 쓰레기 수거",
+  "mentors": [
+   "황지성 (jackie.hh)",
+   "조원제 (enzo.cho)"
+  ],
   "summary": "쓰레기 버리기나 쓰레기통 비우기에 참여한 시민에게 포인트로 보상하는 앱 서비스",
+  "helping": [
+   "원주시 번화가(단계동)의 시민",
+   "쓰레기 무단투기와 쓰레기통 부족 문제",
+   "시민 참여형 쓰레기 수거·보상 앱"
+  ],
   "worksheet": "14WbJPYVIpNcb1rJZl9KiX9gMRxvOaiwz",
   "worksheetUrl": "https://drive.google.com/open?id=14WbJPYVIpNcb1rJZl9KiX9gMRxvOaiwz",
   "links": []
@@ -1038,12 +1664,26 @@ const PROJECTS = [
   "school": "한라대",
   "team": "원주오이데",
   "leader": "김영진",
-  "members": [],
+  "members": [
+   "김찬성",
+   "노서윤",
+   "김민서",
+   "권민찬"
+  ],
   "org": "중앙청소년문화의집",
   "keyword": "교육/제도",
   "innovator": "이제우 관장",
   "name": "디토탑",
+  "mentors": [
+   "황지성 (jackie.hh)",
+   "민규식 (queue.min)"
+  ],
   "summary": "유행을 따라가는 과소비를 줄이도록 돕는 소비 관리 서비스",
+  "helping": [
+   "서울의 사회초년생",
+   "과도한 소비",
+   "과소비를 알아차리고 지출을 줄이도록 돕는 서비스"
+  ],
   "worksheet": "1fU4jT5VqjwOIFkm0tfvxqGhiR2tXJ8qBstg40jJ0DPQ",
   "worksheetUrl": "https://drive.google.com/open?id=1fU4jT5VqjwOIFkm0tfvxqGhiR2tXJ8qBstg40jJ0DPQ",
   "links": []
@@ -1053,12 +1693,26 @@ const PROJECTS = [
   "school": "한라대",
   "team": "랜드로버",
   "leader": "김도균",
-  "members": [],
+  "members": [
+   "장관우",
+   "김현민",
+   "장성우",
+   "최여진"
+  ],
   "org": "중앙청소년문화의집",
   "keyword": "교육/제도",
   "innovator": "이제우 관장",
   "name": "ON:WONJU(온:원주)",
+  "mentors": [
+   "백찬미 (judy.100)",
+   "신태욱 (sullivan.shin)"
+  ],
   "summary": "원주의 유휴 공간(빈 상가)을 팝업/문화 시설로 대여할 수 있는 앱",
+  "helping": [
+   "원주시의 지역 주민",
+   "빈집과 빈 상가 같은 유휴 공간이 방치되는 문제",
+   "유휴 공간을 팝업·문화 공간으로 대여할 수 있는 앱"
+  ],
   "worksheet": "1UJ9qe1l_2vHn6ScE1QYrZXwo_DYZDFp8",
   "worksheetUrl": "https://drive.google.com/open?id=1UJ9qe1l_2vHn6ScE1QYrZXwo_DYZDFp8",
   "links": []
@@ -1068,12 +1722,22 @@ const PROJECTS = [
   "school": "한라대",
   "team": "바위너구리",
   "leader": "이진욱",
-  "members": [],
+  "members": [
+   "김연찬",
+   "황찬진",
+   "박연주",
+   "윤소희"
+  ],
   "org": "중앙청소년문화의집",
   "keyword": "교육/제도",
   "innovator": "이제우 관장",
   "name": "원주도서관",
+  "mentors": [
+   "백찬미 (judy.100)",
+   "강경태 (bob.fulll)"
+  ],
   "summary": "청소년이 책을 고르듯 지역 멘토를 살펴보고 서로 동의하면 연결되는 멘토링 앱",
+  "helping": null,
   "worksheet": "1RkDYJ8wFQStLcTPsD-i5c-7KpBTZ4Dpl",
   "worksheetUrl": "https://drive.google.com/open?id=1RkDYJ8wFQStLcTPsD-i5c-7KpBTZ4Dpl",
   "links": []
@@ -1083,12 +1747,26 @@ const PROJECTS = [
   "school": "한라대",
   "team": "체인지업",
   "leader": "윤보미",
-  "members": [],
+  "members": [
+   "전은호",
+   "박채연",
+   "함지형",
+   "이성준"
+  ],
   "org": "중앙청소년문화의집",
   "keyword": "교육/제도",
   "innovator": "이제우 관장",
   "name": "「 청춘잇다 」 : 청춘을 연결하다.",
+  "mentors": [
+   "서준혁 (logan.airport)",
+   "조원제 (enzo.cho)"
+  ],
   "summary": "지역의 다양한 정보와 기회를 한곳에 모아 청소년과 연결하는 지역 기반 플랫폼",
+  "helping": [
+   "원주시의 지역 청소년",
+   "문화생활 정보가 흩어져 있고 접근성이 낮은 문제",
+   "청소년 문화생활 통합 플랫폼"
+  ],
   "worksheet": "1at_juM3uziIG2fubxbKtfzIyfLOz2HAS",
   "worksheetUrl": "https://drive.google.com/open?id=1at_juM3uziIG2fubxbKtfzIyfLOz2HAS",
   "links": [
@@ -1104,12 +1782,28 @@ const PROJECTS = [
   "school": "GIST",
   "team": "신이어드림",
   "leader": "정상효",
-  "members": [],
+  "members": [
+   "곽재도",
+   "김여경",
+   "양다연",
+   "이소민"
+  ],
   "org": "주식회사 아립앤위립",
   "keyword": "접근성",
   "innovator": "심현보 대표",
   "name": "자빙스",
+  "mentors": [
+   "박희수 (hugh)",
+   "반혜림 (heather)",
+   "고지훈 (david)",
+   "편장욱 (woogie)"
+  ],
   "summary": "AI로 지역의 숨은 업무를 발굴해 전남광주 시니어에게 안전하고 지속적인 일거리를 잇는 기술",
+  "helping": [
+   "광주·전남 지역의 시니어",
+   "적합하고 지속적인 일거리가 부족한 문제",
+   "AI로 지역의 숨은 업무를 찾아 시니어가 안전하게 수행할 수 있게 하는 일거리 발굴 기술"
+  ],
   "worksheet": "1eqp3lYjRqTTQYVZHGWVXPDHeQs7dld5O",
   "worksheetUrl": "https://drive.google.com/open?id=1eqp3lYjRqTTQYVZHGWVXPDHeQs7dld5O",
   "links": [
@@ -1125,12 +1819,27 @@ const PROJECTS = [
   "school": "GIST",
   "team": "1등",
   "leader": "김진우",
-  "members": [],
+  "members": [
+   "유선재",
+   "Stalbekov Baiastan",
+   "Tsoy Mikhail",
+   "Yessenbay Yestay"
+  ],
   "org": "링키지랩",
   "keyword": "접근성",
   "innovator": "이호경 책임",
   "name": "갈지도",
+  "mentors": [
+   "최지원 (jerrie)",
+   "이창용 (yong)",
+   "김진옥 (jade)"
+  ],
   "summary": "매장 접근부터 주문까지 장애인에게 필요한 접근성 정보를 세밀하게 연결하는 서비스",
+  "helping": [
+   "키오스크와 주문 서비스를 쓰는 매장에서 이용에 어려움을 겪는 사용자",
+   "매장을 찾아가는 순간부터 주문까지 이어지는 접근성 문제",
+   "위치 기반 기술과 접근성 정보로 단계마다 필요한 정보를 연결해 주는 서비스"
+  ],
   "worksheet": "1Gro5W6KsXOMW1mXL56UbaqfP-FCKL4LY",
   "worksheetUrl": "https://drive.google.com/open?id=1Gro5W6KsXOMW1mXL56UbaqfP-FCKL4LY",
   "links": [
@@ -1151,12 +1860,26 @@ const PROJECTS = [
   "school": "GIST",
   "team": "노랑통달",
   "leader": "양민서",
-  "members": [],
+  "members": [
+   "김나연",
+   "김도균",
+   "Abishev Temirlan"
+  ],
   "org": "유난무브먼트",
   "keyword": "교육/제도",
   "innovator": "양소희 대표",
   "name": "신호등(Signal Light)",
+  "mentors": [
+   "최지원 (jerrie)",
+   "이창용 (yong)",
+   "김진옥 (jade)"
+  ],
   "summary": "AI 톤 필터와 의견 지도로 침묵하는 청년의 안전한 주관 형성 및 의사소통을 돕는 서비스",
+  "helping": [
+   "대한민국 온라인 공론장에서 사회 이슈에 관심은 있지만 안전하게 말할 공간과 경험이 부족해 침묵하는 청년",
+   "사회적 낙인에 대한 두려움과 자기 언어의 부재로 공론장에서 침묵하거나 떠나는 문제",
+   "생각을 먼저 정리하고 타인의 맥락을 안전하게 탐구하도록 돕는 AI 톤 필터와 인터랙티브 의견 지도"
+  ],
   "worksheet": "1WXYCo64vL5ULW05AWdpIaFJkXikrFel-",
   "worksheetUrl": "https://drive.google.com/open?id=1WXYCo64vL5ULW05AWdpIaFJkXikrFel-",
   "links": [
@@ -1177,12 +1900,28 @@ const PROJECTS = [
   "school": "KAIST",
   "team": "경기원홈즈",
   "leader": "박승희",
-  "members": [],
+  "members": [
+   "노승준",
+   "윤준하",
+   "윤태우",
+   "이우민"
+  ],
   "org": "경기연구원",
   "keyword": "기후/환경",
   "innovator": "김한수 실장",
   "name": "비아파트 주거지 주거환경 정보 통합 플랫폼",
+  "mentors": [
+   "차은경 (lea.c)",
+   "변준영 (noah.b)",
+   "장환승 (matt.1003)",
+   "박민영 (lizzie.park)"
+  ],
   "summary": "흩어진 공공데이터를 통합, 가공해 경기도 원룸·다가구·다세대의 주거 정보 격차를 줄이는 플랫폼",
+  "helping": [
+   "경기도에서 이사를 준비하며 비아파트 주거지를 비교하는 사람",
+   "주거환경 정보가 흩어져 있어 비교하기 어려운 문제",
+   "공공데이터 기반 주거환경 정보 통합·비교 서비스"
+  ],
   "worksheet": "1ctww4D87bIHvJ8D8BnQkwD9B9W-4LluW",
   "worksheetUrl": "https://drive.google.com/open?id=1ctww4D87bIHvJ8D8BnQkwD9B9W-4LluW",
   "links": []
@@ -1192,12 +1931,27 @@ const PROJECTS = [
   "school": "KAIST",
   "team": "파릇파릇",
   "leader": "권정용",
-  "members": [],
+  "members": [
+   "송재윤",
+   "송희",
+   "유동우"
+  ],
   "org": "경기연구원",
   "keyword": "기후/환경",
   "innovator": "김한수 실장",
   "name": "주차장 기후위험 대응을 위한 에이전트 기반 개인화 주차 추천 시스템",
+  "mentors": [
+   "변준영 (noah.b)",
+   "장환승 (matt.1003)",
+   "박민영 (lizzie.park)",
+   "차은경 (lea.c)"
+  ],
   "summary": "기상과 공간적 위험을 분석해 평상시와 기후재난 상황에 맞는 주차장을 추천하는 AI 에이전트 서비스",
+  "helping": [
+   "경기도 저지대·하천 인접 관광지를 찾는 외지 자차 관광객",
+   "기후위험을 모른 채 주차장을 고르는 문제",
+   "상황별 라우팅과 다목적 랭킹을 적용한 주차·경로 추천 시스템"
+  ],
   "worksheet": "1GkRPjPIw5yQ0jyqy_VZTEvtnD28af6G_",
   "worksheetUrl": "https://drive.google.com/open?id=1GkRPjPIw5yQ0jyqy_VZTEvtnD28af6G_",
   "links": []
@@ -1207,12 +1961,27 @@ const PROJECTS = [
   "school": "KAIST",
   "team": "새 잎",
   "leader": "전재민",
-  "members": [],
+  "members": [
+   "윤종훈",
+   "천희영",
+   "최유리"
+  ],
   "org": "(주)그린테라피",
   "keyword": "마음건강/돌봄",
   "innovator": "최유진 대표",
   "name": "일상으로 이어지는 식물 마음돌봄 프로젝트",
+  "mentors": [
+   "김경태 (simon.kim)",
+   "손지훈 (david.rx)",
+   "서민주 (summer.dive)",
+   "소병욱 (tan.gamja)"
+  ],
   "summary": "그린테라피 워크숍 이후에도 나에게 맞는 식물·자연 기반 마음돌봄을 실천하고 기록하는 모바일 플랫폼",
+  "helping": [
+   "그린테라피 프로그램 참여자(운영 기관과 참여자의 일상 공간)",
+   "워크숍 이후 자기돌봄을 이어가고 나에게 맞는 돌봄 방식을 찾기 어려운 문제",
+   "상태 확인·활동 추천·기록·식물 성장형 보상을 연결한 모바일 플랫폼"
+  ],
   "worksheet": "1Hw_hVucv4VMmF3Ml02VycS-Kau9MWwHd",
   "worksheetUrl": "https://drive.google.com/open?id=1Hw_hVucv4VMmF3Ml02VycS-Kau9MWwHd",
   "links": [
@@ -1228,12 +1997,27 @@ const PROJECTS = [
   "school": "KAIST",
   "team": "DARI",
   "leader": "이재원",
-  "members": [],
+  "members": [
+   "김태완",
+   "이서진",
+   "홍우진"
+  ],
   "org": "공익법센터 어필",
   "keyword": "사회적포용",
   "innovator": "이일 대표",
   "name": "한국 난민신청서 작성 지원 서비스",
+  "mentors": [
+   "박민영 (lizzie.park)",
+   "변준영 (noah.b)",
+   "장환승 (matt.1003)",
+   "차은경 (lea.c)"
+  ],
   "summary": "최초 난민신청자가 모국어로 경험을 입력하면 구조화·번역·의미 확인까지 돕는 신청서 작성 지원 서비스",
+  "helping": [
+   "대한민국에서 전문 조력 없이 최초 난민인정신청서를 작성하는 신청자",
+   "신청 정보·작성·번역·검수가 흩어져 있고 언어 장벽이 큰 문제",
+   "처음부터 끝까지 모바일로 작성을 돕는 서비스 'DARI'"
+  ],
   "worksheet": "1YTJHONprnQRhV5xOhF8dCTOivzM1B-c1",
   "worksheetUrl": "https://drive.google.com/open?id=1YTJHONprnQRhV5xOhF8dCTOivzM1B-c1",
   "links": []
@@ -1243,12 +2027,29 @@ const PROJECTS = [
   "school": "KAIST",
   "team": "링크",
   "leader": "김기범",
-  "members": [],
+  "members": [
+   "남현우",
+   "윤민준",
+   "이건",
+   "이동오",
+   "최준휘"
+  ],
   "org": "링키지랩",
   "keyword": "접근성",
   "innovator": "이호경 책임",
   "name": "휴대폰 주문 통합솔루션(임시)",
+  "mentors": [
+   "장환승 (matt.1003)",
+   "변준영 (noah.b)",
+   "박민영 (lizzie.park)",
+   "차은경 (lea.c)"
+  ],
   "summary": "시각장애인이 휴대폰 접근성 기능으로 매장 주문부터 결제까지 할 수 있게 돕는 솔루션",
+  "helping": [
+   "서울시의 시각장애인",
+   "매장에서 주문을 하지 못하거나 주문에 오래 걸리는 문제",
+   "주문 화면을 인식해 휴대폰 접근성 기능으로 쓸 수 있게 바꿔주는 기술"
+  ],
   "worksheet": "1NxIploFejB3WhcP5G5JCQmL7IpP1V_LV",
   "worksheetUrl": "https://drive.google.com/open?id=1NxIploFejB3WhcP5G5JCQmL7IpP1V_LV",
   "links": []
@@ -1258,12 +2059,29 @@ const PROJECTS = [
   "school": "KAIST",
   "team": "똥강아지",
   "leader": "이승민",
-  "members": [],
+  "members": [
+   "박정민",
+   "안지언",
+   "윤서진",
+   "이윤제",
+   "임지민"
+  ],
   "org": "주식회사 아립앤위립",
   "keyword": "접근성",
   "innovator": "심현보 대표",
   "name": "JOB담",
+  "mentors": [
+   "서민주 (summer.dive)",
+   "김경태 (simon.kim)",
+   "손지훈 (david.rx)",
+   "소병욱 (tan.gamja)"
+  ],
   "summary": "대화형 AI 기반 역량 프로파일링 및 맞춤형 일자리 탐색·추천 서비스",
+  "helping": [
+   "대전광역시에서 재취업을 원하는 60~69세 액티브 시니어",
+   "구직 과정에서 경력과 희망 조건이 반영되지 않고, 맞는 일자리와 지원 경로를 찾기 어려운 문제",
+   "대화형 AI 기반 역량 프로파일링과 맞춤형 일자리 탐색·추천 서비스"
+  ],
   "worksheet": "1-3T9DdJG05lMs3_0nJ_etnDVqEmzphlv",
   "worksheetUrl": "https://drive.google.com/open?id=1-3T9DdJG05lMs3_0nJ_etnDVqEmzphlv",
   "links": []
@@ -1273,12 +2091,29 @@ const PROJECTS = [
   "school": "KAIST",
   "team": "풀싹",
   "leader": "이찬영",
-  "members": [],
+  "members": [
+   "권남윤",
+   "김민석",
+   "김태정",
+   "유재우",
+   "정세준"
+  ],
   "org": "옥천신문사",
   "keyword": "지역소멸",
   "innovator": "황민호 대표",
   "name": "옥천 이음",
+  "mentors": [
+   "소병욱 (tan.gamja)",
+   "서민주 (summer.dive)",
+   "김경태 (simon.kim)",
+   "손지훈 (david.rx)"
+  ],
   "summary": "AI 대화형 제보로 옥천 주민의 지역 정보를 모아 옥천신문 취재로 잇는 제보 플랫폼",
+  "helping": [
+   "충청북도 옥천군의 지역 주민과 옥천신문 기자",
+   "주민의 지역 정보와 경험이 언론 취재로 충분히 이어지지 못하는 문제",
+   "AI 기반 대화형 제보와 제보 통합·정리 기술"
+  ],
   "worksheet": "1reSup5s3gpRB9ahx8nqsAN9gjKl0t53w",
   "worksheetUrl": "https://drive.google.com/open?id=1reSup5s3gpRB9ahx8nqsAN9gjKl0t53w",
   "links": [
@@ -1294,12 +2129,27 @@ const PROJECTS = [
   "school": "UNIST",
   "team": "한걸음",
   "leader": "류지원",
-  "members": [],
+  "members": [
+   "손아현",
+   "신세영",
+   "안윤기",
+   "윤채은",
+   "이주호"
+  ],
   "org": "혜진원",
   "keyword": "접근성",
   "innovator": "김경미 사회복지사",
   "name": "혜진원 이음표",
+  "mentors": [
+   "김찬호 (brody.0912)",
+   "윤장원 (diego.yoon)"
+  ],
   "summary": "울산 혜진원 종사자의 일정 작성·조율과 변경사항 공유를 돕는 공동 일정 관리 서비스",
+  "helping": [
+   "울산 혜진원의 선생님·사회복지사·보조사",
+   "일정을 짜고 조율하며 변경 사항을 공유하기 어려운 문제",
+   "공동 일정 관리 서비스"
+  ],
   "worksheet": "1X2RNVgu-OELqdYiwortLzOyXz7EZ-PXM-grFnqaiCdA",
   "worksheetUrl": "https://drive.google.com/open?id=1X2RNVgu-OELqdYiwortLzOyXz7EZ-PXM-grFnqaiCdA",
   "links": []
@@ -1309,12 +2159,26 @@ const PROJECTS = [
   "school": "UNIST",
   "team": "혜진아 왜요쌤",
   "leader": "김범수",
-  "members": [],
+  "members": [
+   "강진모",
+   "김용태",
+   "유태안",
+   "이상문"
+  ],
   "org": "혜진원",
   "keyword": "접근성",
   "innovator": "김경미 사회복지사",
   "name": "별안전판 (Star Safety Board)",
+  "mentors": [
+   "김한빈 (jayden.bin)",
+   "탁진호 (tak.ee)"
+  ],
   "summary": "혜진원 별님의 위치·대피 상태·지원 정보를 평상시엔 현황판, 비상시엔 패드로 확인하는 안전지원 시스템",
+  "helping": [
+   "울산 혜진원에서 개별 대피 지원이 필요한 장애인 이용자",
+   "재난 상황에서 개인 특성에 맞는 신속한 지원을 받기 어려운 문제",
+   "평소엔 현황판, 비상시엔 들고 나갈 수 있는 탈부착형 전자 패드로 위치·상태·대피 정보를 실시간 공유하는 안전지원 시스템"
+  ],
   "worksheet": "1MOzkIoUFaqQ7RmgWBPIBDKDs_7t5-3Di",
   "worksheetUrl": "https://drive.google.com/open?id=1MOzkIoUFaqQ7RmgWBPIBDKDs_7t5-3Di",
   "links": []
@@ -1324,12 +2188,27 @@ const PROJECTS = [
   "school": "UNIST",
   "team": "잇다(IT:DA)",
   "leader": "이윤지",
-  "members": [],
+  "members": [
+   "배선우",
+   "백건우",
+   "이승제",
+   "이시은",
+   "황채린"
+  ],
   "org": "혜진원",
   "keyword": "접근성",
   "innovator": "김경미 사회복지사",
   "name": "자립생활 지원 플랫폼(가칭)",
+  "mentors": [
+   "신동윤 (dobby.shin)",
+   "황수인 (shannon.su)"
+  ],
   "summary": "발달장애인 자립 예정자의 일상을 사진·음성 안내와 도움 요청으로 지원하는 Android 통합 플랫폼",
+  "helping": [
+   "혜진원과 인근 생활권의 자립 예정자 및 생활 자립이 가능한 발달장애인",
+   "일상 수행을 안내받고 도움을 연결받기 어려운 문제",
+   "개인별 사진·음성 안내, 상태 기록, 도움 요청을 연결한 Android 통합 플랫폼"
+  ],
   "worksheet": "18RNzzgAPzxg2iqEY-MZG6f6MLz10lAJT",
   "worksheetUrl": "https://drive.google.com/open?id=18RNzzgAPzxg2iqEY-MZG6f6MLz10lAJT",
   "links": []
@@ -1339,12 +2218,25 @@ const PROJECTS = [
   "school": "UNIST",
   "team": "CareLink",
   "leader": "김가온",
-  "members": [],
+  "members": [
+   "강은별",
+   "이중현",
+   "하원",
+   "황민수"
+  ],
   "org": "혜진원",
   "keyword": "접근성",
   "innovator": "김경미 사회복지사",
   "name": "응급상황 대응 플랫폼",
+  "mentors": [
+   "황민호 (robin.hwang)"
+  ],
   "summary": "생체활동 자동감지와 쉬운 대피 유도로 중증 장애인의 응급 대응과 대피를 돕는 통합 플랫폼",
+  "helping": [
+   "혜진원에서 스스로 응급상황을 알리거나 대피하기 어려운 중증 장애인",
+   "응급 신호를 늦게 발견하고 대피가 지연되는 문제",
+   "생체활동 자동 감지·알림, 쉬운 대피 유도, 대피 현황 확인, 구조지원 위치 안내를 결합한 통합 플랫폼"
+  ],
   "worksheet": "1-pupBlLnRLwAR6r5Zuok04xVq6Mcz7KO",
   "worksheetUrl": "https://drive.google.com/open?id=1-pupBlLnRLwAR6r5Zuok04xVq6Mcz7KO",
   "links": [
@@ -1468,12 +2360,11 @@ function renderDetail(id) {
 
   const rows = [
     ["소속 · 팀", `${p.school} · ${p.team}`],
-    ["팀장", p.leader],
-    ["팀원", p.members.join(" · ")],
+    ["팀원", [p.leader, ...p.members].filter(Boolean).join(" · ")],
     ["사회혁신가", [p.innovator, p.org].filter(Boolean).join(" · ")],
+    ["카카오멘토", p.mentors.join(" · ")],
   ].filter(r => r[1]);
 
-  const viewUrl = p.worksheet ? `https://drive.google.com/file/d/${p.worksheet}/view` : p.worksheetUrl;
 
   app.innerHTML = `
   <article class="detail">
@@ -1486,10 +2377,21 @@ function renderDetail(id) {
       ${rows.map(([k, v]) => `<div class="row"><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}
     </dl>
 
+    ${p.helping ? `
+    <section class="sec">
+      <div class="sec-h"><div><h2>SECTION 01. 돕는 기술 한 줄 소개</h2></div></div>
+      <div class="ht" style="--kc:${kc(p.keyword)}">
+        <p class="ht-lead">우리 팀은</p>
+        <dl>
+          ${["지역 · 대상", "문제", "기술 · 솔루션"].map((k, i) => `
+          <div class="ht-row"><dt>${k}</dt><dd>${esc(p.helping[i])}</dd></div>`).join("")}
+        </dl>
+      </div>
+    </section>` : ""}
+
     <section class="sec">
       <div class="sec-h">
-        <div><h2>SECTION 01. 문제정의 및 기획 워크시트</h2><p class="sub">중간 점검 시점에 제출한 워크시트입니다.</p></div>
-        ${viewUrl ? `<a class="open-btn" href="${esc(viewUrl)}" target="_blank" rel="noopener">새 창에서 보기 ↗</a>` : ""}
+        <div><h2>SECTION 02. 문제정의 및 기획 워크시트</h2><p class="sub">중간 점검 시점에 제출한 워크시트입니다.</p></div>
       </div>
       ${p.worksheet
         ? `<div class="pdf"><iframe src="https://drive.google.com/file/d/${p.worksheet}/preview" loading="lazy" allow="autoplay" title="${esc(p.name)} 워크시트"></iframe></div>`
@@ -1497,7 +2399,7 @@ function renderDetail(id) {
     </section>
 
     <section class="sec">
-      <div class="sec-h"><div><h2>SECTION 02. 진행 자료 · 관련 링크</h2><p class="sub">팀이 함께 공유한 기획 문서, 디자인, 저장소 등입니다.</p></div></div>
+      <div class="sec-h"><div><h2>SECTION 03. 진행 자료 · 관련 링크</h2><p class="sub">팀이 함께 공유한 기획 문서, 디자인, 저장소 등입니다.</p></div></div>
       ${p.links.length ? `<div class="links">${p.links.map(l => `
         <a class="link" href="${esc(l.url)}" target="_blank" rel="noopener">
           <span class="kind"><span>${esc(l.kind)}</span></span>

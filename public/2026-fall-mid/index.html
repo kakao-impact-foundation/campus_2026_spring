@@ -18,8 +18,8 @@
   --foot:#272727; --foot-line:#404040; --foot-txt:#9c9c9c;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo",system-ui,"Noto Sans KR",sans-serif;color:var(--ink);background:var(--ground);line-height:1.5;letter-spacing:-.01em;word-break:keep-all;overflow-wrap:anywhere}
+html{-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo",system-ui,"Noto Sans KR",sans-serif;color:var(--ink);background:var(--ground);line-height:1.5;word-break:keep-all;overflow-wrap:anywhere}
 a{color:inherit;text-decoration:none}
 button,input,select{font:inherit;color:inherit}
 .wrap{max-width:1280px;margin:0 auto;padding:0 32px}
@@ -1398,7 +1398,7 @@ function renderList() {
 
     <div class="layout">
       <aside class="side"><div class="side-scroll">
-        <h4>주제 키워드</h4>
+        <h4>주제 카테고리</h4>
         <ul id="orgs"></ul>
       </div></aside>
       <section>

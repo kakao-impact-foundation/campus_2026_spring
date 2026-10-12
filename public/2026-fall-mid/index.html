@@ -1,0 +1,1504 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>26-2학기 중간 아카이브 — 테크포임팩트 캠퍼스</title>
+<meta name="description" content="테크포임팩트 캠퍼스 2026 가을학기 중간 워크시트 아카이브">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+@font-face{font-family:"KakaoBigSans";src:url("assets/fonts/KakaoBigSans-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"KakaoBigSans";src:url("assets/fonts/KakaoBigSans-Bold.woff2") format("woff2");font-weight:600 700;font-display:swap}
+@font-face{font-family:"KakaoBigSans";src:url("assets/fonts/KakaoBigSans-ExtraBold.woff2") format("woff2");font-weight:800;font-display:swap}
+:root{
+  --font-display:"KakaoBigSans","Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;
+  --ink:#191919; --muted:#8c8c8c; --soft:#f4f4f2; --hair:#ececec; --ground:#fff;
+  --accent:#fae100; --point:#e470dc;
+  --foot:#272727; --foot-line:#404040; --foot-txt:#9c9c9c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo",system-ui,"Noto Sans KR",sans-serif;color:var(--ink);background:var(--ground);line-height:1.5;letter-spacing:-.01em;word-break:keep-all;overflow-wrap:anywhere}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:50;border-bottom:1px solid #eee;background:rgba(255,255,255,.92);backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px)}
+.hdr .wrap{height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.hdr nav{display:flex;gap:36px;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:.04em;color:#9a9a9a}
+.hdr nav a:hover,.hdr nav a.on{color:var(--ink)}
+.hdr nav a.on{border-bottom:2px solid var(--ink);padding-bottom:4px}
+.brand-ki svg{height:19px!important}
+
+/* list page */
+.eyebrow{font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--muted);margin-top:56px}
+h1.page{font-family:var(--font-display);font-size:36px;font-weight:800;letter-spacing:-.03em;margin-top:14px;line-height:1.08}
+.lead{margin-top:16px;font-size:18px;color:#555}
+.lead b{color:var(--ink)}
+
+.layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:40px;margin-top:44px}
+.side{font-family:var(--font-display)}
+.side h4{font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--muted);margin-bottom:10px}
+.side ul{list-style:none}
+.side li button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border:0;background:none;border-radius:10px;font-size:13.5px;color:#555;cursor:pointer;text-align:left}
+.side li button span:last-child{color:var(--muted);font-size:12px;font-weight:600}
+.side li button:hover{background:var(--soft)}
+.side li button.on{background:var(--soft);color:var(--ink);font-weight:700}
+.side li.kw{margin-top:10px}
+.side li.kw button{font-weight:700;color:var(--ink);font-size:14.5px}
+.side li.kw button .k{display:inline-flex;align-items:center;gap:8px}
+.side li.org button{padding:6px 12px 6px 28px;font-size:13px;font-weight:400;color:#666}
+.kdot{width:8px;height:8px;border-radius:50%;flex:none;display:inline-block}
+.side .side-scroll{position:sticky;top:100px;max-height:calc(100vh - 120px);overflow:auto;padding-right:4px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--hair);background:#fff;border-radius:999px;padding:9px 18px;font-size:13.5px;font-weight:600;cursor:pointer;color:#444}
+.chip:hover{border-color:#ccc}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 14px}
+.count{font-size:13px;color:var(--muted)}
+.count b{color:var(--ink)}
+.search{display:flex;align-items:center;gap:8px;background:var(--soft);border-radius:999px;padding:8px 14px;min-width:240px}
+.search input{border:0;background:none;outline:none;font-size:13.5px;width:100%}
+.search svg{flex:none;color:#999}
+
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{display:flex;flex-direction:column;background:var(--soft);border-radius:18px;padding:22px 22px 18px;min-height:220px;transition:transform .15s ease,box-shadow .15s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.08)}
+.card .meta{font-size:12.5px;font-weight:600;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card h3{font-size:20px;font-weight:800;letter-spacing:-.3px;line-height:1.3;margin-top:12px}
+.card p{font-size:13.5px;color:#666;margin-top:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .foot{margin-top:auto;padding-top:16px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#777}
+.card .foot .dot{width:7px;height:7px;border-radius:50%;flex:none}
+.card .foot .org{color:#999;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .foot .team{font-weight:700;color:var(--ink)}
+.card .foot .org{font-size:12px;font-weight:600}
+.empty{padding:80px 0;text-align:center;color:var(--muted);font-size:14px}
+
+/* detail page */
+.detail{max-width:960px;margin:0 auto;padding:0 32px}
+.back{display:inline-block;margin-top:40px;font-size:13.5px;font-weight:600;color:var(--muted)}
+.back:hover{color:var(--ink)}
+.tags{display:flex;gap:8px;align-items:center;margin-top:22px}
+.tag{font-size:12.5px;font-weight:700;padding:5px 10px;border-radius:999px;background:var(--soft)}
+.tag.dot{display:inline-flex;align-items:center;gap:6px;background:none;padding-left:0}
+.tag.dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--kc,var(--accent))}
+h1.title{font-family:var(--font-display);font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.25;margin-top:14px}
+.summary{margin-top:12px;font-size:18px;color:#444;white-space:pre-line}
+.info{margin-top:32px;background:var(--soft);border-radius:18px;padding:8px 28px}
+.info .row{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid #e6e6e2;font-size:15px}
+.info .row:last-child{border-bottom:0}
+.info .row dt{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--muted);padding-top:3px}
+.sec{margin-top:64px}
+.sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:16px}
+.sec-h h2{font-size:14px;font-weight:700;letter-spacing:.01em}
+.sec-h .sub{font-size:12.5px;color:var(--muted);margin-top:4px;font-weight:400;letter-spacing:0}
+.open-btn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;border:1px solid var(--hair);border-radius:999px;padding:7px 14px;white-space:nowrap}
+.open-btn:hover{border-color:#bbb}
+.pdf{overflow:hidden;border-radius:18px;background:var(--soft);height:min(82vh,960px);border:1px solid var(--hair)}
+.pdf iframe{width:100%;height:100%;border:0;display:block}
+.pdf-missing{display:flex;align-items:center;justify-content:center;height:220px;color:var(--muted);font-size:14px}
+.links{border:1px solid var(--hair);border-radius:18px;overflow:hidden}
+.link{display:grid;grid-template-columns:120px 1fr auto;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid var(--hair);font-size:14px}
+.link:last-child{border-bottom:0}
+.link:hover{background:#fafaf8}
+.link .kind{font-size:12px;font-weight:700;color:#555}
+.link .kind span{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--soft)}
+.link .txt{min-width:0}
+.link .lbl{font-weight:600}
+.link .url{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.link .arr{color:#aaa}
+.no-links{padding:28px 24px;font-size:14px;color:var(--muted);background:var(--soft);border-radius:18px}
+
+/* footer */
+footer{margin-top:90px;background:var(--foot);color:#fff}
+footer .top{padding:40px 0 24px}
+footer .mid{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;padding-bottom:32px}
+footer .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--foot-line);border-radius:999px;padding:10px 16px;font-size:13px;font-weight:600;color:var(--foot-txt)}
+footer .pill:hover{color:#fff;border-color:#5a5a5a}
+footer .pills{display:flex;flex-wrap:wrap;gap:10px}
+footer .totop{border:0;border-radius:10px;background:#3a3a3a;color:#fff;padding:10px 16px;font-size:13px;font-weight:600;cursor:pointer}
+footer .bot{display:flex;flex-wrap:wrap;gap:4px 24px;border-top:1px solid var(--foot-line);padding:18px 0 28px;font-size:12.5px;color:var(--foot-txt)}
+footer .bot a:hover{color:#fff}
+
+@media (max-width:1024px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .layout{grid-template-columns:minmax(0,1fr);gap:24px}
+  .side{min-width:0}
+  .side .side-scroll{position:static;max-height:none}
+  .side ul{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+  .side li button{white-space:nowrap;background:var(--soft)}
+  .side li.kw{margin-top:0}
+  .side li.org{display:none}
+}
+@media (max-width:640px){
+  .wrap,.detail{padding:0 16px}
+  .hdr .wrap{height:64px}
+  .hdr nav{gap:18px;font-size:12.5px}
+  .hdr nav .hide-sm,.brand-ki{display:none}
+  h1.page{font-size:30px}
+  .lead{font-size:16px}
+  h1.title{font-size:28px}
+  .summary{font-size:16px}
+  .grid{grid-template-columns:1fr}
+  .toolbar{flex-direction:column-reverse;align-items:stretch}
+  .search{min-width:0}
+  .info{padding:4px 18px}
+  .info .row{grid-template-columns:1fr;gap:4px}
+  .link{grid-template-columns:1fr auto;padding:16px 18px}
+  .link .kind{grid-column:1/-1}
+  .pdf{height:70vh}
+  }
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="wrap">
+    <a href="#/" aria-label="테크포임팩트 캠퍼스"><svg viewBox="0 0 1105.11 96.78" role="img" aria-label="Tech for Impact Campus" style="height:20px;width:auto;display:block"><defs>
+    
+  </defs>
+  <g id="contents">
+    <g>
+      <rect fill="currentColor" x="732.26" y="0" width="372.84" height="96.78" rx="48.39" ry="48.39"/>
+      <path fill="#fff" d="M793.6,74.42c-6.14,0-11.17-1.02-15.17-3.16-4.1-2.23-7.07-5.21-9.03-9.22s-2.98-8.56-2.98-13.78,1.12-10.89,3.44-15.27c2.23-4.38,5.49-7.82,9.68-10.24,4.28-2.42,9.4-3.63,15.36-3.63s9.96,1.02,13.13,3.16c3.16,2.05,4.84,4.75,4.84,8.19s-.65,3.91-2.05,5.31c-1.4,1.3-3.16,1.86-5.68,1.86s-2.98-.28-4.19-.74c-1.3-.47-2.61-1.02-4-1.49s-2.98-.74-4.84-.74-4.1.37-5.86,1.12c-1.77.74-3.16,1.95-4.28,3.72-1.02,1.77-1.58,4.19-1.58,7.35,0,4.47,1.02,7.73,3.16,9.59s5.03,2.79,8.47,2.79,2.89-.09,4.47-.28c1.58-.28,3.07-.47,4.56-.74s2.7-.37,3.72-.37c2.14,0,3.82.56,5.03,1.68,1.3,1.02,1.86,2.7,1.86,4.93s-1.49,5.49-4.56,7.35c-2.98,1.86-7.45,2.79-13.4,2.79h0l-.09-.19ZM852.15,74.33c-2.23,0-3.72-.65-4.56-2.05-.74-1.4-1.12-3.54-1.12-6.52l.93.37c-2.79,5.59-8.19,8.38-16.1,8.38s-6.52-.65-9.03-1.86c-2.33-1.3-4.1-2.98-5.31-5.03-1.12-2.14-1.68-4.47-1.68-7.07,0-4.38,1.58-7.82,4.56-10.33,3.07-2.51,7.26-3.82,12.38-3.82s6.14.47,8.47,1.49c2.42.93,4.56,2.33,6.33,4.1l-1.77-.19c-.28-4.75-1.21-8.1-2.98-10.05-1.68-2.05-4.1-2.98-7.35-2.98s-3.26.28-4.93.74-3.07,1.02-4.56,1.58c-1.49.47-2.79.74-4.19.74s-2.79-.47-3.72-1.4c-.84-.93-1.3-2.14-1.3-3.63s.93-3.91,2.79-5.59c1.86-1.77,4.38-3.07,7.45-4.19,3.07-1.02,6.42-1.58,10.05-1.58s8.38.93,11.64,2.89c3.26,1.95,5.68,4.84,7.17,8.66,1.3,3.07,2.14,6.61,2.7,10.43.56,3.82.84,7.91.84,12.29s-.28,6.8-.74,8.94-1.21,3.54-2.23,4.38c-.93.84-2.23,1.21-3.82,1.21h.09v.09ZM835.95,64.74c1.49,0,2.89-.19,4.28-.56,1.49-.37,2.7-1.02,3.72-1.86s1.58-1.86,1.58-3.16-.47-2.05-1.3-2.7c-.84-.74-1.86-1.21-3.16-1.58-1.4-.37-2.79-.56-4.28-.56-2.61,0-4.75.47-6.14,1.49-1.49.93-2.14,2.23-2.14,3.82s.65,2.89,2.05,3.82c1.4.84,3.16,1.3,5.59,1.3h-.19ZM901.77,38.4c.47-2.14,1.4-4,2.7-5.68,1.4-1.68,2.98-2.98,4.84-4,1.86-1.02,3.91-1.58,6.24-1.58s5.12.65,7.17,1.86c2.14,1.3,3.72,3.44,4.93,6.33,1.21,2.89,1.86,6.8,1.86,11.64s-.09,4.93-.28,7.45c-.19,2.51-.47,4.84-.74,6.98s-.65,3.91-1.02,5.4c-.56,2.23-1.49,3.91-2.79,5.03-1.3,1.12-2.89,1.68-4.84,1.68s-3.07-.56-4.1-1.86c-.93-1.21-1.49-2.98-1.49-5.21s.19-2.23.37-3.72c.28-1.58.56-3.26.84-5.12.28-1.86.56-3.72.84-5.49.28-1.86.37-3.63.37-5.12,0-2.23-.47-4-1.4-5.21-.84-1.21-2.14-1.86-3.72-1.86s-3.44,1.02-4.56,3.16c-1.21,2.05-1.86,5.03-2.05,9.03-.19,3.26-.37,6.33-.56,8.94-.19,2.51-.47,4.75-1.02,6.33-.47,1.58-1.21,2.79-2.23,3.54-.93.74-2.14,1.12-3.72,1.12s-3.16-.56-4.19-1.68c-1.02-1.12-1.58-2.89-1.68-5.4,0-1.68-.09-3.72-.09-6.05s.09-4.75.09-6.98,0-4.19-.09-5.77c-.19-2.7-.65-4.75-1.49-6.05-.84-1.3-2.05-1.86-3.63-1.86s-3.26.93-4.38,2.7c-1.02,1.77-1.77,4.19-2.05,7.35,0,1.4-.09,3.07-.09,5.03s0,4,.09,6.05c0,1.95,0,3.63-.09,4.93,0,3.26-.65,5.68-1.77,7.17-1.02,1.49-2.61,2.14-4.56,2.14s-4-.74-5.03-2.05c-1.02-1.4-1.68-3.63-1.86-6.61-.19-2.23-.37-4.47-.47-6.7-.09-2.23-.19-4.47-.19-6.7s0-4.65.19-7.17c.19-2.61.37-5.12.56-7.45.28-2.89.93-5.4,1.86-7.35s2.51-2.89,4.75-2.89,3.26.74,4.1,2.23,1.21,3.63,1.21,6.7-.09,1.95-.28,2.89l-.28-1.58c1.02-3.35,2.7-5.86,5.03-7.73s4.93-2.89,7.73-2.89,6.52,1.21,8.56,3.54c2.14,2.33,3.26,5.49,3.44,9.59l-1.02-.93h-.19l.19-.09ZM942.82,25.92c1.68,0,3.07.84,4.19,2.51,1.02,1.68,1.86,4.19,2.33,7.73l-1.58,1.21c.93-3.63,2.61-6.33,5.12-8.19s5.49-2.89,8.94-2.89,6.05.84,8.47,2.42c2.51,1.68,4.47,4.1,5.86,7.45,1.49,3.26,2.14,7.45,2.14,12.38,0,8.1-1.49,13.96-4.47,17.78-2.89,3.82-6.89,5.68-11.82,5.68s-6.33-.74-8.38-2.33-3.44-3.44-4.19-5.59l.93-.47c.37,2.98.74,5.86,1.02,8.84.28,2.89.47,5.49.47,7.63s-.47,4.47-1.58,6.14c-.93,1.68-2.61,2.51-4.84,2.51s-3.72-.74-4.84-2.23c-1.02-1.49-1.77-3.54-2.23-6.05-.28-2.23-.56-5.03-.93-8.38-.28-3.44-.56-7.17-.74-11.17-.19-4-.28-7.91-.28-11.64s.19-7.45.37-10.8c.28-3.44.65-6.14,1.02-8.28.37-1.58.93-2.61,1.77-3.44.84-.74,1.95-1.12,3.16-1.12h0l.09.28ZM957.43,36.91c-2.42,0-4.38,1.21-5.86,3.63-1.49,2.42-2.14,5.49-2.14,9.31s.74,6.7,2.14,8.56c1.49,1.86,3.35,2.89,5.68,2.89s4.65-1.02,5.86-3.16c1.21-2.14,1.86-4.93,1.86-8.38s-.74-7.63-2.23-9.68c-1.49-2.05-3.26-3.07-5.31-3.07h0v-.09ZM1019.99,73.12c-1.68,0-2.89-.47-3.82-1.4-.84-.93-1.49-2.23-1.77-3.72-.28-1.58-.47-3.16-.47-4.84l.37-.28c-.56,2.23-1.68,4.1-3.16,5.68s-3.16,2.79-5.21,3.72c-1.95.84-3.91,1.21-5.86,1.21s-5.21-.56-7.35-1.86c-2.14-1.3-3.72-3.26-5.03-6.05-1.12-2.51-2.05-5.86-2.7-10.05-.56-4.1-.93-8.28-.93-12.66s.09-4.19.28-6.05c.19-1.86.47-3.44.93-4.75.47-1.58,1.3-2.79,2.42-3.44,1.02-.74,2.42-1.12,4-1.12s3.26.65,4.38,2.05c1.02,1.3,1.68,3.07,1.86,5.49.19,1.68.37,3.63.37,5.86.09,2.23.19,4.47.28,6.8.09,2.23.19,4.19.28,5.68.28,2.61.93,4.56,2.05,5.77,1.02,1.21,2.42,1.86,4,1.86s3.91-.93,5.12-2.7c1.21-1.86,1.77-4.38,1.77-7.63s-.09-3.54-.28-5.59c-.19-2.14-.37-4.19-.56-6.14-.19-2.05-.28-3.63-.28-4.93,0-2.79.47-4.84,1.58-6.05,1.02-1.21,2.42-1.86,4.28-1.86s2.89.37,3.91,1.12c1.12.74,1.95,1.77,2.51,3.07.74,1.58,1.4,3.63,1.86,6.24.47,2.61.93,5.59,1.21,8.94.28,3.26.47,6.8.47,10.43,0,5.77-.47,10.05-1.49,12.94-.93,2.79-2.61,4.19-5.03,4.19h-.09l.09.09ZM1054.15,25.55c4.93,0,8.47.84,10.61,2.42,2.23,1.58,3.26,3.54,3.26,6.05s-.47,2.79-1.58,3.72c-.93.93-2.42,1.4-4.19,1.4s-3.26-.28-5.03-.74-3.82-.74-6.14-.74-3.54.37-4.56,1.21c-1.02.74-1.58,1.77-1.58,2.89s.47,2.14,1.4,2.89c.93.65,2.89,1.12,5.77,1.49,3.72.37,6.89,1.02,9.4,2.05,2.51.84,4.38,2.23,5.59,4.1,1.3,1.77,1.86,4.28,1.86,7.54,0,4.93-1.77,8.47-5.31,10.8s-8.47,3.44-14.8,3.44-7.35-.37-9.77-1.02c-2.42-.74-4.28-1.77-5.4-3.07-1.02-1.4-1.58-2.89-1.58-4.56s.56-2.89,1.58-3.72c1.02-.93,2.33-1.4,3.82-1.4s2.42.19,3.72.47c1.4.28,2.79.56,4.19.93,1.49.28,2.98.47,4.56.47,3.91,0,5.86-1.21,5.86-3.54s-.19-1.49-.56-2.05c-.37-.56-1.12-1.02-2.33-1.4-1.02-.37-2.7-.65-4.84-.93-3.16-.28-6.05-.84-8.38-1.58-2.33-.84-4.19-2.05-5.49-3.72-1.3-1.77-1.86-4.1-1.86-7.07,0-4.84,1.86-8.66,5.59-11.64s9.03-4.47,16.01-4.47h0l.19-.19Z"/>
+      <g>
+        <path fill="currentColor" d="M43.3,30.05h-15.9v47.6h-11.6V30.05H0v-11.1h43.2v11.1h.1Z"/>
+        <path fill="currentColor" d="M86,66.55v11.1h-36.3V18.95h35.9v11.1h-24.3v12.5h22.2v10.9h-22.2v13.2h24.7v-.1Z"/>
+        <path fill="currentColor" d="M91.1,48.35c0-17.2,12.7-30.5,30.5-30.5s20.2,5.4,25.2,13.8l-10,5.8c-2.8-5.2-8.5-8.4-15.3-8.4-11.5,0-19,8-19,19.3s7.5,19.2,19,19.2,12.5-3.2,15.3-8.3l10,5.8c-4.9,8.4-14.4,13.8-25.2,13.8-17.8,0-30.5-13.4-30.5-30.5h0Z"/>
+        <path fill="currentColor" d="M198.8,18.95v58.7h-11.5v-24.3h-21.8v24.3h-11.6V18.95h11.6v23.3h21.8v-23.3h11.5Z"/>
+        <path fill="currentColor" d="M242.2,30.05v13.9h22.8v11.1h-22.8v22.6h-11.6V18.95h35.1v11.1h-23.5Z"/>
+        <path fill="currentColor" d="M271.5,48.35c0-17.2,13.5-30.5,30.4-30.5s30.5,13.3,30.5,30.5-13.6,30.5-30.5,30.5-30.4-13.4-30.4-30.5ZM320.9,48.35c0-11.3-8.3-19.3-18.9-19.3s-18.9,8-18.9,19.3,8.3,19.2,18.9,19.2,18.9-8,18.9-19.2Z"/>
+        <path fill="currentColor" d="M361,57.25h-8.8v20.4h-11.6V18.95h23.5c10.8,0,19.5,8.7,19.5,19.5s-4.6,14-11.3,17.1l13,22.2h-12.5l-11.8-20.4h0v-.1ZM352.2,47.15h11.9c4.4,0,8-3.9,8-8.7s-3.6-8.7-8-8.7h-11.9v17.4h0Z"/>
+        <path fill="currentColor" d="M490.2,77.65h-11.5v-38.1l-16.5,27.3h-1.3l-16.5-27.2v38h-11.6V18.95h11.9l16.8,27.7,16.8-27.7h11.9v58.7h0Z"/>
+        <path fill="currentColor" d="M543,38.65c0,11-8.7,19.7-20.1,19.7h-10.3v19.3h-11.6V18.95h21.9c11.3,0,20.1,8.7,20.1,19.7h0ZM531.5,38.65c0-5.1-3.6-8.9-8.5-8.9h-10.3v17.8h10.3c4.9,0,8.5-3.9,8.5-8.9h0Z"/>
+        <path fill="currentColor" d="M578.9,67.15h-23.4l-3.5,10.5h-12.5l20.5-58.7h14.4l20.6,58.7h-12.6l-3.5-10.5h0ZM575.3,56.35l-8.1-24-8.1,24h16.2Z"/>
+        <path fill="currentColor" d="M595.8,48.35c0-17.2,12.7-30.5,30.5-30.5s20.2,5.4,25.2,13.8l-10,5.8c-2.8-5.2-8.5-8.4-15.3-8.4-11.5,0-19,8-19,19.3s7.5,19.2,19,19.2,12.5-3.2,15.3-8.3l10,5.8c-4.9,8.4-14.4,13.8-25.2,13.8-17.8,0-30.5-13.4-30.5-30.5h0Z"/>
+        <path fill="currentColor" d="M697.3,30.05h-15.9v47.6h-11.6V30.05h-15.8v-11.1h43.2v11.1h.1Z"/>
+        <path fill="currentColor" d="M416,78.65c4.2,0,7.6-3.4,7.6-7.6s-3.4-7.6-7.6-7.6-7.6,3.4-7.6,7.6,3.4,7.6,7.6,7.6Z"/>
+        <path fill="currentColor" d="M416,55.75c1.7,0,3.3.3,4.8.8l4-37.7c-2.9-.5-5.8-.8-8.9-.8s-6,.3-8.9.8l4,37.7c1.5-.5,3.2-.8,4.8-.8h.2Z"/>
+      </g>
+    </g>
+  </g></svg></a>
+    <nav>
+      <a href="#/" class="on">PROJECTS</a>
+      <a href="../" class="hide-sm">26-1학기 프로젝트</a>
+    </nav>
+    <a class="brand-ki" href="https://www.kakaoimpact.org" target="_blank" rel="noopener" aria-label="kakaoImpact"><svg viewBox="0 0 105.882 18.003" role="img" aria-label="kakaoImpact" style="height:22px;width:auto;display:block"><path fill="currentColor" fill-rule="nonzero" d="M 2.194 9.191 L 6.435 14.51 L 7.68 13.522 L 4.079 9.099 L 7.185 5.11 L 5.921 4.173 L 2.194 9.191 Z M 0 0.36 L 0 14.261 L 1.615 14.261 L 1.615 0 L 0 0.36 Z M 9.118 11.616 C 9.092 11.186 9.167 10.755 9.336 10.36 C 9.506 9.965 9.766 9.617 10.094 9.344 C 10.742 8.822 11.686 8.561 12.928 8.559 L 14.791 8.559 L 14.791 7.931 C 14.791 6.408 14.135 5.646 12.822 5.646 C 12.376 5.65 11.931 5.711 11.499 5.826 C 11.062 5.939 10.637 6.09 10.226 6.278 L 9.751 5.11 C 10.24 4.828 10.763 4.613 11.306 4.469 C 11.835 4.323 12.38 4.247 12.927 4.243 C 15.202 4.235 16.341 5.476 16.341 7.967 L 16.341 14.26 L 15.139 14.26 L 14.947 13.18 C 14.485 13.565 13.967 13.874 13.411 14.096 C 12.918 14.302 12.391 14.411 11.859 14.419 C 11.491 14.44 11.123 14.385 10.777 14.256 C 10.431 14.128 10.115 13.929 9.848 13.672 C 9.596 13.396 9.401 13.072 9.276 12.718 C 9.151 12.364 9.097 11.988 9.118 11.612 M 12.15 13.089 C 12.384 13.088 12.615 13.057 12.84 12.998 C 13.084 12.937 13.324 12.859 13.557 12.765 C 13.792 12.67 14.016 12.553 14.23 12.415 C 14.429 12.284 14.616 12.135 14.791 11.973 L 14.791 9.673 L 13.111 9.673 C 12.26 9.673 11.64 9.822 11.249 10.121 C 11.044 10.291 10.882 10.509 10.777 10.757 C 10.673 11.005 10.629 11.274 10.649 11.543 C 10.649 12.574 11.149 13.089 12.15 13.089 Z M 20.824 14.261 L 19.209 14.261 L 19.209 0.36 L 20.824 0 L 20.824 14.261 Z M 25.14 4.173 L 26.404 5.11 L 23.297 9.111 L 26.899 13.534 L 25.645 14.51 L 21.397 9.191 L 25.14 4.173 Z M 28.328 11.616 C 28.302 11.186 28.376 10.756 28.545 10.361 C 28.714 9.966 28.973 9.617 29.301 9.344 C 29.951 8.822 30.895 8.559 32.137 8.559 L 33.997 8.559 L 33.997 7.931 C 33.997 6.408 33.342 5.646 32.031 5.646 C 31.584 5.65 31.138 5.711 30.705 5.826 C 30.269 5.939 29.843 6.09 29.433 6.278 L 28.946 5.11 C 29.435 4.829 29.957 4.613 30.5 4.469 C 31.03 4.322 31.576 4.246 32.125 4.243 C 34.408 4.235 35.55 5.476 35.55 7.967 L 35.55 14.26 L 34.348 14.26 L 34.157 13.18 C 33.694 13.565 33.176 13.874 32.619 14.096 C 32.127 14.301 31.6 14.411 31.068 14.419 C 30.7 14.44 30.332 14.385 29.986 14.256 C 29.64 14.128 29.324 13.929 29.057 13.672 C 28.805 13.396 28.612 13.071 28.487 12.717 C 28.362 12.364 28.309 11.988 28.331 11.612 M 31.347 13.092 C 31.581 13.09 31.814 13.06 32.04 13.001 C 32.283 12.94 32.523 12.862 32.755 12.769 C 33.211 12.584 33.63 12.315 33.989 11.975 L 33.989 9.676 L 32.311 9.676 C 31.458 9.676 30.838 9.825 30.447 10.124 C 30.244 10.296 30.085 10.515 29.983 10.762 C 29.882 11.009 29.84 11.278 29.862 11.545 C 29.862 12.576 30.357 13.092 31.347 13.092 Z M 42.038 4.264 C 43.371 4.264 44.421 4.706 45.181 5.595 C 45.941 6.482 46.321 7.751 46.321 9.404 C 46.321 11.057 45.946 12.29 45.19 13.162 C 44.434 14.034 43.389 14.477 42.038 14.477 C 40.688 14.477 39.659 14.038 38.896 13.162 C 38.134 12.287 37.755 11.027 37.755 9.404 C 37.755 7.782 38.14 6.479 38.905 5.595 C 39.67 4.709 40.706 4.264 42.038 4.264 Z M 42.038 5.595 C 41.661 5.576 41.285 5.655 40.946 5.825 C 40.607 5.995 40.316 6.249 40.1 6.564 C 39.649 7.211 39.424 8.16 39.424 9.404 C 39.424 10.649 39.649 11.572 40.1 12.202 C 40.335 12.497 40.632 12.735 40.97 12.899 C 41.307 13.063 41.677 13.148 42.051 13.148 C 42.425 13.148 42.794 13.063 43.131 12.899 C 43.469 12.735 43.766 12.497 44.001 12.202 C 44.452 11.573 44.678 10.64 44.678 9.404 C 44.678 8.16 44.452 7.211 44.001 6.565 C 43.783 6.248 43.489 5.993 43.146 5.823 C 42.804 5.654 42.425 5.575 42.045 5.595 M 48.803 13.483 L 50.604 11.653 L 52.405 13.482 L 50.604 15.312 L 48.803 13.483 Z M 49.155 0.857 L 52.058 0.857 L 51.67 9.767 L 49.568 9.767 L 49.155 0.857 Z M 54.387 4.31 L 56.139 4.31 L 56.49 5.265 C 57.305 4.471 58.387 4.022 59.516 4.008 C 60.699 4.008 61.545 4.42 62.025 5.265 C 62.829 4.469 63.904 4.019 65.027 4.008 C 66.963 4.008 68.028 5.134 68.028 7.629 L 68.028 14.193 L 65.534 14.193 L 65.534 7.787 C 65.534 6.68 65.126 6.213 63.982 6.213 C 63.453 6.213 62.929 6.309 62.433 6.494 L 62.433 14.202 L 59.96 14.202 L 59.96 7.797 C 59.96 6.69 59.573 6.223 58.427 6.223 C 57.893 6.231 57.364 6.327 56.86 6.504 L 56.86 14.213 L 54.387 14.213 L 54.387 4.31 Z M 72.605 14.269 L 72.605 18.003 L 70.132 18.003 L 70.132 4.31 L 71.885 4.31 L 72.185 5.134 C 72.549 4.761 72.984 4.469 73.464 4.275 C 73.943 4.082 74.457 3.991 74.973 4.008 C 77.519 4.008 78.665 5.942 78.665 9.072 C 78.665 12.357 76.819 14.474 74.178 14.474 C 73.647 14.483 73.117 14.414 72.605 14.269 Z M 72.605 6.39 L 72.605 12.525 C 72.903 12.568 73.204 12.586 73.506 12.58 C 75.463 12.58 76.162 11.21 76.162 9.072 C 76.162 7.242 75.739 6.021 74.133 6.021 C 73.605 6.036 73.084 6.161 72.605 6.39 Z M 84.035 8.172 L 85.586 8.172 L 85.586 7.837 C 85.586 6.748 85.253 6.128 83.786 6.128 C 82.872 6.12 81.971 6.345 81.166 6.784 L 80.481 5.058 C 81.559 4.367 82.808 4.003 84.083 4.008 C 86.574 4.008 87.883 5.247 87.883 7.815 L 87.883 14.193 L 86.148 14.193 L 85.871 13.349 C 85.04 14.036 84.008 14.425 82.936 14.456 C 81.036 14.456 79.983 13.312 79.983 11.344 C 79.991 9.261 81.397 8.172 84.035 8.172 Z M 85.586 11.716 L 85.586 9.785 L 84.257 9.785 C 82.927 9.785 82.225 10.329 82.225 11.311 C 82.225 12.025 82.633 12.494 83.443 12.494 C 84.223 12.485 84.977 12.211 85.586 11.716 Z M 96.905 6.559 C 96.163 6.211 95.356 6.032 94.54 6.033 C 93.103 6.033 92.139 6.915 92.139 9.242 C 92.139 11.57 93.136 12.412 94.777 12.412 C 95.634 12.38 96.478 12.19 97.268 11.851 L 97.841 13.592 C 96.774 14.188 95.572 14.492 94.354 14.474 C 91.196 14.474 89.648 12.58 89.648 9.261 C 89.648 6.073 91.196 4.008 94.39 4.008 C 95.529 3.971 96.655 4.259 97.641 4.841 L 96.905 6.559 Z M 98.535 4.496 L 100.087 4.31 L 100.087 2.322 L 102.596 1.775 L 102.596 4.31 L 105.514 4.31 L 105.514 6.204 L 102.596 6.204 L 102.596 10.5 C 102.596 12.025 102.983 12.329 103.704 12.329 C 104.254 12.311 104.797 12.197 105.309 11.994 L 105.882 13.757 C 105.009 14.236 104.033 14.487 103.04 14.486 C 100.99 14.486 100.087 13.211 100.087 10.679 L 100.087 6.204 L 98.535 6.204 L 98.535 4.496 Z"></path></svg></a>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="top"><svg viewBox="0 0 105.882 18.003" role="img" aria-label="kakaoImpact" style="height:22px;width:auto;display:block"><path fill="currentColor" fill-rule="nonzero" d="M 2.194 9.191 L 6.435 14.51 L 7.68 13.522 L 4.079 9.099 L 7.185 5.11 L 5.921 4.173 L 2.194 9.191 Z M 0 0.36 L 0 14.261 L 1.615 14.261 L 1.615 0 L 0 0.36 Z M 9.118 11.616 C 9.092 11.186 9.167 10.755 9.336 10.36 C 9.506 9.965 9.766 9.617 10.094 9.344 C 10.742 8.822 11.686 8.561 12.928 8.559 L 14.791 8.559 L 14.791 7.931 C 14.791 6.408 14.135 5.646 12.822 5.646 C 12.376 5.65 11.931 5.711 11.499 5.826 C 11.062 5.939 10.637 6.09 10.226 6.278 L 9.751 5.11 C 10.24 4.828 10.763 4.613 11.306 4.469 C 11.835 4.323 12.38 4.247 12.927 4.243 C 15.202 4.235 16.341 5.476 16.341 7.967 L 16.341 14.26 L 15.139 14.26 L 14.947 13.18 C 14.485 13.565 13.967 13.874 13.411 14.096 C 12.918 14.302 12.391 14.411 11.859 14.419 C 11.491 14.44 11.123 14.385 10.777 14.256 C 10.431 14.128 10.115 13.929 9.848 13.672 C 9.596 13.396 9.401 13.072 9.276 12.718 C 9.151 12.364 9.097 11.988 9.118 11.612 M 12.15 13.089 C 12.384 13.088 12.615 13.057 12.84 12.998 C 13.084 12.937 13.324 12.859 13.557 12.765 C 13.792 12.67 14.016 12.553 14.23 12.415 C 14.429 12.284 14.616 12.135 14.791 11.973 L 14.791 9.673 L 13.111 9.673 C 12.26 9.673 11.64 9.822 11.249 10.121 C 11.044 10.291 10.882 10.509 10.777 10.757 C 10.673 11.005 10.629 11.274 10.649 11.543 C 10.649 12.574 11.149 13.089 12.15 13.089 Z M 20.824 14.261 L 19.209 14.261 L 19.209 0.36 L 20.824 0 L 20.824 14.261 Z M 25.14 4.173 L 26.404 5.11 L 23.297 9.111 L 26.899 13.534 L 25.645 14.51 L 21.397 9.191 L 25.14 4.173 Z M 28.328 11.616 C 28.302 11.186 28.376 10.756 28.545 10.361 C 28.714 9.966 28.973 9.617 29.301 9.344 C 29.951 8.822 30.895 8.559 32.137 8.559 L 33.997 8.559 L 33.997 7.931 C 33.997 6.408 33.342 5.646 32.031 5.646 C 31.584 5.65 31.138 5.711 30.705 5.826 C 30.269 5.939 29.843 6.09 29.433 6.278 L 28.946 5.11 C 29.435 4.829 29.957 4.613 30.5 4.469 C 31.03 4.322 31.576 4.246 32.125 4.243 C 34.408 4.235 35.55 5.476 35.55 7.967 L 35.55 14.26 L 34.348 14.26 L 34.157 13.18 C 33.694 13.565 33.176 13.874 32.619 14.096 C 32.127 14.301 31.6 14.411 31.068 14.419 C 30.7 14.44 30.332 14.385 29.986 14.256 C 29.64 14.128 29.324 13.929 29.057 13.672 C 28.805 13.396 28.612 13.071 28.487 12.717 C 28.362 12.364 28.309 11.988 28.331 11.612 M 31.347 13.092 C 31.581 13.09 31.814 13.06 32.04 13.001 C 32.283 12.94 32.523 12.862 32.755 12.769 C 33.211 12.584 33.63 12.315 33.989 11.975 L 33.989 9.676 L 32.311 9.676 C 31.458 9.676 30.838 9.825 30.447 10.124 C 30.244 10.296 30.085 10.515 29.983 10.762 C 29.882 11.009 29.84 11.278 29.862 11.545 C 29.862 12.576 30.357 13.092 31.347 13.092 Z M 42.038 4.264 C 43.371 4.264 44.421 4.706 45.181 5.595 C 45.941 6.482 46.321 7.751 46.321 9.404 C 46.321 11.057 45.946 12.29 45.19 13.162 C 44.434 14.034 43.389 14.477 42.038 14.477 C 40.688 14.477 39.659 14.038 38.896 13.162 C 38.134 12.287 37.755 11.027 37.755 9.404 C 37.755 7.782 38.14 6.479 38.905 5.595 C 39.67 4.709 40.706 4.264 42.038 4.264 Z M 42.038 5.595 C 41.661 5.576 41.285 5.655 40.946 5.825 C 40.607 5.995 40.316 6.249 40.1 6.564 C 39.649 7.211 39.424 8.16 39.424 9.404 C 39.424 10.649 39.649 11.572 40.1 12.202 C 40.335 12.497 40.632 12.735 40.97 12.899 C 41.307 13.063 41.677 13.148 42.051 13.148 C 42.425 13.148 42.794 13.063 43.131 12.899 C 43.469 12.735 43.766 12.497 44.001 12.202 C 44.452 11.573 44.678 10.64 44.678 9.404 C 44.678 8.16 44.452 7.211 44.001 6.565 C 43.783 6.248 43.489 5.993 43.146 5.823 C 42.804 5.654 42.425 5.575 42.045 5.595 M 48.803 13.483 L 50.604 11.653 L 52.405 13.482 L 50.604 15.312 L 48.803 13.483 Z M 49.155 0.857 L 52.058 0.857 L 51.67 9.767 L 49.568 9.767 L 49.155 0.857 Z M 54.387 4.31 L 56.139 4.31 L 56.49 5.265 C 57.305 4.471 58.387 4.022 59.516 4.008 C 60.699 4.008 61.545 4.42 62.025 5.265 C 62.829 4.469 63.904 4.019 65.027 4.008 C 66.963 4.008 68.028 5.134 68.028 7.629 L 68.028 14.193 L 65.534 14.193 L 65.534 7.787 C 65.534 6.68 65.126 6.213 63.982 6.213 C 63.453 6.213 62.929 6.309 62.433 6.494 L 62.433 14.202 L 59.96 14.202 L 59.96 7.797 C 59.96 6.69 59.573 6.223 58.427 6.223 C 57.893 6.231 57.364 6.327 56.86 6.504 L 56.86 14.213 L 54.387 14.213 L 54.387 4.31 Z M 72.605 14.269 L 72.605 18.003 L 70.132 18.003 L 70.132 4.31 L 71.885 4.31 L 72.185 5.134 C 72.549 4.761 72.984 4.469 73.464 4.275 C 73.943 4.082 74.457 3.991 74.973 4.008 C 77.519 4.008 78.665 5.942 78.665 9.072 C 78.665 12.357 76.819 14.474 74.178 14.474 C 73.647 14.483 73.117 14.414 72.605 14.269 Z M 72.605 6.39 L 72.605 12.525 C 72.903 12.568 73.204 12.586 73.506 12.58 C 75.463 12.58 76.162 11.21 76.162 9.072 C 76.162 7.242 75.739 6.021 74.133 6.021 C 73.605 6.036 73.084 6.161 72.605 6.39 Z M 84.035 8.172 L 85.586 8.172 L 85.586 7.837 C 85.586 6.748 85.253 6.128 83.786 6.128 C 82.872 6.12 81.971 6.345 81.166 6.784 L 80.481 5.058 C 81.559 4.367 82.808 4.003 84.083 4.008 C 86.574 4.008 87.883 5.247 87.883 7.815 L 87.883 14.193 L 86.148 14.193 L 85.871 13.349 C 85.04 14.036 84.008 14.425 82.936 14.456 C 81.036 14.456 79.983 13.312 79.983 11.344 C 79.991 9.261 81.397 8.172 84.035 8.172 Z M 85.586 11.716 L 85.586 9.785 L 84.257 9.785 C 82.927 9.785 82.225 10.329 82.225 11.311 C 82.225 12.025 82.633 12.494 83.443 12.494 C 84.223 12.485 84.977 12.211 85.586 11.716 Z M 96.905 6.559 C 96.163 6.211 95.356 6.032 94.54 6.033 C 93.103 6.033 92.139 6.915 92.139 9.242 C 92.139 11.57 93.136 12.412 94.777 12.412 C 95.634 12.38 96.478 12.19 97.268 11.851 L 97.841 13.592 C 96.774 14.188 95.572 14.492 94.354 14.474 C 91.196 14.474 89.648 12.58 89.648 9.261 C 89.648 6.073 91.196 4.008 94.39 4.008 C 95.529 3.971 96.655 4.259 97.641 4.841 L 96.905 6.559 Z M 98.535 4.496 L 100.087 4.31 L 100.087 2.322 L 102.596 1.775 L 102.596 4.31 L 105.514 4.31 L 105.514 6.204 L 102.596 6.204 L 102.596 10.5 C 102.596 12.025 102.983 12.329 103.704 12.329 C 104.254 12.311 104.797 12.197 105.309 11.994 L 105.882 13.757 C 105.009 14.236 104.033 14.487 103.04 14.486 C 100.99 14.486 100.087 13.211 100.087 10.679 L 100.087 6.204 L 98.535 6.204 L 98.535 4.496 Z"></path></svg></div>
+    <div class="mid">
+      <div class="pills">
+        <a class="pill" href="https://www.kakaoimpact.org" target="_blank" rel="noopener">카카오임팩트 <small>↗</small></a>
+        <a class="pill" href="https://techforimpact.io" target="_blank" rel="noopener">테크포임팩트 <small>↗</small></a>
+      </div>
+      <button class="totop" onclick="scrollTo({top:0,behavior:'smooth'})">TOP ↑</button>
+    </div>
+    <div class="bot">
+      <span>재단법인 카카오임팩트</span>
+      <a href="mailto:contact.us@kakaoimpact.org">문의 : contact.us@kakaoimpact.org</a>
+      <span>© Kakao Impact Foundation. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const PROJECTS = [
+ {
+  "id": 1,
+  "school": "가천대",
+  "team": "이끼마우스",
+  "leader": "김민성",
+  "members": [],
+  "org": "경기연구원",
+  "keyword": "기후/환경",
+  "innovator": "김한수 실장",
+  "name": "우리 공원 생명 도감",
+  "summary": "경기도 도시공원의 생태 데이터로 만든 어린이·가족용 수집형 디지털 도감",
+  "worksheet": "1zXcVZvbar1acQk2cv8gwd7tX85cwID66",
+  "worksheetUrl": "https://drive.google.com/open?id=1zXcVZvbar1acQk2cv8gwd7tX85cwID66",
+  "links": [
+   {
+    "url": "https://drive.google.com/drive/folders/1D_01byiXxwHFSejqpfrAOr_klqnvbdEQ?usp=sharing",
+    "kind": "Drive 폴더",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 2,
+  "school": "가천대",
+  "team": "브릿지",
+  "leader": "박소윤",
+  "members": [],
+  "org": "유난무브먼트",
+  "keyword": "교육/제도",
+  "innovator": "양소희 대표",
+  "name": "Whose Side?",
+  "summary": "내 생각과 다른 관점을 내 입장처럼 대변해 상대를 속이는 사회이슈 마피아 게임",
+  "worksheet": "10xzO7WmG0uA6gHtoXp5qikLDC34CqhK3",
+  "worksheetUrl": "https://drive.google.com/open?id=10xzO7WmG0uA6gHtoXp5qikLDC34CqhK3",
+  "links": [
+   {
+    "url": "https://drive.google.com/file/d/1WPREQsE0HJuifghK1HuVH9_VBbS0z0mA/view?usp=drive_link",
+    "kind": "Drive 파일",
+    "label": ""
+   },
+   {
+    "url": "https://drive.google.com/drive/u/0/folders/1ZGpldusdYzcjdHIue3PSN0dlPD4buQs8",
+    "kind": "Drive 폴더",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 3,
+  "school": "가천대",
+  "team": "식물집사",
+  "leader": "정민혁",
+  "members": [],
+  "org": "(주)그린테라피",
+  "keyword": "마음건강/돌봄",
+  "innovator": "최유진 대표",
+  "name": "말하는 수호식물",
+  "summary": "혼자 구직하는 청년이 식물과 음성으로 대화하며 마음을 돌보는 스마트 화분",
+  "worksheet": "1eoYk-TT5v1FbM9liApax0jL6CaG1slEt",
+  "worksheetUrl": "https://drive.google.com/open?id=1eoYk-TT5v1FbM9liApax0jL6CaG1slEt",
+  "links": [
+   {
+    "url": "https://drive.google.com/drive/folders/1crm2EjiLIdXqPbJFlxBoyUvk8VL3nxu9?usp=sharing",
+    "kind": "Drive 폴더",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 4,
+  "school": "가천대",
+  "team": "Re:born",
+  "leader": "강태이",
+  "members": [],
+  "org": "공익법센터 어필",
+  "keyword": "사회적포용",
+  "innovator": "이일 대표",
+  "name": "Re:Cord",
+  "summary": "흩어진 사건 자료를 타임라인과 근거로 정리해 증거 중심의 난민 심사를 돕는 서비스",
+  "worksheet": "1X_cGPxiU7Chtqes6H2ZIGoqrgXZ8XihU",
+  "worksheetUrl": "https://drive.google.com/open?id=1X_cGPxiU7Chtqes6H2ZIGoqrgXZ8XihU",
+  "links": [
+   {
+    "url": "https://www.figma.com/slides/MVRKB13HfqXSO5vKBFuYZe/%25EC%25A0%259C%25EB%25AA%25A9-%25EC%2597%2586%25EC%259D%258C?node-id=2-42",
+    "kind": "Figma",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 5,
+  "school": "가천대",
+  "team": "어만더나세",
+  "leader": "송채우",
+  "members": [],
+  "org": "링키지랩",
+  "keyword": "접근성",
+  "innovator": "이호경 책임",
+  "name": "징징이징",
+  "summary": "버스가 몰리는 정류장에서 저시력·시각장애인의 승차 의사를 기사에게 전달하는 솔루션",
+  "worksheet": "10lphtlGY-xY2_Gly9Av5eSDz7gZ94mix",
+  "worksheetUrl": "https://drive.google.com/open?id=10lphtlGY-xY2_Gly9Av5eSDz7gZ94mix",
+  "links": [
+   {
+    "url": "https://claude.ai/artifact/FVaURbF4Jrdudv492RAKTq",
+    "kind": "Claude Artifact",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 6,
+  "school": "가천대",
+  "team": "삼삼일일",
+  "leader": "엄주원",
+  "members": [],
+  "org": "옥천신문사",
+  "keyword": "지역소멸",
+  "innovator": "황민호 대표",
+  "name": "옥키(OKEY)",
+  "summary": "일자리는 있지만 집이 없어 떠나는 옥천 청년이 머물 수 있게 집을 연결하는 서비스",
+  "worksheet": "1MKSurYKCpdl_E8N-nQK2AVUSf7P1h8ni",
+  "worksheetUrl": "https://drive.google.com/open?id=1MKSurYKCpdl_E8N-nQK2AVUSf7P1h8ni",
+  "links": []
+ },
+ {
+  "id": 7,
+  "school": "경운대",
+  "team": "이음",
+  "leader": "이재형",
+  "members": [],
+  "org": "(사)경북시민재단",
+  "keyword": "지역소멸",
+  "innovator": "손정아 본부장",
+  "name": "이동식 상점 키오스크",
+  "summary": "시니어 고객이 찾는 이동식 상점 기사님을 위한 키오스크형 판매 프로그램",
+  "worksheet": "1gJFVXAVMgDudxnIx3t1X3tX-40cZJkYf",
+  "worksheetUrl": "https://drive.google.com/open?id=1gJFVXAVMgDudxnIx3t1X3tX-40cZJkYf",
+  "links": []
+ },
+ {
+  "id": 8,
+  "school": "경운대",
+  "team": "햇살",
+  "leader": "김지우",
+  "members": [],
+  "org": "사회적기업(주)다로리인",
+  "keyword": "지역소멸",
+  "innovator": "서삼열 대표",
+  "name": "청년도감",
+  "summary": "전국 대학생 멘토와 청도군 아이들을 잇는 청도 밀착형 교육·소통 플랫폼",
+  "worksheet": "1wC18ASeNO6UoD2JBRiejNy2E6onFJT2c",
+  "worksheetUrl": "https://drive.google.com/open?id=1wC18ASeNO6UoD2JBRiejNy2E6onFJT2c",
+  "links": []
+ },
+ {
+  "id": 9,
+  "school": "경운대",
+  "team": "Let's go",
+  "leader": "송진호",
+  "members": [],
+  "org": "아시안허브",
+  "keyword": "사회적포용",
+  "innovator": "최진희 대표",
+  "name": "프로필 및 강의계획서 제작•관리 코디네이터 플랫폼",
+  "summary": "이주민 강사의 강의계획서와 활동 프로필을 만들고 관리해 활동 기회로 잇는 통합 플랫폼",
+  "worksheet": "1lXoUnaAHeAMK2xe4wysB1FwDbYJBBg6i",
+  "worksheetUrl": "https://drive.google.com/open?id=1lXoUnaAHeAMK2xe4wysB1FwDbYJBBg6i",
+  "links": []
+ },
+ {
+  "id": 10,
+  "school": "경운대",
+  "team": "리소스",
+  "leader": "조성환",
+  "members": [],
+  "org": "자원(ZAONE)",
+  "keyword": "기후/환경",
+  "innovator": "이수영 대표",
+  "name": "휴면자원 초기검토 보조 시스템",
+  "summary": "신규 휴면자원 정보에서 빠진 내용과 추가로 확인할 부분을 짚어주는 자원 담당자용 검토 보조 시스템",
+  "worksheet": "1TArUJbEQm4XTleNxj_tMfYjAah6Cma9c",
+  "worksheetUrl": "https://drive.google.com/open?id=1TArUJbEQm4XTleNxj_tMfYjAah6Cma9c",
+  "links": []
+ },
+ {
+  "id": 11,
+  "school": "경운대",
+  "team": "S.O.S",
+  "leader": "이종수",
+  "members": [],
+  "org": "토닥토닥협동조합",
+  "keyword": "마음건강/돌봄",
+  "innovator": "이영희 대표",
+  "name": "(미정)",
+  "summary": "상담과 상담 사이를 게임형 리워드와 AI 기록 분석으로 채워 꾸준한 마음 관리를 돕는 서비스",
+  "worksheet": "1RKBMspA7iuyHXK9ME9qPbm_sUN3icOS4",
+  "worksheetUrl": "https://drive.google.com/open?id=1RKBMspA7iuyHXK9ME9qPbm_sUN3icOS4",
+  "links": [
+   {
+    "url": "https://docs.google.com/document/d/14hIvi1_UyFAbgx8jEnplLyZVdfdvyOBQ/edit?usp=sharing&ouid=116730435147862538562&rtpof=true&sd=true",
+    "kind": "Google Docs",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 12,
+  "school": "고려대 세종",
+  "team": "미플",
+  "leader": "김민서",
+  "members": [],
+  "org": "유난무브먼트",
+  "keyword": "교육/제도",
+  "innovator": "양소희 대표",
+  "name": "일상 속 대화를 여는 보드게임",
+  "summary": "정치/사회 이슈 앞에서 침묵에 익숙해진 사람들이 가볍게 접근할 수 있는 연동 보드게임",
+  "worksheet": "1zilF_OAQw3OPWVzpglhLXjn3ecy7KqcI",
+  "worksheetUrl": "https://drive.google.com/open?id=1zilF_OAQw3OPWVzpglhLXjn3ecy7KqcI",
+  "links": []
+ },
+ {
+  "id": 13,
+  "school": "고려대 세종",
+  "team": "경기연구원팀",
+  "leader": "이현지",
+  "members": [],
+  "org": "경기연구원",
+  "keyword": "기후/환경",
+  "innovator": "김한수 실장",
+  "name": "햇빛아파트",
+  "summary": "경기 아파트 맞춤형 태양광 도입 및 주민동의 의사결정 지원 플랫폼",
+  "worksheet": "11M6AhG1ePIFIq_n9vOW-gMoWE3o34NQY",
+  "worksheetUrl": "https://drive.google.com/open?id=11M6AhG1ePIFIq_n9vOW-gMoWE3o34NQY",
+  "links": []
+ },
+ {
+  "id": 14,
+  "school": "고려대 세종",
+  "team": "KU:NNECT",
+  "leader": "정해찬",
+  "members": [],
+  "org": "(주)그린테라피",
+  "keyword": "마음건강/돌봄",
+  "innovator": "최유진 대표",
+  "name": "PIC your Moment (픽쳐모먼트)",
+  "summary": "취미에 몰입했던 순간을 사진과 기록으로 남기고 돌아보며 지친 마음을 회복하는 기록 서비스",
+  "worksheet": "1csLFHHVcTI1Rml8-tHIHzpikJGXwzxg7",
+  "worksheetUrl": "https://drive.google.com/open?id=1csLFHHVcTI1Rml8-tHIHzpikJGXwzxg7",
+  "links": []
+ },
+ {
+  "id": 15,
+  "school": "고려대 세종",
+  "team": "하츠투옥천",
+  "leader": "김은수",
+  "members": [],
+  "org": "옥천신문사",
+  "keyword": "지역소멸",
+  "innovator": "황민호 대표",
+  "name": "옥!소리",
+  "summary": "흩어진 옥천 동네 소식을 모으고 옥천신문이 사실을 확인해 주는 동네 소식 앱",
+  "worksheet": "1TB9hq13locG3FmYO3_Tr00-qmWW7XObD",
+  "worksheetUrl": "https://drive.google.com/open?id=1TB9hq13locG3FmYO3_Tr00-qmWW7XObD",
+  "links": [
+   {
+    "url": "https://claude.ai/artifact/GNnzqLWnREWSRTQNUVCYwD",
+    "kind": "Claude Artifact",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 16,
+  "school": "고려대 세종",
+  "team": "워밍업",
+  "leader": "김주희",
+  "members": [],
+  "org": "주식회사 아립앤위립",
+  "keyword": "접근성",
+  "innovator": "심현보 대표",
+  "name": "밥뭇나? 밥뭇다!",
+  "summary": "시니어의 기술 사용 부담 없이 끊기지 않는 안부 확인을 돕는 IoT 서비스",
+  "worksheet": "1sQpRVXsQKEHgRJ5dZWVZ8g8BR4dMlnWb",
+  "worksheetUrl": "https://drive.google.com/open?id=1sQpRVXsQKEHgRJ5dZWVZ8g8BR4dMlnWb",
+  "links": [
+   {
+    "url": "https://cheddar-prune-8e9.notion.site/f953d756e70082c7b53b81ffa8d934f3?source=copy_link",
+    "kind": "Notion",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 17,
+  "school": "고려대 세종",
+  "team": "AIgo",
+  "leader": "차고은",
+  "members": [],
+  "org": "주식회사 아립앤위립",
+  "keyword": "접근성",
+  "innovator": "심현보 대표",
+  "name": "느린 지도",
+  "summary": "시니어의 일상 경험을 쓸모 있는 지역 데이터로 바꾸고 그 가치를 다른 사람에게 잇는 서비스",
+  "worksheet": "1ciJaSoXk82jPB3WKK1sX_9NnLSTSSfrX",
+  "worksheetUrl": "https://drive.google.com/open?id=1ciJaSoXk82jPB3WKK1sX_9NnLSTSSfrX",
+  "links": []
+ },
+ {
+  "id": 18,
+  "school": "고려대 세종",
+  "team": "Upheal",
+  "leader": "박종환",
+  "members": [],
+  "org": "공익법센터 어필",
+  "keyword": "사회적포용",
+  "innovator": "이일 대표",
+  "name": "브리프케이스",
+  "summary": "빠르게 쌓이는 난민 업무를 쉽고 빠르게 관리하는 업무 관리 도구",
+  "worksheet": "1ftG92qd3XGP1nmpCVjpPeex3CXwi56uQ",
+  "worksheetUrl": "https://drive.google.com/open?id=1ftG92qd3XGP1nmpCVjpPeex3CXwi56uQ",
+  "links": []
+ },
+ {
+  "id": 19,
+  "school": "동국대",
+  "team": "그루터기(stump)",
+  "leader": "김태형",
+  "members": [],
+  "org": "서울환경연합",
+  "keyword": "기후/환경",
+  "innovator": "최진우 위원",
+  "name": "서울 TreeMate",
+  "summary": "시민이 나무를 아끼는 마음을 구청이 쓸 수 있는 관리 데이터와 재원으로 바꾸는 서비스",
+  "worksheet": "1x7XxTjDnzR-sPfSEQ0MY7l3cqytg774H",
+  "worksheetUrl": "https://drive.google.com/open?id=1x7XxTjDnzR-sPfSEQ0MY7l3cqytg774H",
+  "links": []
+ },
+ {
+  "id": 20,
+  "school": "동국대",
+  "team": "핑(PING)",
+  "leader": "권민재",
+  "members": [],
+  "org": "안무서운회사",
+  "keyword": "사회적포용",
+  "innovator": "유승규 대표",
+  "name": "별일컴퍼니",
+  "summary": "시차 기반 단계형 일경험 및 사회적 연결 플랫폼",
+  "worksheet": "1r5zMdSv-HAhxjBC6ZNxVc8AbsroFYRvP",
+  "worksheetUrl": "https://drive.google.com/open?id=1r5zMdSv-HAhxjBC6ZNxVc8AbsroFYRvP",
+  "links": [
+   {
+    "url": "https://github.com/CSID-DGU/2026-2-OSSProj-PING-02/blob/main/Doc/1_1_OSSProj_02_PING_%EC%88%98%ED%96%89%EA%B3%84%ED%9A%8D%EC%84%9C.pdf",
+    "kind": "GitHub",
+    "label": "수행계획서"
+   },
+   {
+    "url": "https://github.com/CSID-DGU/2026-2-OSSProj-PING-02/blob/main/Doc/1_2_OSSProj_02_PING_%EC%88%98%ED%96%89%EA%B3%84%ED%9A%8D%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf",
+    "kind": "GitHub",
+    "label": "발표자료"
+   }
+  ]
+ },
+ {
+  "id": 21,
+  "school": "동국대",
+  "team": "헬퍼(helper)",
+  "leader": "김소영",
+  "members": [],
+  "org": "오롯플래닛",
+  "keyword": "접근성",
+  "innovator": "황운주 팀장",
+  "name": "음성인식 기반 공연 자막 오퍼레이터 보조 시스템",
+  "summary": "공연 현장 음성과 사전 대본을 실시간으로 비교해 대본 이탈, 복귀 위치를 알려주는 자막 오퍼레이터 보조 시스템",
+  "worksheet": "1JYTwEwmt8t0GyZ1jR8ySKPiIfO5KoHdw",
+  "worksheetUrl": "https://drive.google.com/open?id=1JYTwEwmt8t0GyZ1jR8ySKPiIfO5KoHdw",
+  "links": [
+   {
+    "url": "https://app.notion.com/p/03_Helper-3ed51456993e8028b227c94fc910a9ea?source=copy_link",
+    "kind": "Notion",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 22,
+  "school": "동국대",
+  "team": "리버스(RE:VERSE)",
+  "leader": "임여민",
+  "members": [],
+  "org": "거꾸로캠퍼스",
+  "keyword": "교육/제도",
+  "innovator": "이정백 교장",
+  "name": "RE:Cord",
+  "summary": "대안학교 학생의 분산된 프로젝트 기록과 경험을 연결·축적하고, 배움이 진로 기회로 이어지도록 다음 기록과 준비 방향을 제안하는 웹서비스",
+  "worksheet": "1iJdbnu_e2dMpze5Hy_kT-t4VPjOBz-mv",
+  "worksheetUrl": "https://drive.google.com/open?id=1iJdbnu_e2dMpze5Hy_kT-t4VPjOBz-mv",
+  "links": [
+   {
+    "url": "https://github.com/CSID-DGU/2026-2-OSSProj-RE.VERSE-04",
+    "kind": "GitHub",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 23,
+  "school": "동국대",
+  "team": "웜플러스(Warm+)",
+  "leader": "조수아",
+  "members": [],
+  "org": "사단법인 온기",
+  "keyword": "마음건강/돌봄",
+  "innovator": "조현식 대표",
+  "name": "On Letter",
+  "summary": "도움을 요청하기 전의 청년에게 실제 손편지를 먼저 건네는 마음 돌봄 웹앱",
+  "worksheet": "1eyc3Z6lJKro6rwdMza_mgmXJYwTMggFK",
+  "worksheetUrl": "https://drive.google.com/open?id=1eyc3Z6lJKro6rwdMza_mgmXJYwTMggFK",
+  "links": [
+   {
+    "url": "https://drive.google.com/file/d/1TquUMwbuo0gK8Mqv6F8SIEwXjIqoCJn5/view?usp=sharing",
+    "kind": "Drive 파일",
+    "label": ""
+   },
+   {
+    "url": "https://drive.google.com/file/d/184A9Y6g8GqVbLggYnEm2E_sKy6DSkiPC/view?usp=sharing",
+    "kind": "Drive 파일",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 24,
+  "school": "부산외대",
+  "team": "감동",
+  "leader": "윤경호",
+  "members": [],
+  "org": "토닥토닥협동조합",
+  "keyword": "마음건강/돌봄",
+  "innovator": "이영희 대표",
+  "name": "사이로",
+  "summary": "상담을 마친 내담자가 대인관계 상황을 시청각 시뮬레이션으로 연습하며 자신만의 대처법을 찾는 심리 케어 앱",
+  "worksheet": "1fn9msooutqCIZ2WDMDAs-uak2otS80y5",
+  "worksheetUrl": "https://drive.google.com/open?id=1fn9msooutqCIZ2WDMDAs-uak2otS80y5",
+  "links": []
+ },
+ {
+  "id": 26,
+  "school": "부산외대",
+  "team": "이음",
+  "leader": "이수진",
+  "members": [],
+  "org": "사회적기업(주)다로리인",
+  "keyword": "지역소멸",
+  "innovator": "서삼열 대표",
+  "name": "이음",
+  "summary": "도농 지역 다문화 가정과 한국 가정의 언어·문화 갈등을 줄이는 언어문화 교육 서비스",
+  "worksheet": "1KA9cl1MlejJKLgEDDA3FApntomUNN5c0YqpppdzavRg",
+  "worksheetUrl": "https://drive.google.com/open?id=1KA9cl1MlejJKLgEDDA3FApntomUNN5c0YqpppdzavRg",
+  "links": []
+ },
+ {
+  "id": 27,
+  "school": "부산외대",
+  "team": "온길",
+  "leader": "황성열",
+  "members": [],
+  "org": "사회적기업(주)다로리인",
+  "keyword": "지역소멸",
+  "innovator": "서삼열 대표",
+  "name": "다로온",
+  "summary": "따뜻한",
+  "worksheet": "1d7p5rQ0L98MWuD2wjvC8bgwM4s2Xm1L7",
+  "worksheetUrl": "https://drive.google.com/open?id=1d7p5rQ0L98MWuD2wjvC8bgwM4s2Xm1L7",
+  "links": []
+ },
+ {
+  "id": 28,
+  "school": "부산외대",
+  "team": "웰컴 홈",
+  "leader": "박초윤",
+  "members": [],
+  "org": "아시안허브",
+  "keyword": "사회적포용",
+  "innovator": "최진희 대표",
+  "name": "이주ON AI",
+  "summary": "AI로 이주민 강사의 다문화교육 수업 준비를 지원하고 학교·교육기관과 잇는 통합 플랫폼",
+  "worksheet": "12omapRd3JeHbJSPWfCSHfJMkvQX4XJNx",
+  "worksheetUrl": "https://drive.google.com/open?id=12omapRd3JeHbJSPWfCSHfJMkvQX4XJNx",
+  "links": []
+ },
+ {
+  "id": 29,
+  "school": "부산외대",
+  "team": "사이",
+  "leader": "문지연",
+  "members": [],
+  "org": "토닥토닥협동조합",
+  "keyword": "마음건강/돌봄",
+  "innovator": "이영희 대표",
+  "name": "마음 징검다리",
+  "summary": "오늘의 마음을 3초 만에 돌멩이로 남기면 필요한 순간 상담사에게 이어주는 AI 마음 기록 서비스",
+  "worksheet": "1UMjxz6u7GfypmMlY5rnesZtSk1Cf4sK1",
+  "worksheetUrl": "https://drive.google.com/open?id=1UMjxz6u7GfypmMlY5rnesZtSk1Cf4sK1",
+  "links": []
+ },
+ {
+  "id": 30,
+  "school": "부산외대",
+  "team": "업키즈(Upkids)",
+  "leader": "백주영",
+  "members": [],
+  "org": "자원(ZAONE)",
+  "keyword": "기후/환경",
+  "innovator": "이수영 대표",
+  "name": "Creaving",
+  "summary": "자재 자원맵, 어린이 창작 블로그, 기업 공급 문의를 한곳에 모은 창작교육 웹커뮤니티",
+  "worksheet": "1tU7pwgBeruLkCBtTChwnuIDsWnDD7HvS",
+  "worksheetUrl": "https://drive.google.com/open?id=1tU7pwgBeruLkCBtTChwnuIDsWnDD7HvS",
+  "links": [
+   {
+    "url": "https://drive.google.com/file/d/1GmciEyXpyD8bOSTfS8SvDPfhDGflubvr/view?usp=share_link",
+    "kind": "Drive 파일",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 31,
+  "school": "부산외대",
+  "team": "루트",
+  "leader": "한정원",
+  "members": [],
+  "org": "아시안허브",
+  "keyword": "사회적포용",
+  "innovator": "최진희 대표",
+  "name": "아시안허그",
+  "summary": "결혼 이주 여성에게 역량에 맞는 교육·일자리와 새로운 기회를 연결하는 통합 플랫폼",
+  "worksheet": "15hYCJS6cdQfOL8YvhPQ92anJw3OmuF9o",
+  "worksheetUrl": "https://drive.google.com/open?id=15hYCJS6cdQfOL8YvhPQ92anJw3OmuF9o",
+  "links": []
+ },
+ {
+  "id": 32,
+  "school": "서울대",
+  "team": "로꾸거 팀",
+  "leader": "성은영",
+  "members": [],
+  "org": "거꾸로캠퍼스",
+  "keyword": "교육/제도",
+  "innovator": "이정백 교장",
+  "name": "꾸로",
+  "summary": "거꾸로캠퍼스의 흩어진 학습 데이터를 객관적으로 조회할 수 있게 가공하는 역량 평가 지원 도구",
+  "worksheet": "1c7ayxM-EA15oyQJrohoDehSbQHDp9rS9",
+  "worksheetUrl": "https://drive.google.com/open?id=1c7ayxM-EA15oyQJrohoDehSbQHDp9rS9",
+  "links": []
+ },
+ {
+  "id": 33,
+  "school": "서울대",
+  "team": "온기종기",
+  "leader": "유호준",
+  "members": [],
+  "org": "사단법인 온기",
+  "keyword": "마음건강/돌봄",
+  "innovator": "조현식 대표",
+  "name": "온기채움",
+  "summary": "과거 사례, 작성 가이드, 동료 연결로 온기우체부의 답장 작성과 꾸준한 활동을 돕는 디지털 답장 보조 및 커뮤니티 서비스",
+  "worksheet": "1s_asMCjDjXjwjtG1RhcPy5fP6zNT-tNG",
+  "worksheetUrl": "https://drive.google.com/open?id=1s_asMCjDjXjwjtG1RhcPy5fP6zNT-tNG",
+  "links": []
+ },
+ {
+  "id": 34,
+  "school": "서울대",
+  "team": "나무늘보",
+  "leader": "김현진",
+  "members": [],
+  "org": "서울환경연합",
+  "keyword": "기후/환경",
+  "innovator": "최진우 위원",
+  "name": "나무늘봄",
+  "summary": "서울 가로수 노선별로 시민 기록과 관리 정보를 모아 정비 판단 과정을 함께 보는 시민참여 도구",
+  "worksheet": "1f0qUDfHNHZRAcMtG9_d4cXBO7Z3SAvFi",
+  "worksheetUrl": "https://drive.google.com/open?id=1f0qUDfHNHZRAcMtG9_d4cXBO7Z3SAvFi",
+  "links": [
+   {
+    "url": "https://docs.google.com/presentation/d/1YWij0Rh-1GaGz561Ba30tF4SJ9Q1bAChsClzmc51XNA/edit?usp=sharing",
+    "kind": "Google Slides",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 35,
+  "school": "서울대",
+  "team": "일단",
+  "leader": "손보람",
+  "members": [],
+  "org": "안무서운회사",
+  "keyword": "사회적포용",
+  "innovator": "유승규 대표",
+  "name": "잇다",
+  "summary": "프로그램이 끝난 뒤에도 고립·은둔 청년이 다시 사람과 도움에 연결되도록 곁을 잇는 서비스",
+  "worksheet": "1BQJ4i0sOIWrr49PHyn0UusNh1ZF3YQ5J",
+  "worksheetUrl": "https://drive.google.com/open?id=1BQJ4i0sOIWrr49PHyn0UusNh1ZF3YQ5J",
+  "links": [
+   {
+    "url": "https://app.notion.com/p/26-2-3d499e42ce9c808dab9ed961e12c2576?source=copy_link",
+    "kind": "Notion",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 36,
+  "school": "서울대",
+  "team": "많이다른대학생들",
+  "leader": "김예지",
+  "members": [],
+  "org": "조금다른 주식회사",
+  "keyword": "접근성",
+  "innovator": "이충현 대표",
+  "name": "갈수있담",
+  "summary": "흩어진 공연·접근성 정보를 정리해 시각장애인 관객의 공연 탐색을 돕는 서비스",
+  "worksheet": "102jpyNVZHO_ZywAOyBYLQenWTqBkEn54",
+  "worksheetUrl": "https://drive.google.com/open?id=102jpyNVZHO_ZywAOyBYLQenWTqBkEn54",
+  "links": [
+   {
+    "url": "https://docs.google.com/presentation/d/1--Z5866hVcEfUk1l_6GmGYkStXgxyf4GfJ1TO2IUjMs/edit?slide=id.h1b7fdf6552a368e8_3_4#slide=id.h1b7fdf6552a368e8_3_4",
+    "kind": "Google Slides",
+    "label": ""
+   },
+   {
+    "url": "https://drive.google.com/drive/u/0/folders/1Pu83M5ZyyHmkT5DDWjJA55RkWpoCqP8q",
+    "kind": "Drive 폴더",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 37,
+  "school": "서울대",
+  "team": "틔움",
+  "leader": "조경민",
+  "members": [],
+  "org": "커뮤니T",
+  "keyword": "사회적포용",
+  "innovator": "박에디 대표",
+  "name": "콜렉T브",
+  "summary": "흩어진 트랜스젠더 관련 의료·행사 정보를 모으고 이용자 통계를 시각화하는 정보 아카이빙 플랫폼",
+  "worksheet": "1FbH9I1tmDNvoqgSgIZPNbmatlmJr1vih",
+  "worksheetUrl": "https://drive.google.com/open?id=1FbH9I1tmDNvoqgSgIZPNbmatlmJr1vih",
+  "links": []
+ },
+ {
+  "id": 38,
+  "school": "서울시립대",
+  "team": "헛똑똑이",
+  "leader": "정승민",
+  "members": [],
+  "org": "서울환경연합",
+  "keyword": "기후/환경",
+  "innovator": "최진우 위원",
+  "name": "나무 ON",
+  "summary": "가로수 신규 설치와 안전 조치 등을 돕는 시민참여형 가로수 의사결정 플랫폼",
+  "worksheet": "1JpcXKRGDqWvU_zTH_evCBgM7ynM_35hg",
+  "worksheetUrl": "https://drive.google.com/open?id=1JpcXKRGDqWvU_zTH_evCBgM7ynM_35hg",
+  "links": []
+ },
+ {
+  "id": 39,
+  "school": "서울시립대",
+  "team": "노키",
+  "leader": "이민주",
+  "members": [],
+  "org": "조금다른 주식회사",
+  "keyword": "접근성",
+  "innovator": "이충현 대표",
+  "name": "후보: '노키 with color vision'",
+  "summary": "색각 차이가 있는 관람객이 작품 속 색의 차이를 선·패턴·공간·언어로 탐색하는 미술 감상 플랫폼",
+  "worksheet": "1q6DdgwAuboEJygxBa2Du3hVzbA4g9wUL",
+  "worksheetUrl": "https://drive.google.com/open?id=1q6DdgwAuboEJygxBa2Du3hVzbA4g9wUL",
+  "links": [
+   {
+    "url": "https://app.notion.com/p/10-02-3dfbe4217b4a80248cbccfaf78185d43",
+    "kind": "Notion",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 40,
+  "school": "서울시립대",
+  "team": "거꾸로청년들",
+  "leader": "유수정",
+  "members": [],
+  "org": "거꾸로캠퍼스",
+  "keyword": "교육/제도",
+  "innovator": "이정백 교장",
+  "name": "꾸로록(꾸로log)",
+  "summary": "거꾸로캠퍼스 학생이 비슷한 고민을 겪은 선배와 연결돼 진로 조언을 얻는 서비스",
+  "worksheet": "1sUeqdIBxkhDwQyX2QqJ8PygPbJmlENnW",
+  "worksheetUrl": "https://drive.google.com/open?id=1sUeqdIBxkhDwQyX2QqJ8PygPbJmlENnW",
+  "links": [
+   {
+    "url": "https://bloom-teeth-58e.notion.site/c31c9bfdf76182be9e0081c93673881f?source=copy_link",
+    "kind": "Notion",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 41,
+  "school": "서울여대",
+  "team": "RE:PLAY (리플레이)",
+  "leader": "박지현",
+  "members": [],
+  "org": "자원(ZAONE)",
+  "keyword": "기후/환경",
+  "innovator": "이수영 대표",
+  "name": "ZAONE LINK",
+  "summary": "기업 휴면자원이 교육 현장으로 순환되는 과정의 병목을 찾아 업무 부담 없이 연결을 돕는 디지털 서비스",
+  "worksheet": "17QnkfHkQgIBjzjQHubAVsskljcFKXNSf",
+  "worksheetUrl": "https://drive.google.com/open?id=17QnkfHkQgIBjzjQHubAVsskljcFKXNSf",
+  "links": [
+   {
+    "url": "https://www.figma.com/design/iO5OQ6phugRdwSpoBJDf3B/%ED%95%84%EB%93%9C%ED%8A%B8%EB%A6%BD?node-id=31-2&t=Vy1rh59Of4oh7t0d-1",
+    "kind": "Figma",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 42,
+  "school": "서울여대",
+  "team": "슈위치(SWU-itch)",
+  "leader": "김지유",
+  "members": [],
+  "org": "조금다른 주식회사",
+  "keyword": "접근성",
+  "innovator": "이충현 대표",
+  "name": "귀뜸",
+  "summary": "온라인 탐색이 어려운 시니어가 관심 있는 전시를 쉽게 찾고 방문을 계획하는 전시 안내 서비스",
+  "worksheet": "1qMYLdFMMrR6qTpIhgUkdcYijPvSQyIwV",
+  "worksheetUrl": "https://drive.google.com/open?id=1qMYLdFMMrR6qTpIhgUkdcYijPvSQyIwV",
+  "links": []
+ },
+ {
+  "id": 43,
+  "school": "서울여대",
+  "team": "경칩",
+  "leader": "박나현",
+  "members": [],
+  "org": "안무서운회사",
+  "keyword": "사회적포용",
+  "innovator": "유승규 대표",
+  "name": "경칩 프로젝트: 봄이 오기 전, 작은 성공 쌓기",
+  "summary": "고립 청년이 집과 사회 사이에서 부담 없이 작은 역할을 경험하고 다음 단계를 고르도록 잇는 서비스",
+  "worksheet": "1WXyRRVwPbwYeyqjTW8aiszJj4-u6nja-",
+  "worksheetUrl": "https://drive.google.com/open?id=1WXyRRVwPbwYeyqjTW8aiszJj4-u6nja-",
+  "links": []
+ },
+ {
+  "id": 44,
+  "school": "서울여대",
+  "team": "다로리인",
+  "leader": "정도현",
+  "members": [],
+  "org": "사회적기업(주)다로리인",
+  "keyword": "지역소멸",
+  "innovator": "서삼열 대표",
+  "name": "마을 온(on)",
+  "summary": "청도의 지역 수요와 외부 사람들의 경험·재능을 연결해 방문을 지속적인 관계로 잇는 플랫폼",
+  "worksheet": "1pCGmmvYCjEasawqk_dXS8lvoPleJ5SN9",
+  "worksheetUrl": "https://drive.google.com/open?id=1pCGmmvYCjEasawqk_dXS8lvoPleJ5SN9",
+  "links": [
+   {
+    "url": "https://app.notion.com/p/3da911ad8de08022954ae9ee4e966f25?source=copy_link",
+    "kind": "Notion",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 46,
+  "school": "한라대",
+  "team": "에브리띵",
+  "leader": "김찬수",
+  "members": [],
+  "org": "중앙청소년문화의집",
+  "keyword": "교육/제도",
+  "innovator": "이제우 관장",
+  "name": "시민참여 쓰레기 수거",
+  "summary": "쓰레기 버리기나 쓰레기통 비우기에 참여한 시민에게 포인트로 보상하는 앱 서비스",
+  "worksheet": "14WbJPYVIpNcb1rJZl9KiX9gMRxvOaiwz",
+  "worksheetUrl": "https://drive.google.com/open?id=14WbJPYVIpNcb1rJZl9KiX9gMRxvOaiwz",
+  "links": []
+ },
+ {
+  "id": 47,
+  "school": "한라대",
+  "team": "원주오이데",
+  "leader": "김영진",
+  "members": [],
+  "org": "중앙청소년문화의집",
+  "keyword": "교육/제도",
+  "innovator": "이제우 관장",
+  "name": "디토탑",
+  "summary": "유행을 따라가는 과소비를 줄이도록 돕는 소비 관리 서비스",
+  "worksheet": "1fU4jT5VqjwOIFkm0tfvxqGhiR2tXJ8qBstg40jJ0DPQ",
+  "worksheetUrl": "https://drive.google.com/open?id=1fU4jT5VqjwOIFkm0tfvxqGhiR2tXJ8qBstg40jJ0DPQ",
+  "links": []
+ },
+ {
+  "id": 48,
+  "school": "한라대",
+  "team": "랜드로버",
+  "leader": "김도균",
+  "members": [],
+  "org": "중앙청소년문화의집",
+  "keyword": "교육/제도",
+  "innovator": "이제우 관장",
+  "name": "ON:WONJU(온:원주)",
+  "summary": "원주의 유휴 공간(빈 상가)을 팝업/문화 시설로 대여할 수 있는 앱",
+  "worksheet": "1UJ9qe1l_2vHn6ScE1QYrZXwo_DYZDFp8",
+  "worksheetUrl": "https://drive.google.com/open?id=1UJ9qe1l_2vHn6ScE1QYrZXwo_DYZDFp8",
+  "links": []
+ },
+ {
+  "id": 49,
+  "school": "한라대",
+  "team": "바위너구리",
+  "leader": "이진욱",
+  "members": [],
+  "org": "중앙청소년문화의집",
+  "keyword": "교육/제도",
+  "innovator": "이제우 관장",
+  "name": "원주도서관",
+  "summary": "청소년이 책을 고르듯 지역 멘토를 살펴보고 서로 동의하면 연결되는 멘토링 앱",
+  "worksheet": "1RkDYJ8wFQStLcTPsD-i5c-7KpBTZ4Dpl",
+  "worksheetUrl": "https://drive.google.com/open?id=1RkDYJ8wFQStLcTPsD-i5c-7KpBTZ4Dpl",
+  "links": []
+ },
+ {
+  "id": 50,
+  "school": "한라대",
+  "team": "체인지업",
+  "leader": "윤보미",
+  "members": [],
+  "org": "중앙청소년문화의집",
+  "keyword": "교육/제도",
+  "innovator": "이제우 관장",
+  "name": "「 청춘잇다 」 : 청춘을 연결하다.",
+  "summary": "지역의 다양한 정보와 기회를 한곳에 모아 청소년과 연결하는 지역 기반 플랫폼",
+  "worksheet": "1at_juM3uziIG2fubxbKtfzIyfLOz2HAS",
+  "worksheetUrl": "https://drive.google.com/open?id=1at_juM3uziIG2fubxbKtfzIyfLOz2HAS",
+  "links": [
+   {
+    "url": "https://drive.google.com/drive/folders/1-_papahXCjnCSD2uLyWBZFgNrbT-pMhM?usp=sharing",
+    "kind": "Drive 폴더",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 52,
+  "school": "GIST",
+  "team": "신이어드림",
+  "leader": "정상효",
+  "members": [],
+  "org": "주식회사 아립앤위립",
+  "keyword": "접근성",
+  "innovator": "심현보 대표",
+  "name": "자빙스",
+  "summary": "AI로 지역의 숨은 업무를 발굴해 전남광주 시니어에게 안전하고 지속적인 일거리를 잇는 기술",
+  "worksheet": "1eqp3lYjRqTTQYVZHGWVXPDHeQs7dld5O",
+  "worksheetUrl": "https://drive.google.com/open?id=1eqp3lYjRqTTQYVZHGWVXPDHeQs7dld5O",
+  "links": [
+   {
+    "url": "https://app.notion.com/p/AI-3d56e802fb828016b6e2f1e04873eee8?source=copy_link",
+    "kind": "Notion",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 53,
+  "school": "GIST",
+  "team": "1등",
+  "leader": "김진우",
+  "members": [],
+  "org": "링키지랩",
+  "keyword": "접근성",
+  "innovator": "이호경 책임",
+  "name": "갈지도",
+  "summary": "매장 접근부터 주문까지 장애인에게 필요한 접근성 정보를 세밀하게 연결하는 서비스",
+  "worksheet": "1Gro5W6KsXOMW1mXL56UbaqfP-FCKL4LY",
+  "worksheetUrl": "https://drive.google.com/open?id=1Gro5W6KsXOMW1mXL56UbaqfP-FCKL4LY",
+  "links": [
+   {
+    "url": "https://app.notion.com/p/3d7e09a12c888036ae24fe4be2d8a6b4?v=3d7e09a12c8880ef927c000c322d68fb&source=copy_link",
+    "kind": "Notion",
+    "label": ""
+   },
+   {
+    "url": "https://drive.google.com/file/d/1lZPUFk6k8LNXpKF_8pfHu_QnHb1b13JQ/view?usp=sharing",
+    "kind": "Drive 파일",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 55,
+  "school": "GIST",
+  "team": "노랑통달",
+  "leader": "양민서",
+  "members": [],
+  "org": "유난무브먼트",
+  "keyword": "교육/제도",
+  "innovator": "양소희 대표",
+  "name": "신호등(Signal Light)",
+  "summary": "AI 톤 필터와 의견 지도로 침묵하는 청년의 안전한 주관 형성 및 의사소통을 돕는 서비스",
+  "worksheet": "1WXYCo64vL5ULW05AWdpIaFJkXikrFel-",
+  "worksheetUrl": "https://drive.google.com/open?id=1WXYCo64vL5ULW05AWdpIaFJkXikrFel-",
+  "links": [
+   {
+    "url": "https://app.notion.com/p/Norang-Tongdal-3d50f6c22486805a9d45f077e0ad3301",
+    "kind": "Notion",
+    "label": "팀 노션 페이지"
+   },
+   {
+    "url": "https://app.notion.com/p/9-29-3ea0f6c22486806586afc3cab47bbd69?source=copy_link",
+    "kind": "Notion",
+    "label": "현재 진행 상황 정리본"
+   }
+  ]
+ },
+ {
+  "id": 56,
+  "school": "KAIST",
+  "team": "경기원홈즈",
+  "leader": "박승희",
+  "members": [],
+  "org": "경기연구원",
+  "keyword": "기후/환경",
+  "innovator": "김한수 실장",
+  "name": "비아파트 주거지 주거환경 정보 통합 플랫폼",
+  "summary": "흩어진 공공데이터를 통합, 가공해 경기도 원룸·다가구·다세대의 주거 정보 격차를 줄이는 플랫폼",
+  "worksheet": "1ctww4D87bIHvJ8D8BnQkwD9B9W-4LluW",
+  "worksheetUrl": "https://drive.google.com/open?id=1ctww4D87bIHvJ8D8BnQkwD9B9W-4LluW",
+  "links": []
+ },
+ {
+  "id": 57,
+  "school": "KAIST",
+  "team": "파릇파릇",
+  "leader": "권정용",
+  "members": [],
+  "org": "경기연구원",
+  "keyword": "기후/환경",
+  "innovator": "김한수 실장",
+  "name": "주차장 기후위험 대응을 위한 에이전트 기반 개인화 주차 추천 시스템",
+  "summary": "기상과 공간적 위험을 분석해 평상시와 기후재난 상황에 맞는 주차장을 추천하는 AI 에이전트 서비스",
+  "worksheet": "1GkRPjPIw5yQ0jyqy_VZTEvtnD28af6G_",
+  "worksheetUrl": "https://drive.google.com/open?id=1GkRPjPIw5yQ0jyqy_VZTEvtnD28af6G_",
+  "links": []
+ },
+ {
+  "id": 58,
+  "school": "KAIST",
+  "team": "새 잎",
+  "leader": "전재민",
+  "members": [],
+  "org": "(주)그린테라피",
+  "keyword": "마음건강/돌봄",
+  "innovator": "최유진 대표",
+  "name": "일상으로 이어지는 식물 마음돌봄 프로젝트",
+  "summary": "그린테라피 워크숍 이후에도 나에게 맞는 식물·자연 기반 마음돌봄을 실천하고 기록하는 모바일 플랫폼",
+  "worksheet": "1Hw_hVucv4VMmF3Ml02VycS-Kau9MWwHd",
+  "worksheetUrl": "https://drive.google.com/open?id=1Hw_hVucv4VMmF3Ml02VycS-Kau9MWwHd",
+  "links": [
+   {
+    "url": "https://github.com/jonghun10001-ctrl/saeip-app",
+    "kind": "GitHub",
+    "label": "GitHub Repository – 새 잎 앱 동작 프로토타입 및 개발 진행 상황"
+   }
+  ]
+ },
+ {
+  "id": 59,
+  "school": "KAIST",
+  "team": "DARI",
+  "leader": "이재원",
+  "members": [],
+  "org": "공익법센터 어필",
+  "keyword": "사회적포용",
+  "innovator": "이일 대표",
+  "name": "한국 난민신청서 작성 지원 서비스",
+  "summary": "최초 난민신청자가 모국어로 경험을 입력하면 구조화·번역·의미 확인까지 돕는 신청서 작성 지원 서비스",
+  "worksheet": "1YTJHONprnQRhV5xOhF8dCTOivzM1B-c1",
+  "worksheetUrl": "https://drive.google.com/open?id=1YTJHONprnQRhV5xOhF8dCTOivzM1B-c1",
+  "links": []
+ },
+ {
+  "id": 60,
+  "school": "KAIST",
+  "team": "링크",
+  "leader": "김기범",
+  "members": [],
+  "org": "링키지랩",
+  "keyword": "접근성",
+  "innovator": "이호경 책임",
+  "name": "휴대폰 주문 통합솔루션(임시)",
+  "summary": "시각장애인이 휴대폰 접근성 기능으로 매장 주문부터 결제까지 할 수 있게 돕는 솔루션",
+  "worksheet": "1NxIploFejB3WhcP5G5JCQmL7IpP1V_LV",
+  "worksheetUrl": "https://drive.google.com/open?id=1NxIploFejB3WhcP5G5JCQmL7IpP1V_LV",
+  "links": []
+ },
+ {
+  "id": 61,
+  "school": "KAIST",
+  "team": "똥강아지",
+  "leader": "이승민",
+  "members": [],
+  "org": "주식회사 아립앤위립",
+  "keyword": "접근성",
+  "innovator": "심현보 대표",
+  "name": "JOB담",
+  "summary": "대화형 AI 기반 역량 프로파일링 및 맞춤형 일자리 탐색·추천 서비스",
+  "worksheet": "1-3T9DdJG05lMs3_0nJ_etnDVqEmzphlv",
+  "worksheetUrl": "https://drive.google.com/open?id=1-3T9DdJG05lMs3_0nJ_etnDVqEmzphlv",
+  "links": []
+ },
+ {
+  "id": 62,
+  "school": "KAIST",
+  "team": "풀싹",
+  "leader": "이찬영",
+  "members": [],
+  "org": "옥천신문사",
+  "keyword": "지역소멸",
+  "innovator": "황민호 대표",
+  "name": "옥천 이음",
+  "summary": "AI 대화형 제보로 옥천 주민의 지역 정보를 모아 옥천신문 취재로 잇는 제보 플랫폼",
+  "worksheet": "1reSup5s3gpRB9ahx8nqsAN9gjKl0t53w",
+  "worksheetUrl": "https://drive.google.com/open?id=1reSup5s3gpRB9ahx8nqsAN9gjKl0t53w",
+  "links": [
+   {
+    "url": "https://www.figma.com/design/KUkfTlKO8PvOPyNcTDKswy/%25ED%2585%258C%25ED%2581%25AC%25ED%258F%25AC%25EC%259E%2584%25ED%258C%25A9%25ED%258A%25B8-%25EB%25A9%2594%25EC%259D%25B8%25ED%2599%2594%25EB%25A9%25B4?node-id=0-1&p=f&t=zRcKqSDEIEfdmNlp-0",
+    "kind": "Figma",
+    "label": ""
+   }
+  ]
+ },
+ {
+  "id": 63,
+  "school": "UNIST",
+  "team": "한걸음",
+  "leader": "류지원",
+  "members": [],
+  "org": "혜진원",
+  "keyword": "접근성",
+  "innovator": "김경미 사회복지사",
+  "name": "혜진원 이음표",
+  "summary": "울산 혜진원 종사자의 일정 작성·조율과 변경사항 공유를 돕는 공동 일정 관리 서비스",
+  "worksheet": "1X2RNVgu-OELqdYiwortLzOyXz7EZ-PXM-grFnqaiCdA",
+  "worksheetUrl": "https://drive.google.com/open?id=1X2RNVgu-OELqdYiwortLzOyXz7EZ-PXM-grFnqaiCdA",
+  "links": []
+ },
+ {
+  "id": 64,
+  "school": "UNIST",
+  "team": "혜진아 왜요쌤",
+  "leader": "김범수",
+  "members": [],
+  "org": "혜진원",
+  "keyword": "접근성",
+  "innovator": "김경미 사회복지사",
+  "name": "별안전판 (Star Safety Board)",
+  "summary": "혜진원 별님의 위치·대피 상태·지원 정보를 평상시엔 현황판, 비상시엔 패드로 확인하는 안전지원 시스템",
+  "worksheet": "1MOzkIoUFaqQ7RmgWBPIBDKDs_7t5-3Di",
+  "worksheetUrl": "https://drive.google.com/open?id=1MOzkIoUFaqQ7RmgWBPIBDKDs_7t5-3Di",
+  "links": []
+ },
+ {
+  "id": 65,
+  "school": "UNIST",
+  "team": "잇다(IT:DA)",
+  "leader": "이윤지",
+  "members": [],
+  "org": "혜진원",
+  "keyword": "접근성",
+  "innovator": "김경미 사회복지사",
+  "name": "자립생활 지원 플랫폼(가칭)",
+  "summary": "발달장애인 자립 예정자의 일상을 사진·음성 안내와 도움 요청으로 지원하는 Android 통합 플랫폼",
+  "worksheet": "18RNzzgAPzxg2iqEY-MZG6f6MLz10lAJT",
+  "worksheetUrl": "https://drive.google.com/open?id=18RNzzgAPzxg2iqEY-MZG6f6MLz10lAJT",
+  "links": []
+ },
+ {
+  "id": 66,
+  "school": "UNIST",
+  "team": "CareLink",
+  "leader": "김가온",
+  "members": [],
+  "org": "혜진원",
+  "keyword": "접근성",
+  "innovator": "김경미 사회복지사",
+  "name": "응급상황 대응 플랫폼",
+  "summary": "생체활동 자동감지와 쉬운 대피 유도로 중증 장애인의 응급 대응과 대피를 돕는 통합 플랫폼",
+  "worksheet": "1-pupBlLnRLwAR6r5Zuok04xVq6Mcz7KO",
+  "worksheetUrl": "https://drive.google.com/open?id=1-pupBlLnRLwAR6r5Zuok04xVq6Mcz7KO",
+  "links": [
+   {
+    "url": "https://www.dropbox.com/scl/fi/i5saf9w2un6d6cyu9w4nn/_MS.html?rlkey=u2734jcvj7bpvl7s8l13dexs3&dl=0",
+    "kind": "Dropbox",
+    "label": ""
+   }
+  ]
+ }
+];
+const SEMESTER = "26-2학기";
+
+const app = document.getElementById("app");
+// 키워드 색상: 기후·사회적포용·마음건강·지역소멸은 26-1 사이트와 동일
+const KEYWORDS = [
+  ["기후/환경", "#8EE6C2"],
+  ["사회적포용", "#C0C0FF"],
+  ["마음건강/돌봄", "#FFB8FF"],
+  ["지역소멸", "#FFE682"],
+  ["교육/제도", "#FFC48C"],
+  ["접근성", "#8FD3FF"],
+];
+const KCOLOR = Object.fromEntries(KEYWORDS);
+const kc = k => KCOLOR[k] || "#d0d0d0";
+const state = { school: "전체", kw: "전체", org: "전체", q: "" };
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const oneLine = s => String(s || "").replace(/\s+/g, " ").trim();
+
+const countBy = key => PROJECTS.reduce((m, p) => (m.set(p[key], (m.get(p[key]) || 0) + 1), m), new Map());
+const schools = [...countBy("school").keys()];
+const orgs = [...countBy("org").entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ko"));
+
+function filtered() {
+  const q = state.q.trim().toLowerCase();
+  return PROJECTS.filter(p =>
+    (state.school === "전체" || p.school === state.school) &&
+    (state.kw === "전체" || p.keyword === state.kw) &&
+    (state.org === "전체" || p.org === state.org) &&
+    (!q || [p.name, p.team, p.summary, p.org, p.school, p.leader, p.keyword, p.innovator].join(" ").toLowerCase().includes(q))
+  );
+}
+
+function renderList() {
+  document.title = `${SEMESTER} 중간 아카이브 — 테크포임팩트 캠퍼스`;
+  app.innerHTML = `
+  <div class="wrap">
+    <p class="eyebrow">TECH FOR IMPACT · 2026 FALL</p>
+    <h1 class="page">${SEMESTER} 돕는 기술 중간 아카이브</h1>
+    <p class="lead"><b>${schools.length}</b>개 대학의 <b>${PROJECTS.length}</b>개 팀이 <b>${orgs.length}</b>개 사회혁신조직과 함께 만들고 있는 돕는 기술을 소개해요.</p>
+
+    <div class="layout">
+      <aside class="side"><div class="side-scroll">
+        <h4>주제 키워드</h4>
+        <ul id="orgs"></ul>
+      </div></aside>
+      <section>
+        <div class="chips" id="schools"></div>
+        <div class="toolbar">
+          <span class="count" id="count"></span>
+          <label class="search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="q" type="search" placeholder="프로젝트·팀·조직·키워드 검색" value="${esc(state.q)}">
+          </label>
+        </div>
+        <div class="grid" id="grid"></div>
+      </section>
+    </div>
+  </div>`;
+
+  document.getElementById("q").addEventListener("input", e => { state.q = e.target.value; paint(); });
+  paint();
+}
+
+function paint() {
+  const sBox = document.getElementById("schools");
+  sBox.innerHTML = ["전체", ...schools].map(s =>
+    `<button class="chip ${state.school === s ? "on" : ""}" data-s="${esc(s)}">${esc(s)}</button>`).join("");
+  sBox.querySelectorAll("button").forEach(b => b.onclick = () => { state.school = b.dataset.s; paint(); });
+
+  // 키워드 > 조직 트리. 선택한 학교 기준으로 개수를 다시 세고, 0개인 항목은 숨긴다
+  const inSchool = PROJECTS.filter(p => state.school === "전체" || p.school === state.school);
+  const tree = KEYWORDS.map(([k]) => {
+    const ps = inSchool.filter(p => p.keyword === k);
+    const os = [...new Set(ps.map(p => p.org))]
+      .map(o => [o, ps.filter(p => p.org === o).length])
+      .sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0], "ko"));
+    return [k, ps.length, os];
+  }).filter(([, n]) => n);
+  if (state.kw !== "전체" && !tree.some(([k]) => k === state.kw)) state.kw = state.org = "전체";
+  if (state.org !== "전체" && !inSchool.some(p => p.org === state.org)) state.org = "전체";
+
+  const isAll = state.kw === "전체" && state.org === "전체";
+  const oBox = document.getElementById("orgs");
+  oBox.innerHTML =
+    `<li><button class="${isAll ? "on" : ""}" data-k="전체"><span>전체</span><span>${inSchool.length}</span></button></li>` +
+    tree.map(([k, n, os]) => `
+      <li class="kw"><button class="${state.kw === k && state.org === "전체" ? "on" : ""}" data-k="${esc(k)}">
+        <span class="k"><i class="kdot" style="background:${kc(k)}"></i>${esc(k)}</span><span>${n}</span></button></li>
+      ${os.map(([o, m]) => `<li class="org"><button class="${state.org === o ? "on" : ""}" data-k="${esc(k)}" data-o="${esc(o)}"><span>${esc(o)}</span><span>${m}</span></button></li>`).join("")}`).join("");
+  oBox.querySelectorAll("button").forEach(b => b.onclick = () => {
+    state.kw = b.dataset.k; state.org = b.dataset.o || "전체"; paint();
+  });
+
+  const list = filtered();
+  document.getElementById("count").innerHTML = `총 <b>${list.length}</b>개 프로젝트`;
+  document.getElementById("grid").innerHTML = list.length ? list.map(p => `
+    <a class="card" href="#/projects/${p.id}">
+      <span class="meta">${esc(p.school)} · ${esc(p.team)}</span>
+      <h3>${esc(p.name)}</h3>
+      <p>${esc(oneLine(p.summary))}</p>
+      <span class="foot"><span class="dot" style="background:${kc(p.keyword)}"></span><span class="team">${esc(p.keyword)}</span><span class="org">${esc(p.org)}</span></span>
+    </a>`).join("") : `<div class="empty" style="grid-column:1/-1">조건에 맞는 프로젝트가 없어요.</div>`;
+}
+
+function renderDetail(id) {
+  const i = PROJECTS.findIndex(p => p.id === id);
+  if (i < 0) return renderList();
+  const p = PROJECTS[i];
+  document.title = `${p.name} — 테크포임팩트 캠퍼스`;
+
+  const rows = [
+    ["소속 · 팀", `${p.school} · ${p.team}`],
+    ["팀장", p.leader],
+    ["팀원", p.members.join(" · ")],
+    ["사회혁신가", [p.innovator, p.org].filter(Boolean).join(" · ")],
+  ].filter(r => r[1]);
+
+  const viewUrl = p.worksheet ? `https://drive.google.com/file/d/${p.worksheet}/view` : p.worksheetUrl;
+
+  app.innerHTML = `
+  <article class="detail">
+    <a class="back" href="#/">← 목록으로</a>
+    <div class="tags"><span class="tag">${SEMESTER}</span><span class="tag dot" style="--kc:${kc(p.keyword)}">${esc(p.keyword)}</span></div>
+    <h1 class="title">${esc(p.name)}</h1>
+    ${p.summary ? `<p class="summary">${esc(p.summary)}</p>` : ""}
+
+    <dl class="info">
+      ${rows.map(([k, v]) => `<div class="row"><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}
+    </dl>
+
+    <section class="sec">
+      <div class="sec-h">
+        <div><h2>SECTION 01. 문제정의 및 기획 워크시트</h2><p class="sub">중간 점검 시점에 제출한 워크시트예요.</p></div>
+        ${viewUrl ? `<a class="open-btn" href="${esc(viewUrl)}" target="_blank" rel="noopener">새 창에서 보기 ↗</a>` : ""}
+      </div>
+      ${p.worksheet
+        ? `<div class="pdf"><iframe src="https://drive.google.com/file/d/${p.worksheet}/preview" loading="lazy" allow="autoplay" title="${esc(p.name)} 워크시트"></iframe></div>`
+        : `<div class="pdf pdf-missing">제출된 워크시트가 없어요.</div>`}
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><div><h2>SECTION 02. 진행 자료 · 관련 링크</h2><p class="sub">팀이 함께 공유한 기획 문서, 디자인, 저장소 등이에요.</p></div></div>
+      ${p.links.length ? `<div class="links">${p.links.map(l => `
+        <a class="link" href="${esc(l.url)}" target="_blank" rel="noopener">
+          <span class="kind"><span>${esc(l.kind)}</span></span>
+          <span class="txt">${l.label ? `<div class="lbl">${esc(l.label)}</div>` : ""}<div class="url">${esc(l.url)}</div></span>
+          <span class="arr">↗</span>
+        </a>`).join("")}</div>`
+        : `<div class="no-links">아직 공유된 진행 자료가 없어요.</div>`}
+    </section>
+
+  </article>`;
+}
+
+let lastListScroll = 0;
+function route() {
+  const m = location.hash.match(/^#\/projects\/(\d+)/);
+  if (m) { renderDetail(Number(m[1])); scrollTo(0, 0); }
+  else { renderList(); scrollTo(0, lastListScroll); }
+}
+addEventListener("hashchange", () => {
+  if (!location.hash.startsWith("#/projects/") && document.querySelector(".detail") === null) return;
+  route();
+});
+addEventListener("scroll", () => { if (document.getElementById("grid")) lastListScroll = scrollY; }, { passive: true });
+route();
+</script>
+</body>
+</html>

@@ -30,7 +30,7 @@ button,input,select{font:inherit;color:inherit}
 /* header */
 .hdr{position:sticky;top:0;z-index:50;border-bottom:1px solid #eee;background:rgba(255,255,255,.92);backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px)}
 .hdr .wrap{height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px;color:#1c1c1c}
-@media (min-width:768px){
+
 /* list page */
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:56px}
 h1.page{font-family:var(--font-display);font-size:54px;font-weight:800;letter-spacing:-.03em;margin-top:14px;line-height:1.08}
@@ -144,7 +144,10 @@ footer .bot a:hover{color:#fff}
 }
 @media (max-width:780px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:767px){
-      footer .mid,footer .bot{flex-direction:column;align-items:flex-start}
+  .hdr .wrap{gap:16px}
+  .hdr .wrap svg[aria-label="Tech for Impact Campus"]{height:16px!important}
+  .brand-ki svg{height:15px!important}
+  footer .mid,footer .bot{flex-direction:column;align-items:flex-start}
   footer .bot{gap:8px}
   h1.page{font-size:36px}
   h1.title{font-size:32px}

@@ -11,12 +11,16 @@ export default function SemesterSelect({
   semester,
   semesters,
   hrefs,
+  labels,
 }: {
   semester: string;
   semesters: string[];
   // 항목별 이동 경로 재정의(갤러리 등 다른 탭용). 없으면 프로젝트 경로(semesterHref).
   hrefs?: Record<string, string>;
+  // 항목별 표기 재정의(스토리 탭의 "2026-1학기 · 3기" 등). 없으면 "2026-1학기".
+  labels?: Record<string, string>;
 }) {
+  const label = (s: string) => labels?.[s] ?? semesterOptionLabel(s);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -46,7 +50,7 @@ export default function SemesterSelect({
         aria-haspopup="listbox"
         className="flex items-center gap-2 rounded-full border-[1.5px] border-soft bg-ground px-[17px] py-2 text-[13.5px] font-semibold text-[#1C1C1C] hover:border-soft2 hover:bg-soft"
       >
-        {semesterOptionLabel(semester)}
+        {label(semester)}
         <svg
           width="14"
           height="14"
@@ -80,7 +84,7 @@ export default function SemesterSelect({
                     active ? "font-bold text-ink" : "font-semibold text-[#555]"
                   }`}
                 >
-                  {semesterOptionLabel(s)}
+                  {label(s)}
                   {active && <span aria-hidden>✓</span>}
                 </Link>
               </li>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Story, STORY_KINDS } from "@/lib/stories";
+import { useMemo, useState, type ReactNode } from "react";
+import { type Story, storyKinds } from "@/lib/stories";
 
 // 외부 링크(↗) 아이콘
 function ExternalIcon() {
@@ -22,12 +22,30 @@ function ExternalIcon() {
   );
 }
 
-// 구분별 작은 아이콘 (블로그=글, 숏폼=재생)
+// 구분별 작은 아이콘 (영상=재생, 카드뉴스=이미지, 그 외(블로그)=글)
 function KindIcon({ kind }: { kind: string }) {
-  if (kind === "숏폼") {
+  if (kind === "숏폼" || kind === "롱폼" || kind.includes("영상")) {
     return (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
         <path d="M8 5v14l11-7z" />
+      </svg>
+    );
+  }
+  if (kind === "카드뉴스") {
+    return (
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+      >
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <path d="M4 16l5-5 4 4 3-3 4 4" />
       </svg>
     );
   }
@@ -68,9 +86,19 @@ function FilterChip({
   );
 }
 
-export default function StoriesTable({ stories }: { stories: Story[] }) {
-  const [filter, setFilter] = useState<(typeof STORY_KINDS)[number]>("전체");
+export default function StoriesTable({
+  stories,
+  semesterSelect,
+}: {
+  stories: Story[];
+  // 학기(기수) 전환 드롭다운 — 필터 줄 우측에 놓인다 (프로젝트·갤러리 탭과 같은 자리)
+  semesterSelect?: ReactNode;
+}) {
+  const [filter, setFilter] = useState("전체");
   const [month, setMonth] = useState(""); // "" = 전체 월
+
+  // 데이터에 등장하는 구분 목록 ("전체" + 블로그·숏폼·…)
+  const kinds = useMemo(() => ["전체", ...storyKinds(stories)], [stories]);
 
   // 데이터에 등장하는 월 목록 — 숫자순 정렬
   const months = useMemo(() => {
@@ -93,10 +121,10 @@ export default function StoriesTable({ stories }: { stories: Story[] }) {
 
   return (
     <div className="mx-auto max-w-[1280px] px-8 pb-24">
-      {/* 필터(구분 + 월) + 개수 */}
+      {/* 필터(구분 + 월) + 개수 + 학기 전환 */}
       <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap gap-2">
-          {STORY_KINDS.map((f) => (
+          {kinds.map((f) => (
             <FilterChip
               key={f}
               label={f}
@@ -114,9 +142,12 @@ export default function StoriesTable({ stories }: { stories: Story[] }) {
             />
           ))}
         </div>
-        <span className="text-sm text-muted">
-          총 <b className="font-bold text-ink">{list.length}</b>개
-        </span>
+        <div className="flex items-center gap-4">
+          <span className="text-sm text-muted">
+            총 <b className="font-bold text-ink">{list.length}</b>개
+          </span>
+          {semesterSelect}
+        </div>
       </div>
 
       {/* 행 */}
